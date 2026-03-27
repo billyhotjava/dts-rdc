@@ -54,7 +54,7 @@
 ```
 /opt/prod/dts/dts-rdc/           # RDC = Research Development Center
 ├── dts-infra/                   # 基础设施平台 (submodule, Go)
-├── dts-studio/                      # 设计中心 (submodule, Python+React)
+├── dts-studio/                 # 设计中心 (submodule, Python+React)
 │   ├── .rules/                  # 工作守则 (23 rule files)
 │   ├── .skills/                 # 技能清单 (57 skills)
 │   └── .memory/                 # 领域知识 (ontology/conversations/decisions)

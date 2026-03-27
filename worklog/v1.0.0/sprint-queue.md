@@ -20,10 +20,11 @@
 |---------|---------|------|
 | F1-中间件生命周期管理 | TBD | READY |
 | F2-Platform组件管理 | TBD | READY |
-| F3-健康巡检 | TBD | READY |
+| F3-健康巡检与告警 | TBD | READY |
 | F4-InfraAgent基础能力 | TBD | READY |
+| F5-Commander CLI客户端 | TBD | READY |
 
-**统计**: READY=4, IN_PROGRESS=0, DONE=0, BLOCKED=0
+**统计**: READY=5, IN_PROGRESS=0, DONE=0, BLOCKED=0
 
 ---
 
