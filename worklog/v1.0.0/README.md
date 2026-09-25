@@ -33,7 +33,8 @@ worklog/v1.0.0/
 | Sprint-2 | 2026-05 | dts-infra commander — 运维中枢核心能力 | dts-infra |
 | Sprint-3 | 2026-06 | dts-stack 第一版原型 — 核心服务跑通 | dts-stack |
 | Sprint-4 | 2026-07 | app-stack 第一版原型 — 首个 Pack 全流程 | app-stack |
-| Sprint-5+ | 迭代 | PDCA 持续改进 | 全模块 |
+| Sprint-5 | 2026-10 | 四模块合并与边界重整（studio 头脑 · stack 湖仓 · prs App）；Sprint-1~4 未执行，由本 sprint 取代或重排 | 全模块 |
+| Sprint-6+ | 迭代 | PDCA 持续改进 | 全模块 |
 
 ## 文档索引
 
