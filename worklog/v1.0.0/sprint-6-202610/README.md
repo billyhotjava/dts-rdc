@@ -22,7 +22,7 @@
 | # | 决策点 | 选择 | 状态 | 理由 | 影响 |
 |---|--------|------|------|------|------|
 | W-ADR-1 | 事实源 | **PostgreSQL** 存全部页面、版本、附件元数据、评论；git 仅为研发文档的同步端 | 已定（用户 2026-09-26） | Confluence 式功能（评论、页面管理、历史界面、非研发页面）需要数据库 | 需要同步器与冲突模型（F5） |
-| W-ADR-2 | 技术栈 | **JHipster 9 单体**（用户 2026-09-26 指定）：生成器 9.2.x（按 R-012 取首发满 30 天的最新次版本线）、Spring Boot 由 JHipster 管理（9.2 = 3.5.15，不单独升级 Boot 4）、**Java 25**、JHipster React（React 19 + Redux Toolkit + Bootstrap 5，Vite） | 已定 | 与 dts-stack（JHipster 8.11）同架构；实体/Liquibase/OAuth2/i18n/测试脚手架现成 | 设计见 `dts-wiki/docs/design/`；实体以 `dts-wiki/jhipster/dts-wiki.jdl` 为准 |
+| W-ADR-2 | 技术栈 | **JHipster 9 单体**（用户 2026-09-26 指定）：生成器 9.2.x（按 R-012 取首发满 30 天的最新次版本线）、Spring Boot 由 JHipster 管理（9.2 = 3.5.15，不单独升级 Boot 4）、**Java 25**；后端 JHipster 生成（`skipClient`），前端为 `frontend/` 独立的 **React 19 + antd 6**（用户 2026-09-26 指定），打进同一个 jar | 已定 | 与 dts-stack（JHipster 后端 + React/antd 前端）同架构；实体/Liquibase/OAuth2/测试脚手架现成 | 设计见 `dts-wiki/docs/design/`；实体以 `dts-wiki/jhipster/dts-wiki.jdl` 为准 |
 | W-ADR-3 | 内容规范格式 | **Markdown 原文**（PG 存 Markdown，与 git 字节级一致） | 已定 | 双向同步无损，避免富文本↔Markdown 转换产生伪冲突 | 编辑器须 Markdown 原生（F0/T02 选型） |
 | W-ADR-4 | 代码位置 | 新仓库 **`billyhotjava/dts-wiki`**，作为 dts-rdc submodule | 已定 | 边界清晰，日后整体并入 dts-studio 知识中心 | 需在 GitHub 建仓（用户操作） |
 | W-ADR-5 | 权限粒度 | **仅产品（空间）级**：沿用 Keycloak realm `yuzhicloud`、client `dts-wiki` 的角色 `space-<slug>`（读）、`editor`（写）、`admin`；**不做页面级权限** | 已定（降级） | 与现网 wiki 权限模型一致，迁移零成本 | F2 |
