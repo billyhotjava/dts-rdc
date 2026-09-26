@@ -33,7 +33,7 @@ const targetPath = computed(() => {
   const name = newName.value.trim().replace(/\.md$/i, '').replace(/[\\/:*?"<>|]/g, '-')
   return name ? `${newDir.value.replace(/\/$/, '')}/${name}.md` : ''
 })
-const pageDir = computed(() => targetPath.value.split('/').slice(0, -1).join('/'))
+const pageDir = computed(() => (isNew.value ? newDir.value.replace(/\/$/, '') : pagePath.value.split('/').slice(0, -1).join('/')))
 const draftKey = computed(() => `wiki-draft:${targetPath.value || 'new:' + newDir.value}`)
 const canEdit = computed(() => !!me.value?.canEdit)
 
@@ -188,6 +188,11 @@ function followPublish(commit: string) {
   }, 3000)
 }
 
+// Full page load: after a publish the SPA's cached site data (sidebar, routes) is outdated.
+function hardNavigate(url: string) {
+  window.location.assign(url)
+}
+
 function onKeydown(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
     e.preventDefault()
@@ -256,12 +261,12 @@ onBeforeUnmount(() => {
         </template>
         <template v-else>
           <span class="we-label">编辑</span>
-          <a :href="pageUrl(pagePath)" class="we-path" title="查看页面">{{ pagePath }}</a>
+          <a :href="pageUrl(pagePath)" class="we-path" title="查看页面" @click.prevent="hardNavigate(pageUrl(pagePath))">{{ pagePath }}</a>
           <span v-if="dirty" class="we-dirty">● 未保存</span>
         </template>
       </div>
       <div class="we-actions">
-        <a v-if="!isNew" :href="pageUrl(pagePath)" class="we-btn we-btn-alt">返回页面</a>
+        <a v-if="!isNew" :href="pageUrl(pagePath)" class="we-btn we-btn-alt" @click.prevent="hardNavigate(pageUrl(pagePath))">返回页面</a>
         <button class="we-btn" :disabled="!canEdit || saving || phase !== 'ready'" @click="save()">
           {{ saving ? '保存中…' : '保存 (Ctrl+S)' }}
         </button>
@@ -278,7 +283,7 @@ onBeforeUnmount(() => {
     </p>
     <p v-if="notice" class="we-notice" :class="`we-${notice.kind}`" role="status">
       {{ notice.text }}
-      <a v-if="notice.link" :href="notice.link">{{ notice.link === '/status' ? '查看状态' : '查看页面' }}</a>
+      <a v-if="notice.link" :href="notice.link" @click.prevent="hardNavigate(notice.link!)">{{ notice.link === '/status' ? '查看状态' : '查看页面' }}</a>
       <template v-if="conflictSha">
         <button class="we-link" @click="reloadLatest">加载最新版本</button>
         <button class="we-link" @click="overwriteConflict">用我的版本覆盖</button>

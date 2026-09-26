@@ -45,7 +45,9 @@ async function withCachedNodeModules(wikiDir, fn) {
   if (fs.existsSync(cached)) {
     fs.renameSync(cached, target)
   } else {
-    await run('npm', ['ci', '--no-audit', '--no-fund', '--loglevel=error'], {
+    // --include=dev: the site toolchain (vitepress, pagefind) is devDependencies and the
+    // container runs with NODE_ENV=production
+    await run('npm', ['ci', '--include=dev', '--no-audit', '--no-fund', '--loglevel=error'], {
       cwd: wikiDir, env: { ...process.env, npm_config_cache: path.join(config.cacheDir, 'npm') },
     })
   }
