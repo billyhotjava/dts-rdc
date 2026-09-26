@@ -1,0 +1,16 @@
+{
+  "name": "dts-wiki",
+  "private": true,
+  "type": "module",
+  "description": "DTS R&D wiki: renders ../docs and ../worklog as a static site",
+  "scripts": {
+    "prepare-content": "node scripts/prepare-content.mjs",
+    "dev": "node scripts/prepare-content.mjs && vitepress dev .",
+    "build": "node scripts/prepare-content.mjs && vitepress build . && pagefind --site .vitepress/dist --output-subdir pagefind --exclude-selectors \".VPNav,.VPSidebar,.VPLocalNav,.aside,.VPDocFooter,.VPFooter,.edit-info\"",
+    "preview": "vitepress preview ."
+  },
+  "devDependencies": {
+    "pagefind": "1.5.2",
+    "vitepress": "1.6.4"
+  }
+}

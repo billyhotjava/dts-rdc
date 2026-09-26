@@ -1,0 +1,9 @@
+:root {
+  --vp-c-brand-1: #2f6f5e;
+  --vp-c-brand-2: #3b8a75;
+  --vp-c-brand-3: #4ea38c;
+}
+.vp-doc table { display: block; overflow-x: auto; }
+.vp-doc td, .vp-doc th { white-space: normal; min-width: 4em; }
+#pagefind-search { --pagefind-ui-primary: var(--vp-c-brand-1); --pagefind-ui-text: var(--vp-c-text-1);
+  --pagefind-ui-background: var(--vp-c-bg); --pagefind-ui-border: var(--vp-c-divider); }

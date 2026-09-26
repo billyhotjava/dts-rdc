@@ -1,0 +1,22 @@
+# DTS wiki on 10.20.0.50. Run from /data/dts-wiki (this directory is copied there).
+name: dts-wiki
+services:
+  wiki-web:
+    image: nginx:1.28-alpine
+    container_name: dts-wiki-web
+    restart: unless-stopped
+    ports:
+      - "18090:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./site:/site:ro
+  wiki-builder:
+    image: dts-wiki-builder:1
+    container_name: dts-wiki-builder
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./repo:/repo
+      - ./site:/site
+      - ./cache:/cache
+      - ./secrets:/secrets:ro
