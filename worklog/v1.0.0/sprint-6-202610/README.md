@@ -1,6 +1,7 @@
 # Sprint-6: DTS Wiki v1 —— 以 PG 为事实源、与产品 git 双向同步的知识协作平台
 
 **设计文档**: [`features/F0-基线与技术选型spike/design/`](features/F0-基线与技术选型spike/design/)（00–08；编码由独立会话按 `08-编码任务与交接说明.md` 执行，代码在子模块 `dts-wiki`）
+**v1.1（2026-09-27）**：Agent 友好与性能修订——所有页面以 DTS-MD v1 Markdown 为契约、frontmatter 元数据、archify 图即代码、最小差异保存、前端性能预算；见 design `09-Agent与内容规范.md`、`10-v1.1变更与重构清单.md`（10 §5 为新的执行顺序）
 **时间**: 2026-10 ~ 2026-11（时间盒假设：2026-10-12 至 2026-11-20，约 5–6 周；与 Sprint-5 并行，互不阻塞）
 **状态**: DRAFT
 **类型**: Implementation（新产品：内部协作工具 → 后续演进为 DTS 知识中心）

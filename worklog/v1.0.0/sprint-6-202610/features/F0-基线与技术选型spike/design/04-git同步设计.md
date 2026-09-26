@@ -6,6 +6,7 @@
 3. **永不改写历史**：不 `--force` 推送；只会丢弃工作副本中**尚未推送**的本地提交（它们可由 outbox 重建）；wiki 的每个用户操作是一个独立提交，作者 = wiki 用户。
 4. **同步器是工作副本的唯一操作者**：每个仓库一个本地 clone，只有 `GitSyncScheduler`（ShedLock 单实例）在同一时刻操作它。
 5. 同步单位是**文件**；一个文件的问题不阻塞其他文件。
+6. **字节忠实**（v1.1）：入站、导入把 git 中的文件原文字节写入版本；出站把版本原文写回文件。同步链路上**任何环节都不做 Markdown 格式化**（格式统一由作者侧 `tools/mdfmt` 自愿完成，09 §2.5）。
 
 ## 2. 配置与工作副本
 
@@ -85,6 +86,8 @@ for each change:
 ```
 
 - 作者映射：`git log -1 --format=%an%x00%ae <commit> -- path`；按 `jhi_user.email`（忽略大小写）或 `login` 匹配。
+- 元数据（v1.1）：每个写入的 md 版本都调用 `ContentService.analyze(LENIENT)`；frontmatter 不合规照常入库，`page_meta.valid=false`，同步状态页汇总不合规数量（不产生冲突、不阻塞同步）。
+- archify 产物（v1.1）：`diagrams/` 下的 `*.archify.json`、`*.html`、`*.png` 按附件同步（归属同目录的页面）；不做渲染与校验（校验由仓库 CI 负责，09 §4.2）。
 - 排除：`.git*`、隐藏文件、超过 `max-file-size` 的文件（记录日志与同步状态告警）。
 
 ## 6. 出站（wiki → git）
@@ -114,7 +117,8 @@ outbox 按 `id` 顺序处理，每条一个提交：
 2. `POST /api/wiki/admin/import/{slug}`：clone → 为每个同步根创建挂载 FOLDER 页 → 遍历文件按 02 §5 映射创建页面与附件；
 3. 版本：默认每个文件导入**最近 20 个历史版本**（`git log --follow --format=%H -n 20 -- path`，逐个 `git show <sha>:<path>`，作者/时间取提交信息）；`importHistory=false` 时只导入当前版本；
 4. 排序：同目录按文件名自然排序（数字按数值、中文按拼音，与现网 wiki 一致）；
-5. `lastSyncedCommit = HEAD`；输出导入报告（文件数、页面数、附件数、跳过项）。
+5. `lastSyncedCommit = HEAD`；输出导入报告（文件数、页面数、附件数、跳过项、frontmatter 不合规页面清单）。
+6. **不做首次归一化**（v1.1 取消原方案）：导入即原文字节入库。
 
 **切换前置条件**：现网 .50 `/data/dts-wiki/repo` 中网页编辑产生的本地提交必须已推送到 GitHub（需要 dts-rdc 的写权限 deploy key），否则这些编辑不会出现在新 wiki。
 
