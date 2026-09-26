@@ -19,7 +19,8 @@ const SOURCES = [
   { dir: 'docs', title: '产品文档' },
   { dir: 'worklog', title: '工作日志' },
 ]
-const ATTACHMENT_EXT = new Set(['.pdf', '.pptx', '.docx', '.xlsx', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'])
+const IMAGE_EXT = new Set(['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'])
+const DOCUMENT_EXT = new Set(['.pdf', '.pptx', '.docx', '.xlsx'])
 const SKIP_NAMES = new Set(['.git', 'node_modules', '.DS_Store'])
 
 const collator = new Intl.Collator('zh-CN', { numeric: true, sensitivity: 'base' })
@@ -94,7 +95,10 @@ function copyTree(relDir) {
       } else {
         children.push({ text: title, link: toUrl(path.join(relDir, path.basename(entry.name, '.md'))) })
       }
-    } else if (ATTACHMENT_EXT.has(ext)) {
+    } else if (IMAGE_EXT.has(ext)) {
+      // next to the markdown so relative image references resolve at build time
+      fs.copyFileSync(path.join(REPO_DIR, rel), path.join(OUT_DIR, rel))
+    } else if (DOCUMENT_EXT.has(ext)) {
       const target = path.join(OUT_DIR, 'public', rel)
       fs.mkdirSync(path.dirname(target), { recursive: true })
       fs.copyFileSync(path.join(REPO_DIR, rel), target)
@@ -107,7 +111,7 @@ function copyTree(relDir) {
   if (!hasIndex) {
     const lines = children.map((c) => `- [${c.text}](${c.link})`).join('\n')
     fs.writeFileSync(path.join(OUT_DIR, relDir, 'index.md'),
-      `---\ngenerated: true\n---\n\n# ${dirName}\n\n${lines}\n`)
+      `---\ngenerated: true\neditLink: false\n---\n\n# ${dirName}\n\n${lines}\n`)
   }
   return {
     text: indexTitle ?? dirName,
@@ -131,9 +135,12 @@ function main() {
     const node = copyTree(source.dir)
     if (node) sidebar[`/${source.dir}/`] = [{ ...node, text: source.title, collapsed: false }]
   }
-  fs.copyFileSync(path.join(WIKI_DIR, 'home.md'), path.join(OUT_DIR, 'index.md'))
-  fs.copyFileSync(path.join(WIKI_DIR, 'search.md'), path.join(OUT_DIR, 'search.md'))
+  for (const page of fs.readdirSync(path.join(WIKI_DIR, 'pages'))) {
+    fs.copyFileSync(path.join(WIKI_DIR, 'pages', page), path.join(OUT_DIR, page === 'home.md' ? 'index.md' : page))
+  }
   fs.cpSync(path.join(WIKI_DIR, 'public'), path.join(OUT_DIR, 'public'), { recursive: true })
+  // editor runtime assets (lute, highlight, themes) are loaded by Vditor from /vendor/vditor/dist
+  fs.cpSync(path.join(WIKI_DIR, 'node_modules', 'vditor', 'dist'), path.join(OUT_DIR, 'public', 'vendor', 'vditor', 'dist'), { recursive: true })
   fs.writeFileSync(path.join(GENERATED_DIR, 'sidebar.json'), JSON.stringify(sidebar, null, 2))
 
   const pageCount = fs.readdirSync(OUT_DIR, { recursive: true }).filter((f) => f.endsWith('.md')).length

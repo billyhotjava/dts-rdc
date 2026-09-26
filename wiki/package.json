@@ -7,10 +7,14 @@
     "prepare-content": "node scripts/prepare-content.mjs",
     "dev": "node scripts/prepare-content.mjs && vitepress dev .",
     "build": "node scripts/prepare-content.mjs && vitepress build . && pagefind --site .vitepress/dist --output-subdir pagefind --exclude-selectors \".VPNav,.VPSidebar,.VPLocalNav,.aside,.VPDocFooter,.VPFooter,.edit-info\"",
-    "preview": "vitepress preview ."
+    "preview": "vitepress preview .",
+    "test": "node --test server/*.test.mjs"
   },
   "devDependencies": {
     "pagefind": "1.5.2",
     "vitepress": "1.6.4"
+  },
+  "dependencies": {
+    "vditor": "3.11.3"
   }
 }

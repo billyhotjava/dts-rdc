@@ -3,6 +3,10 @@ import path from 'node:path'
 import { defineConfig, type DefaultTheme } from 'vitepress'
 
 const REPO_URL = 'https://github.com/billyhotjava/dts-rdc'
+const PUBLIC_URL = process.env.WIKI_PUBLIC_URL ?? 'https://wiki.yuzhicloud.com'
+const SSO_LOGOUT = 'https://sso.yuzhicloud.com/realms/yuzhi/protocol/openid-connect/logout'
+  + `?client_id=dts-wiki&post_logout_redirect_uri=${encodeURIComponent(PUBLIC_URL + '/')}`
+const LOGOUT_URL = `${PUBLIC_URL}/oauth2/sign_out?rd=${encodeURIComponent(SSO_LOGOUT)}`
 const BUILD_SHA = process.env.WIKI_BUILD_SHA ?? 'local'
 const BUILD_TIME = process.env.WIKI_BUILD_TIME ?? new Date().toISOString()
 
@@ -29,16 +33,22 @@ export default defineConfig({
       { text: '工作日志', link: '/worklog/' },
       { text: 'Sprint-5', link: '/worklog/v1.0.0/sprint-5-202610/' },
       { text: '搜索', link: '/search' },
+      {
+        text: '更多',
+        items: [
+          { text: '新建页面', link: '/edit?new=1&dir=docs' },
+          { text: '发布状态', link: '/status' },
+          { text: '退出登录', link: LOGOUT_URL, target: '_self' },
+        ],
+      },
     ],
     sidebar,
     outline: { level: [2, 3], label: '本页目录' },
     editLink: {
       // Serialized and executed in the browser: must not reference module-scope variables.
       pattern: ({ frontmatter }) =>
-        frontmatter.sourcePath
-          ? `https://github.com/billyhotjava/dts-rdc/edit/main/${encodeURI(frontmatter.sourcePath)}`
-          : 'https://github.com/billyhotjava/dts-rdc',
-      text: '在 GitHub 上编辑此页',
+        frontmatter.sourcePath ? `/edit?path=${encodeURIComponent(frontmatter.sourcePath)}` : '/edit?new=1&dir=docs',
+      text: '编辑此页',
     },
     docFooter: { prev: '上一页', next: '下一页' },
     darkModeSwitchLabel: '外观',
