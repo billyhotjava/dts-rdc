@@ -34,7 +34,8 @@ export function currentLiveSha() {
 async function extractSources(sha) {
   fs.rmSync(srcDir, { recursive: true, force: true })
   fs.mkdirSync(srcDir, { recursive: true })
-  await run('sh', ['-c', `git -C "${config.repoDir}" archive ${sha} docs worklog wiki | tar -x -C "${srcDir}"`])
+  // whole tree: content roots are declared in products.json and may grow (products/, sandbox/, ...)
+  await run('sh', ['-c', `git -C "${config.repoDir}" archive ${sha} | tar -x -C "${srcDir}"`])
 }
 
 async function withCachedNodeModules(wikiDir, fn) {
