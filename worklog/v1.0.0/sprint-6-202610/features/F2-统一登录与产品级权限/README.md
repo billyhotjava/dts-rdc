@@ -8,7 +8,7 @@
 ## 契约
 | 类型 | 契约 |
 |------|------|
-| OIDC | client `dts-wiki`：新增 redirect `https://wiki.yuzhicloud.com/login/oauth2/code/keycloak`（切换前另加 `wiki2` 域名） |
+| OIDC | client `dts-wiki`：新增 redirect `https://wiki.yuzhicloud.com/login/oauth2/code/keycloak`；开发期另加内网 `http://10.20.0.50:18091/login/oauth2/code/keycloak`（上线后删除） |
 | 角色 | `dts-wiki:space-<slug>` 读该空间；`dts-wiki:editor` + 空间读权限 = 可写；`dts-wiki:admin` 全部空间 + 管理功能 |
 | API | 所有 `/api/spaces/{slug}/**` 与 `/api/pages/{id}/**` 经 `SpaceAccessPolicy` 校验；无权 → 403 `SPACE_FORBIDDEN`（不泄露页面是否存在：未知 id 与无权同样返回 404） |
 
