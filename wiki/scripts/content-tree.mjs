@@ -44,7 +44,7 @@ function escapeAngleBracketsOutsideCode(body) {
 
 // Raw HTML so VitePress does not prefix the product base: the editor lives on the portal.
 const newPageLink = (relDir) =>
-  `\n\n---\n\n<a class="wiki-new-page" href="/edit?new=1&amp;dir=${encodeURIComponent(posix(relDir))}" data-full-nav>＋ 在此目录新建页面</a>\n`
+  `\n\n---\n\n<a class="wiki-new-page" href="/edit?new=1&amp;dir=${encodeURIComponent(posix(relDir))}" target="_self" data-full-nav>＋ 在此目录新建页面</a>\n`
 
 function transformMarkdown(markdown, sourcePath, { isIndex, relDir }) {
   const { frontmatter, body } = splitFrontmatter(markdown)

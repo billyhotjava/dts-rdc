@@ -1,5 +1,5 @@
 import { h } from 'vue'
-import { inBrowser, type Theme } from 'vitepress'
+import { inBrowser, withBase, type Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import PagefindSearch from './components/PagefindSearch.vue'
 import WikiEditor from './components/WikiEditor.vue'
@@ -13,9 +13,11 @@ declare const __WIKI_PORTAL_PREFIXES__: string[]
 
 // The wiki is several VitePress sites (portal at /, products at /p/<slug>/). The router of
 // one site cannot render another site's pages, so any same-origin link that leaves the
-// current base (or is marked data-full-nav) becomes a full page load.
+// current base (or is marked data-full-nav) becomes a full page load. Links we generate
+// also carry target="_self", which the VitePress router never intercepts; this handler
+// covers links written by authors in markdown.
 function installCrossSiteNavigation() {
-  const base = import.meta.env.BASE_URL
+  const base = withBase('/')
   document.addEventListener('click', (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
     const a = (e.target as Element | null)?.closest?.('a')

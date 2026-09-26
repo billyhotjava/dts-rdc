@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // "编辑此页" for every content page; the editor lives on the portal (/edit), outside
-// product site bases, so this is a full-page link.
+// product site bases, so this is a full-page link (target="_self": the VitePress router
+// ignores links that carry a target).
 import { computed } from 'vue'
 import { useData } from 'vitepress'
 
@@ -13,7 +14,7 @@ const href = computed(() => {
 
 <template>
   <div v-if="href" class="wiki-edit-link">
-    <a :href="href" data-full-nav>
+    <a :href="href" target="_self" data-full-nav>
       <span class="vpi-square-pen" aria-hidden="true" />编辑此页
     </a>
   </div>

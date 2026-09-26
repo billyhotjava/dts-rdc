@@ -22,7 +22,7 @@ onMounted(async () => {
         你还没有任何产品空间的访问权限。请联系管理员把你加入相应的"产品-"组。
       </p>
       <div class="pc-grid">
-        <a v-for="p in me.products" :key="p.slug" :href="p.url" class="pc-card" data-full-nav>
+        <a v-for="p in me.products" :key="p.slug" :href="p.url" class="pc-card" target="_self" data-full-nav>
           <strong>{{ p.name }}</strong>
           <span>{{ p.description || '—' }}</span>
         </a>
