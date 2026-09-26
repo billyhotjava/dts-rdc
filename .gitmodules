@@ -10,3 +10,6 @@
 [submodule "dts-studio"]
 	path = dts-studio
 	url = git@github.com:billyhotjava/dts-studio.git
+[submodule "dts-wiki"]
+	path = dts-wiki
+	url = git@github.com:billyhotjava/dts-wiki.git
