@@ -1,0 +1,21 @@
+{
+  "products": [
+    {
+      "slug": "dts",
+      "name": "DTS 平台",
+      "description": "AI 决策操作系统：湖仓中台 dts-stack、AI 头脑 dts-studio、行业 App、基础设施。",
+      "docs": "docs",
+      "worklog": "worklog"
+    },
+    {
+      "slug": "prs",
+      "name": "PRS 花卉租赁",
+      "description": "花卉租赁业务系统（DTS 首个行业 App），老系统按域绞杀重建。",
+      "docs": "products/prs/docs",
+      "worklog": "products/prs/worklog"
+    }
+  ],
+  "extras": [
+    { "dir": "sandbox", "name": "练习区" }
+  ]
+}

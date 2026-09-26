@@ -10,10 +10,13 @@ const LOGOUT_URL = `${PUBLIC_URL}/oauth2/sign_out?rd=${encodeURIComponent(SSO_LO
 const BUILD_SHA = process.env.WIKI_BUILD_SHA ?? 'local'
 const BUILD_TIME = process.env.WIKI_BUILD_TIME ?? new Date().toISOString()
 
-const sidebarFile = path.resolve(__dirname, 'generated/sidebar.json')
-const sidebar: DefaultTheme.SidebarMulti = fs.existsSync(sidebarFile)
-  ? JSON.parse(fs.readFileSync(sidebarFile, 'utf8'))
-  : {}
+const readGenerated = <T>(name: string, fallback: T): T => {
+  const file = path.resolve(__dirname, 'generated', name)
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : fallback
+}
+const sidebar = readGenerated<DefaultTheme.SidebarMulti>('sidebar.json', {})
+const registry = readGenerated<{ products: { name: string; docs: string }[]; extras: { dir: string; name: string }[] }>(
+  'products.json', { products: [], extras: [] })
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -29,14 +32,18 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '产品文档', link: '/docs/' },
-      { text: '工作日志', link: '/worklog/' },
-      { text: 'Sprint-5', link: '/worklog/v1.0.0/sprint-5-202610/' },
+      {
+        text: '产品',
+        items: [
+          { items: registry.products.map((p) => ({ text: p.name, link: `/${p.docs}/` })) },
+          { items: [{ text: '＋ 新建产品', link: '/new-product' }] },
+        ],
+      },
       { text: '搜索', link: '/search' },
       {
         text: '更多',
         items: [
-          { text: '新建页面', link: '/edit?new=1&dir=docs' },
+          ...registry.extras.map((e) => ({ text: e.name, link: `/${e.dir}/` })),
           { text: '发布状态', link: '/status' },
           { text: '退出登录', link: LOGOUT_URL, target: '_self' },
         ],
@@ -47,7 +54,7 @@ export default defineConfig({
     editLink: {
       // Serialized and executed in the browser: must not reference module-scope variables.
       pattern: ({ frontmatter }) =>
-        frontmatter.sourcePath ? `/edit?path=${encodeURIComponent(frontmatter.sourcePath)}` : '/edit?new=1&dir=docs',
+        frontmatter.sourcePath ? `/edit?path=${encodeURIComponent(frontmatter.sourcePath)}` : '/edit?new=1&dir=sandbox',
       text: '编辑此页',
     },
     docFooter: { prev: '上一页', next: '下一页' },

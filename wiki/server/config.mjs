@@ -11,7 +11,7 @@ export const config = Object.freeze({
   syncIntervalMs: Number(env.SYNC_INTERVAL ?? 120) * 1000,
   buildDebounceMs: Number(env.BUILD_DEBOUNCE ?? 5) * 1000,
   keepReleases: Number(env.KEEP_RELEASES ?? 5),
-  editableRoots: (env.EDITABLE_ROOTS ?? 'docs,worklog').split(',').map((s) => s.trim()).filter(Boolean),
+  editableRoots: (env.EDITABLE_ROOTS ?? 'docs,worklog,products,sandbox').split(',').map((s) => s.trim()).filter(Boolean),
   maxUploadBytes: Number(env.MAX_UPLOAD_MB ?? 10) * 1024 * 1024,
   maxPageBytes: 2 * 1024 * 1024,
   editorRole: env.EDITOR_ROLE ?? 'dts-wiki:editor',

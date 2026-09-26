@@ -3,6 +3,7 @@ import type { Theme } from 'vitepress'
 import PagefindSearch from './components/PagefindSearch.vue'
 import WikiEditor from './components/WikiEditor.vue'
 import WikiStatus from './components/WikiStatus.vue'
+import NewProduct from './components/NewProduct.vue'
 import './custom.css'
 
 export default {
@@ -11,5 +12,6 @@ export default {
     app.component('PagefindSearch', PagefindSearch)
     app.component('WikiEditor', WikiEditor)
     app.component('WikiStatus', WikiStatus)
+    app.component('NewProduct', NewProduct)
   },
 } satisfies Theme

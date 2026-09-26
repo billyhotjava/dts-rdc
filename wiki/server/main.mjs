@@ -8,6 +8,7 @@ import { config } from './config.mjs'
 import { buildAndPublish, currentLiveSha } from './builder.mjs'
 import { commitPaths, headSha, isAncestor, syncWithRemote } from './git.mjs'
 import { HttpError, absPath, readPage, resolveContentPath, saveImage, writePage } from './pages.mjs'
+import { createProduct, readRegistry } from './products.mjs'
 
 const status = {
   build: { state: 'idle', sha: null, message: '', time: null },
@@ -173,6 +174,23 @@ async function handle(req, res) {
     scheduleBuild(`upload ${result.rel}`)
     log(`${user.username} uploaded ${result.rel}`)
     return send(res, 201, { path: result.rel, link: result.link, commit: result.commit })
+  }
+
+  if (route === 'GET /api/products') return send(res, 200, readRegistry())
+
+  if (route === 'POST /api/products') {
+    if (!user.isAdmin) throw new HttpError(403, 'FORBIDDEN', `role ${config.adminRole} required`)
+    const input = await readJson(req)
+    const result = await enqueue(async () => {
+      const { product, paths } = createProduct(input)
+      const commit = await commitPaths(paths, {
+        authorName: user.username, authorEmail: user.email, message: `wiki: create product ${product.slug} (${product.name})`,
+      })
+      return { product, commit }
+    })
+    scheduleBuild(`product ${result.product.slug}`)
+    log(`${user.username} created product ${result.product.slug}`)
+    return send(res, 201, result)
   }
 
   if (route === 'POST /api/sync') {

@@ -38,6 +38,14 @@ export function uploadImage(pagePath: string, file: File) {
   )
 }
 
+export interface Product { slug: string; name: string; description: string; docs: string; worklog: string }
+
+export function createProduct(input: { slug: string; name: string; description: string }) {
+  return call<{ product: Product; commit: string | null }>('/api/products', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  })
+}
+
 export const triggerSync = () => call<Record<string, any>>('/api/sync', { method: 'POST' })
 export const triggerRebuild = () => call<Record<string, any>>('/api/rebuild', { method: 'POST' })
 
