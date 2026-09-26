@@ -3,8 +3,12 @@
 # internal tools (one account, one login). Each tool is a client; permissions are client
 # roles granted through groups.
 #
-#   docker exec -e LC_ALL=C.UTF-8 -e WIKI_CLIENT_SECRET=.. -e JIRA_CLIENT_SECRET=.. -e PORTAINER_CLIENT_SECRET=.. \
+#   cd /data/dts-sso && . ./.env && WIKI_CLIENT_SECRET=$(grep WIKI_OIDC_CLIENT_SECRET /data/dts-wiki/.env | cut -d= -f2)
+#   docker exec -e LC_ALL=C.UTF-8 -e KC_BOOTSTRAP_ADMIN_PASSWORD="$SSO_ADMIN_PASSWORD" \
+#     -e WIKI_CLIENT_SECRET -e JIRA_CLIENT_SECRET -e PORTAINER_CLIENT_SECRET \
 #     dts-sso-keycloak bash /opt/keycloak/bootstrap/realm-yuzhicloud.sh
+# The master admin password was changed after first start, so the container's own
+# KC_BOOTSTRAP_ADMIN_PASSWORD is stale: always pass the current one from .env.
 # LC_ALL=C.UTF-8 is required: kcadm (Java) otherwise decodes the Chinese group names wrongly.
 # The image has no awk; stick to grep/sed/cut.
 #
