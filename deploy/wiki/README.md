@@ -4,7 +4,7 @@
 
 ```
 push → GitHub ──(ssh, deploy key)──► 10.20.0.50 dts-wiki-builder 每 INTERVAL 秒 fetch
-                                      └─ 有新提交：npm ci + build → site/releases/<sha> → 原子切换 site/current
+                                      └─ 有新提交：npm ci + build → site/releases/<sha>@<时间戳> → 原子切换 site/current
 浏览器 → wiki.yuzhicloud.com → 阿里云 nginx(10.20.0.1) ──WireGuard──► 10.20.0.50:18090 dts-wiki-web(nginx 静态)
 ```
 
@@ -27,7 +27,7 @@ docker logs -f dts-wiki-builder          # 构建日志
 curl -s localhost:18090/_status.json     # 最近一次构建状态（ok/building/failed/stale）
 touch site/.rebuild                      # 强制下一轮重建
 # 回滚到某个旧版本
-ln -sfn releases/<sha> site/current.tmp && mv -Tf site/current.tmp site/current
+ln -sfn releases/<sha>@<时间戳> site/current.tmp && mv -Tf site/current.tmp site/current
 ```
 
 ## 镜像
