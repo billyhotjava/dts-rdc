@@ -4,12 +4,14 @@
 
 ```
 浏览器 → wiki.yuzhicloud.com → 阿里云 nginx(TLS) ──WireGuard──► 10.20.0.50:18090
-  wiki-auth  oauth2-proxy：Keycloak(sso.yuzhicloud.com, realm yuzhicloud) 登录，要求 client 角色 dts-wiki:reader
-  wiki-web   nginx：静态站点 site/current，/api → wiki-api
-  wiki-api   编辑/上传（需 dts-wiki:editor）→ 本地 git commit（作者=登录用户）→ 5s 防抖重建发布
-             每 SYNC_INTERVAL 秒：fetch → rebase → push 到 GitHub；冲突时暂停同步并在 /status 告警
-开发者/AI：直接改 md 并 push 到 GitHub → wiki-api 下一轮同步拉取并重建
+  wiki-auth  oauth2-proxy：Keycloak(realm yuzhicloud) 登录，要求 dts-wiki:reader
+  wiki-web   nginx：/ 门户；/p/<产品>/ 产品站点，每个请求经 wiki-api /api/authz 校验 dts-wiki:space-<产品>
+  wiki-api   编辑/上传（dts-wiki:editor + 该产品空间权限）→ 本地 git commit → 重建发布
+             每 SYNC_INTERVAL 秒：fetch → rebase → push GitHub
 ```
+
+站点组成（`wiki/scripts/build.mjs`）：门户 1 个 + 每个产品 1 个独立 VitePress 站点。产品站点只含自己的侧边栏、
+页面分片与搜索索引，互不泄露；搜索页只合并当前用户有权限的产品索引。
 
 ## 服务器目录（10.20.0.50:/data/dts-wiki）
 
@@ -49,7 +51,10 @@ docker save dts-wiki-api:1 | gzip | ssh root@10.20.0.50 'gunzip | docker load'
 |------|------|------|
 | `dts-wiki:reader` | 登录后阅读 | realm 默认角色，所有用户 |
 | `dts-wiki:editor` | 编辑、新建页面、上传图片 | 组"研发部"、"管理员" |
-| `dts-wiki:admin` | 手动重建站点 | 组"管理员" |
+| `dts-wiki:admin` | 手动重建站点、新建产品、访问全部产品空间 | 组"管理员" |
+| `dts-wiki:space-<产品>` | 访问该产品空间（文档 + 工作日志） | 组"产品-<产品名>" |
+
+产品空间的角色与组由 `deploy/sso/apps/wiki-spaces.sh` 按 products.json 生成（幂等）。
 
 新人：在 Keycloak 建用户并加入对应组即可，不需要逐个应用授权。
 

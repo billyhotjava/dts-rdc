@@ -42,8 +42,9 @@ function escapeAngleBracketsOutsideCode(body) {
     .join('')
 }
 
+// Raw HTML so VitePress does not prefix the product base: the editor lives on the portal.
 const newPageLink = (relDir) =>
-  `\n\n---\n\n[＋ 在此目录新建页面](/edit?new=1&dir=${encodeURIComponent(posix(relDir))})\n`
+  `\n\n---\n\n<a class="wiki-new-page" href="/edit?new=1&amp;dir=${encodeURIComponent(posix(relDir))}" data-full-nav>＋ 在此目录新建页面</a>\n`
 
 function transformMarkdown(markdown, sourcePath, { isIndex, relDir }) {
   const { frontmatter, body } = splitFrontmatter(markdown)
@@ -52,20 +53,23 @@ function transformMarkdown(markdown, sourcePath, { isIndex, relDir }) {
   return `---\n${meta}\n---\n\n::: v-pre\n${rewritten}\n:::\n${isIndex ? newPageLink(relDir) : ''}`
 }
 
-// Copies <repo>/<relDir> into <out>/<relDir>; returns a sidebar node (or null when empty).
-export function copyTree(repoDir, outDir, relDir) {
+// Copies <repo>/<relDir> into <out>/<destDir>; returns a sidebar node (or null when empty).
+// Sidebar links are relative to the destination site's base; sourcePath/edit links keep the
+// repository path.
+export function copyTree(repoDir, outDir, relDir, destDir = relDir) {
   const entries = fs.readdirSync(path.join(repoDir, relDir), { withFileTypes: true })
     .filter((e) => !SKIP_NAMES.has(e.name))
     .sort((a, b) => collator.compare(a.name, b.name))
 
-  fs.mkdirSync(path.join(outDir, relDir), { recursive: true })
+  fs.mkdirSync(path.join(outDir, destDir), { recursive: true })
   const children = []
   let indexTitle = null
 
   for (const entry of entries) {
     const rel = path.join(relDir, entry.name)
+    const dest = path.join(destDir, entry.name)
     if (entry.isDirectory()) {
-      const node = copyTree(repoDir, outDir, rel)
+      const node = copyTree(repoDir, outDir, rel, dest)
       if (node) children.push(node)
       continue
     }
@@ -74,17 +78,17 @@ export function copyTree(repoDir, outDir, relDir) {
       const markdown = fs.readFileSync(path.join(repoDir, rel), 'utf8')
       const isIndex = /^(readme|index)\.md$/i.test(entry.name)
       const title = extractTitle(markdown, path.basename(entry.name, '.md'))
-      fs.writeFileSync(path.join(outDir, relDir, isIndex ? 'index.md' : entry.name),
+      fs.writeFileSync(path.join(outDir, destDir, isIndex ? 'index.md' : entry.name),
         transformMarkdown(markdown, posix(rel), { isIndex, relDir }))
       if (isIndex) indexTitle = title
-      else children.push({ text: title, link: toUrl(path.join(relDir, path.basename(entry.name, '.md'))) })
+      else children.push({ text: title, link: toUrl(path.join(destDir, path.basename(entry.name, '.md'))) })
     } else if (IMAGE_EXT.has(ext)) {
-      fs.copyFileSync(path.join(repoDir, rel), path.join(outDir, rel))
+      fs.copyFileSync(path.join(repoDir, rel), path.join(outDir, dest))
     } else if (DOCUMENT_EXT.has(ext)) {
-      const target = path.join(outDir, 'public', rel)
+      const target = path.join(outDir, 'public', dest)
       fs.mkdirSync(path.dirname(target), { recursive: true })
       fs.copyFileSync(path.join(repoDir, rel), target)
-      children.push({ text: `📎 ${entry.name}`, link: toUrl(rel), target: '_blank' })
+      children.push({ text: `📎 ${entry.name}`, link: toUrl(dest), target: '_blank' })
     }
   }
 
@@ -92,8 +96,8 @@ export function copyTree(repoDir, outDir, relDir) {
   const dirName = path.basename(relDir)
   if (indexTitle === null) {
     const lines = children.map((c) => `- [${c.text}](${c.link})`).join('\n')
-    fs.writeFileSync(path.join(outDir, relDir, 'index.md'),
+    fs.writeFileSync(path.join(outDir, destDir, 'index.md'),
       `---\ngenerated: true\neditLink: false\n---\n\n# ${dirName}\n\n${lines}\n${newPageLink(relDir)}`)
   }
-  return { text: indexTitle ?? dirName, link: toUrl(relDir) + '/', collapsed: true, items: children.length ? children : undefined }
+  return { text: indexTitle ?? dirName, link: toUrl(destDir) + '/', collapsed: true, items: children.length ? children : undefined }
 }

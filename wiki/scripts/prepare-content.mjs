@@ -1,76 +1,89 @@
-// Builds the VitePress source dir (.content/) from the repository:
-//   - products.json (repo root) lists product spaces; each has a docs and a worklog tree
-//   - extra sections (e.g. the sandbox) are rendered without a product
-//   - emits .vitepress/generated/{sidebar,products}.json and a home page with product cards
+// Builds one VitePress source dir per site from the repository (products.json at repo root):
+//   .content/portal/        home, search, editor, status, new-product + extras (sandbox)
+//   .content/p-<slug>/      product space: index (landing), docs/, worklog/
+// Each product is built as its own site (base /p/<slug>/) so that navigation data, page
+// chunks and the search index of one product never ship inside another product's pages.
+// Emits .vitepress/generated/spaces.json for the VitePress config.
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { copyTree, toUrl } from './content-tree.mjs'
+import { copyTree } from './content-tree.mjs'
 
 const WIKI_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const REPO_DIR = path.resolve(WIKI_DIR, '..')
-const OUT_DIR = path.join(WIKI_DIR, '.content')
+const CONTENT_DIR = path.join(WIKI_DIR, '.content')
 const GENERATED_DIR = path.join(WIKI_DIR, '.vitepress', 'generated')
 
-function loadRegistry() {
-  const file = path.join(REPO_DIR, 'products.json')
-  const registry = JSON.parse(fs.readFileSync(file, 'utf8'))
+export function loadRegistry() {
+  const registry = JSON.parse(fs.readFileSync(path.join(REPO_DIR, 'products.json'), 'utf8'))
   if (!Array.isArray(registry.products) || registry.products.length === 0) {
     throw new Error('products.json: "products" must be a non-empty array')
   }
   return { products: registry.products, extras: registry.extras ?? [] }
 }
 
-// One tree -> one titled sidebar group; missing directories are tolerated (new products).
-function section(relDir, title) {
+function section(outDir, relDir, destDir, title) {
   if (!fs.existsSync(path.join(REPO_DIR, relDir))) return null
-  const node = copyTree(REPO_DIR, OUT_DIR, relDir)
+  const node = copyTree(REPO_DIR, outDir, relDir, destDir)
   return node ? { ...node, text: title, collapsed: false } : null
 }
 
-function buildProduct(product, sidebar) {
-  const groups = [section(product.docs, '产品文档'), section(product.worklog, '工作日志')].filter(Boolean)
-  const productSidebar = [{ text: product.name, items: groups }]
-  for (const dir of [product.docs, product.worklog]) sidebar[`/${dir}/`] = productSidebar
+function copyPublic(outDir) {
+  fs.cpSync(path.join(WIKI_DIR, 'public'), path.join(outDir, 'public'), { recursive: true })
 }
 
-function writeHome(products) {
-  const template = fs.readFileSync(path.join(WIKI_DIR, 'pages', 'home.md'), 'utf8')
-  const features = products.map((p) => [
-    `  - title: ${JSON.stringify(p.name)}`,
-    `    details: ${JSON.stringify(p.description || '')}`,
-    `    link: ${JSON.stringify(toUrl(p.docs) + '/')}`,
-  ].join('\n')).join('\n')
-  const newProduct = '  - title: "＋ 新建产品"\n    details: "为新的产品创建文档与工作日志空间"\n    link: "/new-product"'
-  fs.writeFileSync(path.join(OUT_DIR, 'index.md'), template.replace('features: []', `features:\n${features}\n${newProduct}`))
+function buildProduct(product) {
+  const outDir = path.join(CONTENT_DIR, `p-${product.slug}`)
+  fs.mkdirSync(outDir, { recursive: true })
+  const groups = [
+    section(outDir, product.docs, 'docs', '产品文档'),
+    section(outDir, product.worklog, 'worklog', '工作日志'),
+  ].filter(Boolean)
+  fs.writeFileSync(path.join(outDir, 'index.md'), `---
+title: ${JSON.stringify(product.name)}
+editLink: false
+---
+
+# ${product.name}
+
+${product.description || ''}
+
+- [产品文档](./docs/)：架构、设计、集成、部署等稳定文档
+- [工作日志](./worklog/)：Sprint / Feature / Task 规划与验收证据
+`)
+  copyPublic(outDir)
+  return { slug: product.slug, name: product.name, sidebar: { '/': [{ text: product.name, link: '/', items: groups }] } }
+}
+
+function buildPortal(extras) {
+  const outDir = path.join(CONTENT_DIR, 'portal')
+  fs.mkdirSync(outDir, { recursive: true })
+  const sidebar = {}
+  for (const extra of extras) {
+    const node = section(outDir, extra.dir, extra.dir, extra.name)
+    if (node) sidebar[`/${extra.dir}/`] = [node]
+  }
+  for (const page of fs.readdirSync(path.join(WIKI_DIR, 'pages'))) {
+    fs.copyFileSync(path.join(WIKI_DIR, 'pages', page), path.join(outDir, page === 'home.md' ? 'index.md' : page))
+  }
+  copyPublic(outDir)
+  // editor runtime assets (lute, highlight, themes) are loaded by Vditor from /vendor/vditor/dist
+  fs.cpSync(path.join(WIKI_DIR, 'node_modules', 'vditor', 'dist'), path.join(outDir, 'public', 'vendor', 'vditor', 'dist'), { recursive: true })
+  return { sidebar }
 }
 
 function main() {
-  fs.rmSync(OUT_DIR, { recursive: true, force: true })
-  fs.mkdirSync(OUT_DIR, { recursive: true })
+  fs.rmSync(CONTENT_DIR, { recursive: true, force: true })
   fs.mkdirSync(GENERATED_DIR, { recursive: true })
-
   const { products, extras } = loadRegistry()
-  const sidebar = {}
-  for (const product of products) buildProduct(product, sidebar)
-  for (const extra of extras) {
-    const node = section(extra.dir, extra.name)
-    if (node) sidebar[`/${extra.dir}/`] = [node]
+  const spaces = {
+    portal: buildPortal(extras),
+    products: products.map(buildProduct),
+    extras: extras.map((e) => ({ dir: e.dir, name: e.name })),
   }
-
-  for (const page of fs.readdirSync(path.join(WIKI_DIR, 'pages'))) {
-    if (page !== 'home.md') fs.copyFileSync(path.join(WIKI_DIR, 'pages', page), path.join(OUT_DIR, page))
-  }
-  writeHome(products)
-  fs.cpSync(path.join(WIKI_DIR, 'public'), path.join(OUT_DIR, 'public'), { recursive: true })
-  // editor runtime assets (lute, highlight, themes) are loaded by Vditor from /vendor/vditor/dist
-  fs.cpSync(path.join(WIKI_DIR, 'node_modules', 'vditor', 'dist'), path.join(OUT_DIR, 'public', 'vendor', 'vditor', 'dist'), { recursive: true })
-
-  fs.writeFileSync(path.join(GENERATED_DIR, 'sidebar.json'), JSON.stringify(sidebar, null, 2))
-  fs.writeFileSync(path.join(GENERATED_DIR, 'products.json'), JSON.stringify({ products, extras }, null, 2))
-
-  const pageCount = fs.readdirSync(OUT_DIR, { recursive: true }).filter((f) => f.endsWith('.md')).length
-  console.log(`[prepare-content] ${products.length} products, ${pageCount} pages -> ${path.relative(REPO_DIR, OUT_DIR)}`)
+  fs.writeFileSync(path.join(GENERATED_DIR, 'spaces.json'), JSON.stringify(spaces, null, 2))
+  const pageCount = fs.readdirSync(CONTENT_DIR, { recursive: true }).filter((f) => f.endsWith('.md')).length
+  console.log(`[prepare-content] portal + ${products.length} product sites, ${pageCount} pages`)
 }
 
-main()
+if (import.meta.url === `file://${process.argv[1]}`) main()

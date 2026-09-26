@@ -11,7 +11,8 @@ fs.writeFileSync(path.join(repo, 'products.json'), JSON.stringify({
   products: [{ slug: 'dts', name: 'DTS 平台', description: '', docs: 'docs', worklog: 'worklog' }],
   extras: [{ dir: 'sandbox', name: '练习区' }],
 }))
-const { createProduct, readRegistry } = await import('./products.mjs')
+const { createProduct } = await import('./products.mjs')
+const { readRegistry } = await import('./spaces.mjs')
 
 test('creates registry entry and both space READMEs', () => {
   const { product, paths } = createProduct({ slug: 'metro', name: '地铁运维', description: '轨交运维' })

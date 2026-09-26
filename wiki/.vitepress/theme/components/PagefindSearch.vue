@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { getMe } from '../wikiApi'
 
-// Pagefind is generated after `vitepress build`, so its UI bundle is loaded at runtime
-// from /pagefind/ rather than imported at build time.
+// Pagefind indexes are generated after `vitepress build`: one for the portal (extras) and one
+// per product site. Only the indexes of products the user may access are merged, so search
+// never surfaces text from other products.
 const status = ref<'loading' | 'ready' | 'unavailable'>('loading')
 
 function loadScript(src: string): Promise<void> {
@@ -21,10 +23,12 @@ onMounted(async () => {
     css.rel = 'stylesheet'
     css.href = '/pagefind/pagefind-ui.css'
     document.head.appendChild(css)
-    await loadScript('/pagefind/pagefind-ui.js')
+    const [me] = await Promise.all([getMe(), loadScript('/pagefind/pagefind-ui.js')])
     // @ts-expect-error provided by pagefind-ui.js
     new window.PagefindUI({
       element: '#pagefind-search',
+      baseUrl: '/',
+      mergeIndex: me.products.map((p) => ({ bundlePath: `/p/${p.slug}/pagefind/`, baseUrl: `/p/${p.slug}/` })),
       showSubResults: true,
       showImages: false,
       translations: { placeholder: '搜索文档、Sprint、Feature、Task…', zero_results: '没有找到 [SEARCH_TERM] 相关内容' },

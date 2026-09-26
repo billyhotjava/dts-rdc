@@ -14,6 +14,7 @@ export const config = Object.freeze({
   editableRoots: (env.EDITABLE_ROOTS ?? 'docs,worklog,products,sandbox').split(',').map((s) => s.trim()).filter(Boolean),
   maxUploadBytes: Number(env.MAX_UPLOAD_MB ?? 10) * 1024 * 1024,
   maxPageBytes: 2 * 1024 * 1024,
+  clientId: env.OIDC_CLIENT_ID ?? 'dts-wiki',
   editorRole: env.EDITOR_ROLE ?? 'dts-wiki:editor',
   adminRole: env.ADMIN_ROLE ?? 'dts-wiki:admin',
   committerName: env.COMMITTER_NAME ?? 'DTS Wiki',

@@ -13,4 +13,4 @@
 
 ## 相关来源
 - 代码与开发规划：`dts-app-stack/prs-stack`（sources/、worklog/）
-- DTS 平台侧规划：[Sprint-5](../../../worklog/v1.0.0/sprint-5-202610/README.md)
+- DTS 平台侧规划：[Sprint-5](/p/dts/worklog/v1.0.0/sprint-5-202610/)

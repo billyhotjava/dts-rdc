@@ -6,10 +6,11 @@ hero:
   tagline: 每个产品一个空间：产品文档 + 工作日志；网页编辑与 git 双向同步
   actions:
     - theme: brand
-      text: DTS 平台
-      link: /docs/
+      text: 全文搜索
+      link: /search
     - theme: alt
-      text: 新建产品
-      link: /new-product
-features: []
+      text: 练习区
+      link: /sandbox/
 ---
+
+<ProductCards />

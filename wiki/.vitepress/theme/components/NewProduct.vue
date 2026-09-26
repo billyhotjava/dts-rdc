@@ -26,7 +26,7 @@ async function submit() {
   error.value = ''
   try {
     const res = await createProduct({ slug: slug.value, name: name.value.trim(), description: description.value.trim() })
-    done.value = { name: res.product.name, link: `/${res.product.docs}/` }
+    done.value = { name: res.product.name, link: `/p/${res.product.slug}/` }
     publishing.value = true
     const commit = res.commit
     timer = setInterval(async () => {
@@ -52,7 +52,7 @@ async function submit() {
   <div v-if="done" class="np-notice np-success" role="status">
     产品「{{ done.name }}」已创建。
     <template v-if="publishing">正在发布，约需 30 秒…</template>
-    <template v-else><a :href="done.link">进入产品空间 →</a>（如导航未刷新，请刷新页面）</template>
+    <template v-else><a :href="done.link" data-full-nav>进入产品空间 →</a> 管理员可直接访问；其他成员需在 Keycloak 中授予角色 <code>dts-wiki:space-{{ slug }}</code>（建议建一个“产品-{{ done.name }}”组并挂上该角色）。</template>
   </div>
 
   <form v-else class="np-form" @submit.prevent="submit">

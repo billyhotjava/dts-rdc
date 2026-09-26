@@ -7,3 +7,5 @@
 .vp-doc td, .vp-doc th { white-space: normal; min-width: 4em; }
 #pagefind-search { --pagefind-ui-primary: var(--vp-c-brand-1); --pagefind-ui-text: var(--vp-c-text-1);
   --pagefind-ui-background: var(--vp-c-bg); --pagefind-ui-border: var(--vp-c-divider); }
+.wiki-new-page { font-size: 14px; font-weight: 500; color: var(--vp-c-brand-1); text-decoration: none; }
+.wiki-new-page:hover { color: var(--vp-c-brand-2); text-decoration: underline; }

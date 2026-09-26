@@ -5,8 +5,8 @@
   "description": "DTS R&D wiki: renders ../docs and ../worklog as a static site",
   "scripts": {
     "prepare-content": "node scripts/prepare-content.mjs",
-    "dev": "node scripts/prepare-content.mjs && vitepress dev .",
-    "build": "node scripts/prepare-content.mjs && vitepress build . && pagefind --site .vitepress/dist --output-subdir pagefind --exclude-selectors \".VPNav,.VPSidebar,.VPLocalNav,.aside,.VPDocFooter,.VPFooter,.edit-info\"",
+    "dev": "node scripts/prepare-content.mjs && WIKI_SPACE=${WIKI_SPACE:-portal} vitepress dev .",
+    "build": "node scripts/build.mjs",
     "preview": "vitepress preview .",
     "test": "node --test server/*.test.mjs"
   },

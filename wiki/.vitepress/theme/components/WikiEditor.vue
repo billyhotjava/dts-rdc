@@ -14,6 +14,7 @@ const phase = ref<Phase>('loading')
 const loadError = ref('')
 const me = ref<Me | null>(null)
 const pagePath = ref('')          // repo-relative path, e.g. worklog/v1.0.0/x.md
+const pageLink = ref<string | null>(null)   // published URL of the page (from the API)
 const isNew = ref(false)
 const newDir = ref('')
 const newName = ref('')
@@ -128,6 +129,7 @@ async function save() {
     const wasNew = isNew.value
     baseSha.value = res.sha
     pagePath.value = res.path
+    pageLink.value = res.url
     isNew.value = false
     dirty.value = false
     clearDraft()
@@ -176,7 +178,7 @@ function followPublish(commit: string) {
       const s = await getStatus(commit)
       if (s.published) {
         clearInterval(pollTimer)
-        setNotice('success', '已发布。', pageUrl(targetPath.value))
+        setNotice('success', '已发布。', pageUrl(pageLink.value))
       } else if (s.build?.state === 'failed') {
         clearInterval(pollTimer)
         setNotice('danger', '内容已保存，但站点构建失败，请到"发布状态"页查看原因。', '/status')
@@ -223,6 +225,7 @@ onMounted(async () => {
     let content = isNew.value ? '# 新页面标题\n\n' : ''
     if (!isNew.value) {
       const page = await getPage(pagePath.value)
+      pageLink.value = page.url
       if (page.exists) {
         content = page.content
         baseSha.value = page.sha
@@ -261,12 +264,12 @@ onBeforeUnmount(() => {
         </template>
         <template v-else>
           <span class="we-label">编辑</span>
-          <a :href="pageUrl(pagePath)" class="we-path" title="查看页面" @click.prevent="hardNavigate(pageUrl(pagePath))">{{ pagePath }}</a>
+          <a :href="pageUrl(pageLink)" class="we-path" title="查看页面" @click.prevent="hardNavigate(pageUrl(pageLink))">{{ pagePath }}</a>
           <span v-if="dirty" class="we-dirty">● 未保存</span>
         </template>
       </div>
       <div class="we-actions">
-        <a v-if="!isNew" :href="pageUrl(pagePath)" class="we-btn we-btn-alt" @click.prevent="hardNavigate(pageUrl(pagePath))">返回页面</a>
+        <a v-if="!isNew" :href="pageUrl(pageLink)" class="we-btn we-btn-alt" @click.prevent="hardNavigate(pageUrl(pageLink))">返回页面</a>
         <button class="we-btn" :disabled="!canEdit || saving || phase !== 'ready'" @click="save()">
           {{ saving ? '保存中…' : '保存 (Ctrl+S)' }}
         </button>

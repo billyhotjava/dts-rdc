@@ -3,15 +3,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { config } from './config.mjs'
 import { HttpError } from './pages.mjs'
+import { readRegistry } from './spaces.mjs'
 
 const REGISTRY = 'products.json'
 const SLUG = /^[a-z][a-z0-9-]{1,30}$/
 
 const registryPath = () => path.join(config.repoDir, REGISTRY)
-
-export function readRegistry() {
-  return JSON.parse(fs.readFileSync(registryPath(), 'utf8'))
-}
 
 function scaffold(name, description) {
   const docs = `# ${name} · 产品文档
@@ -50,7 +47,8 @@ export function createProduct({ slug, name, description }) {
 
   const base = `products/${slug}`
   if (fs.existsSync(path.join(config.repoDir, base))) throw new HttpError(409, 'PRODUCT_EXISTS', `目录 ${base} 已存在`)
-  const product = { slug, name, description, docs: `${base}/docs`, worklog: `${base}/worklog` }
+  // readers need the client role <client>:space-<slug>, granted to a group in Keycloak
+  const product = { slug, name, description, docs: `${base}/docs`, worklog: `${base}/worklog`, access: { role: `space-${slug}` } }
   const { docs, worklog } = scaffold(name, description)
   for (const [dir, content] of [[product.docs, docs], [product.worklog, worklog]]) {
     fs.mkdirSync(path.join(config.repoDir, dir), { recursive: true })

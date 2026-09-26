@@ -8,7 +8,8 @@ import { config } from './config.mjs'
 import { buildAndPublish, currentLiveSha } from './builder.mjs'
 import { commitPaths, headSha, isAncestor, syncWithRemote } from './git.mjs'
 import { HttpError, absPath, readPage, resolveContentPath, saveImage, writePage } from './pages.mjs'
-import { createProduct, readRegistry } from './products.mjs'
+import { createProduct } from './products.mjs'
+import { canAccessPath, canAccessProduct, productSlugOfUrl, readRegistry, siteUrl, visibleProducts } from './spaces.mjs'
 
 const status = {
   build: { state: 'idle', sha: null, message: '', time: null },
@@ -72,7 +73,12 @@ function identity(req) {
   const email = req.headers['x-forwarded-email'] || `${username || 'unknown'}@users.noreply.yuzhicloud.com`
   const groups = String(req.headers['x-forwarded-groups'] || '').split(',').map((g) => g.trim())
   const hasRole = (role) => groups.includes(role) || groups.includes(`role:${role}`)
-  return { username, email, canEdit: hasRole(config.editorRole), isAdmin: hasRole(config.adminRole) }
+  return { username, email, hasRole, canEdit: hasRole(config.editorRole), isAdmin: hasRole(config.adminRole) }
+}
+
+// Every content read/write is scoped to a space the user may access (products are role-gated).
+function requireSpace(user, rel) {
+  if (!canAccessPath(user, rel)) throw new HttpError(403, 'SPACE_FORBIDDEN', '你没有该产品空间的访问权限')
 }
 
 function requireEditor(user) {
@@ -119,7 +125,20 @@ async function handle(req, res) {
   const user = identity(req)
   const route = `${req.method} ${url.pathname}`
 
-  if (route === 'GET /api/me') return send(res, 200, user)
+  if (route === 'GET /api/me') {
+    const { hasRole, ...pub } = user
+    return send(res, 200, { ...pub, products: visibleProducts(user) })
+  }
+
+  // nginx auth_request: may this user load the requested site URL?
+  if (route === 'GET /api/authz') {
+    if (!user.username) return send(res, 401, { code: 'UNAUTHENTICATED' })
+    const target = new URL(String(req.headers['x-original-uri'] || '/'), 'http://wiki').pathname
+    const slug = productSlugOfUrl(target)
+    if (!slug) return send(res, 204, {})
+    const product = readRegistry().products.find((p) => p.slug === slug)
+    return send(res, product && canAccessProduct(user, product) ? 204 : 403, {})
+  }
   if (route === 'GET /api/status') {
     const live = currentLiveSha()
     const commit = url.searchParams.get('commit')
@@ -129,11 +148,13 @@ async function handle(req, res) {
 
   if (route === 'GET /api/page') {
     const rel = resolveContentPath(url.searchParams.get('path'), { extensions: ['.md'] })
-    return send(res, 200, readPage(rel))
+    requireSpace(user, rel)
+    return send(res, 200, { ...readPage(rel), url: siteUrl(rel) })
   }
 
   if (req.method === 'GET' && url.pathname.startsWith('/api/raw/')) {
     const rel = resolveContentPath(decodeURIComponent(url.pathname.slice('/api/raw/'.length)), { extensions: Object.keys(MIME) })
+    requireSpace(user, rel)
     const file = absPath(rel)
     if (!fs.existsSync(file)) throw new HttpError(404, 'NOT_FOUND', 'file not found')
     res.writeHead(200, { 'Content-Type': MIME[path.extname(rel).toLowerCase()], 'Cache-Control': 'no-cache' })
@@ -145,6 +166,7 @@ async function handle(req, res) {
     const create = req.method === 'POST'
     const { path: rawPath, content, baseSha, message } = await readJson(req)
     const rel = resolveContentPath(rawPath, { extensions: ['.md'] })
+    requireSpace(user, rel)
     if (typeof content !== 'string') throw new HttpError(400, 'CONTENT_REQUIRED', 'content must be a string')
     const result = await enqueue(async () => {
       const sha = writePage(rel, content, { baseSha, create })
@@ -156,12 +178,13 @@ async function handle(req, res) {
     })
     if (result.commit) scheduleBuild(`edit ${rel}`)
     log(`${user.username} ${create ? 'created' : 'edited'} ${rel} -> ${result.commit ?? 'no change'}`)
-    return send(res, create ? 201 : 200, { path: rel, ...result })
+    return send(res, create ? 201 : 200, { path: rel, url: siteUrl(rel), ...result })
   }
 
   if (route === 'POST /api/upload') {
     requireEditor(user)
     const pageRel = resolveContentPath(url.searchParams.get('page'), { extensions: ['.md'] })
+    requireSpace(user, pageRel)
     const contentType = String(req.headers['content-type'] || '').split(';')[0].trim()
     const body = await readBody(req, config.maxUploadBytes)
     const result = await enqueue(async () => {
@@ -176,7 +199,7 @@ async function handle(req, res) {
     return send(res, 201, { path: result.rel, link: result.link, commit: result.commit })
   }
 
-  if (route === 'GET /api/products') return send(res, 200, readRegistry())
+  if (route === 'GET /api/products') return send(res, 200, { products: visibleProducts(user) })
 
   if (route === 'POST /api/products') {
     if (!user.isAdmin) throw new HttpError(403, 'FORBIDDEN', `role ${config.adminRole} required`)
