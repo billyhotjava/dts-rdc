@@ -70,6 +70,12 @@
 └── CLAUDE.md                    # 本文件 — 项目入口
 ```
 
+## 文档放置规则
+
+- **与开发有关的文档一律放在 `worklog/`**：设计与方案、技术选型/spike 结论、Sprint/Feature/Task、验收证据（`it/`）、会议决策、非功能预算等，按 sprint-workflow 组织在对应 Sprint 的 Feature/Task 或 `assets/` 下。
+- **`docs/` 只放正式文档**：产品文档、用户手册、对外文档、运维 runbook 等可以交付或长期对外引用的内容。
+- 子仓库（dts-wiki、prs-stack 等）同样遵守：开发文档放 dts-rdc 的 `worklog/`（或该仓库自己的 `worklog/`），不放在代码仓库的 `docs/`。
+
 ## Key References
 
 - Infra design: `worklog/v1.0.0/docs/plans/2026-03-26-dts-infra-design.md`

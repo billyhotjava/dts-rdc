@@ -2,7 +2,7 @@
 
 **优先级**: P0 · **状态**: DRAFT
 
-> 实现方式：用 JHipster 9 按 `dts-wiki/jhipster/dts-wiki.jdl` 生成单体工程（设计 `dts-wiki/docs/design/02`、`03`）；
+> 实现方式：用 JHipster 9 按 `dts-wiki/jhipster/dts-wiki.jdl` 生成单体工程（设计 `../F0-基线与技术选型spike/design/02`、`03`）；
 > 下表为设计意图摘要，字段与关系以 JDL 为准。
 
 ## 目标
