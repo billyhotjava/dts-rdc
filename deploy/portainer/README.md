@@ -20,5 +20,5 @@ docker compose up -d
 # 回滚：停容器 → 恢复备份 → compose.yml 改回旧版本（或 2.18.2-rollback 标签）→ up -d
 ```
 
-## SSO（Keycloak realm `yuzhicloud`，client `portainer`）
-Settings → Authentication → OAuth → Custom，参数见 `deploy/sso/README`（待补）。
+## 账号
+纯运维工具，不对外、不接入 Keycloak SSO，使用 Portainer 本地管理员账号。

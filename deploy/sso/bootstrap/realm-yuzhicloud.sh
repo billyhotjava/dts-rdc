@@ -5,7 +5,7 @@
 #
 #   cd /data/dts-sso && . ./.env && WIKI_CLIENT_SECRET=$(grep WIKI_OIDC_CLIENT_SECRET /data/dts-wiki/.env | cut -d= -f2)
 #   docker exec -e LC_ALL=C.UTF-8 -e KC_BOOTSTRAP_ADMIN_PASSWORD="$SSO_ADMIN_PASSWORD" \
-#     -e WIKI_CLIENT_SECRET -e JIRA_CLIENT_SECRET -e PORTAINER_CLIENT_SECRET \
+#     -e WIKI_CLIENT_SECRET -e JIRA_CLIENT_SECRET \
 #     dts-sso-keycloak bash /opt/keycloak/bootstrap/realm-yuzhicloud.sh
 # The master admin password was changed after first start, so the container's own
 # KC_BOOTSTRAP_ADMIN_PASSWORD is stale: always pass the current one from .env.
@@ -13,6 +13,7 @@
 # The image has no awk; stick to grep/sed/cut.
 #
 # Migrates the earlier realm "yuzhi" (rename) and its realm-level wiki-* roles.
+# Portainer is intentionally NOT connected: it is an ops-only tool with local accounts.
 set -euo pipefail
 export LC_ALL=C.UTF-8 LANG=C.UTF-8
 KCADM=/opt/keycloak/bin/kcadm.sh
@@ -66,7 +67,6 @@ ensure_client() { # clientId name redirectUri webOrigin secret
 }
 ensure_client dts-wiki  "DTS Wiki"  "https://wiki.yuzhicloud.com/oauth2/callback"              "https://wiki.yuzhicloud.com" "${WIKI_CLIENT_SECRET:-}"
 ensure_client jira      "Jira"      "https://jira.yuzhicloud.com/plugins/servlet/oidc/callback" "https://jira.yuzhicloud.com" "${JIRA_CLIENT_SECRET:-}"
-ensure_client portainer "Portainer" "https://10.20.0.50:19443/*"                                 "https://10.20.0.50:19443"    "${PORTAINER_CLIENT_SECRET:-}"
 
 # ---- dts-wiki client roles ---------------------------------------------------------------
 WIKI=$(client_id dts-wiki)
