@@ -14,8 +14,8 @@ export const config = Object.freeze({
   editableRoots: (env.EDITABLE_ROOTS ?? 'docs,worklog').split(',').map((s) => s.trim()).filter(Boolean),
   maxUploadBytes: Number(env.MAX_UPLOAD_MB ?? 10) * 1024 * 1024,
   maxPageBytes: 2 * 1024 * 1024,
-  editorRole: env.EDITOR_ROLE ?? 'wiki-editor',
-  adminRole: env.ADMIN_ROLE ?? 'wiki-admin',
+  editorRole: env.EDITOR_ROLE ?? 'dts-wiki:editor',
+  adminRole: env.ADMIN_ROLE ?? 'dts-wiki:admin',
   committerName: env.COMMITTER_NAME ?? 'DTS Wiki',
   committerEmail: env.COMMITTER_EMAIL ?? 'wiki@yuzhicloud.com',
 })

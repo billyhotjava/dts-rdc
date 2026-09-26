@@ -4,9 +4,9 @@
 
 ```
 浏览器 → wiki.yuzhicloud.com → 阿里云 nginx(TLS) ──WireGuard──► 10.20.0.50:18090
-  wiki-auth  oauth2-proxy：Keycloak(sso.yuzhicloud.com, realm yuzhi) 登录，要求角色 wiki-reader
+  wiki-auth  oauth2-proxy：Keycloak(sso.yuzhicloud.com, realm yuzhicloud) 登录，要求 client 角色 dts-wiki:reader
   wiki-web   nginx：静态站点 site/current，/api → wiki-api
-  wiki-api   编辑/上传（需 wiki-editor）→ 本地 git commit（作者=登录用户）→ 5s 防抖重建发布
+  wiki-api   编辑/上传（需 dts-wiki:editor）→ 本地 git commit（作者=登录用户）→ 5s 防抖重建发布
              每 SYNC_INTERVAL 秒：fetch → rebase → push 到 GitHub；冲突时暂停同步并在 /status 告警
 开发者/AI：直接改 md 并 push 到 GitHub → wiki-api 下一轮同步拉取并重建
 ```
@@ -44,12 +44,14 @@ docker save dts-wiki-api:1 | gzip | ssh root@10.20.0.50 'gunzip | docker load'
 
 只有 `wiki/server/*.mjs` 变更时需要重建镜像；站点代码（`wiki/`）和内容随 git 更新。
 
-## 权限（Keycloak realm `yuzhi`）
-| 角色 | 能力 |
-|------|------|
-| `wiki-reader` | 登录后阅读（realm 默认角色，所有用户自动拥有） |
-| `wiki-editor` | 编辑、新建页面、上传图片 |
-| `wiki-admin` | 手动重建站点 |
+## 权限（Keycloak realm `yuzhicloud`，client `dts-wiki`）
+| client 角色 | 能力 | 默认授予 |
+|------|------|------|
+| `dts-wiki:reader` | 登录后阅读 | realm 默认角色，所有用户 |
+| `dts-wiki:editor` | 编辑、新建页面、上传图片 | 组"研发部"、"管理员" |
+| `dts-wiki:admin` | 手动重建站点 | 组"管理员" |
+
+新人：在 Keycloak 建用户并加入对应组即可，不需要逐个应用授权。
 
 ## 待办（安全阶段）
 - SSH 改密钥登录；.50 端口绑定收紧到 WireGuard 地址

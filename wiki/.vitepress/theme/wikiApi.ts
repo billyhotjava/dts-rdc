@@ -52,7 +52,7 @@ export const ERROR_TEXT: Record<string, string> = {
   EDIT_CONFLICT: '该页面已被他人修改',
   PAGE_EXISTS: '同名页面已存在',
   PAGE_NOT_FOUND: '页面不存在',
-  FORBIDDEN: '你没有编辑权限（需要 wiki-editor 角色）',
+  FORBIDDEN: '你没有编辑权限（需加入“研发部”或授予 dts-wiki:editor 角色）',
   UNAUTHENTICATED: '登录已失效，请刷新页面重新登录',
   PATH_NOT_EDITABLE: '只能编辑 docs/ 或 worklog/ 下的文档',
   EXTENSION_NOT_ALLOWED: '文件类型不允许',

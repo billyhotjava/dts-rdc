@@ -4,7 +4,7 @@ import { defineConfig, type DefaultTheme } from 'vitepress'
 
 const REPO_URL = 'https://github.com/billyhotjava/dts-rdc'
 const PUBLIC_URL = process.env.WIKI_PUBLIC_URL ?? 'https://wiki.yuzhicloud.com'
-const SSO_LOGOUT = 'https://sso.yuzhicloud.com/realms/yuzhi/protocol/openid-connect/logout'
+const SSO_LOGOUT = 'https://sso.yuzhicloud.com/realms/yuzhicloud/protocol/openid-connect/logout'
   + `?client_id=dts-wiki&post_logout_redirect_uri=${encodeURIComponent(PUBLIC_URL + '/')}`
 const LOGOUT_URL = `${PUBLIC_URL}/oauth2/sign_out?rd=${encodeURIComponent(SSO_LOGOUT)}`
 const BUILD_SHA = process.env.WIKI_BUILD_SHA ?? 'local'

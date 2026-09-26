@@ -274,7 +274,7 @@ onBeforeUnmount(() => {
     </header>
 
     <p v-if="me && !canEdit" class="we-notice we-warning">
-      你当前是只读权限（{{ me.username }}）。如需编辑，请联系管理员授予 wiki-editor 角色。
+      你当前是只读权限（{{ me.username }}）。如需编辑，请联系管理员把你加入“研发部”组。
     </p>
     <p v-if="draft" class="we-notice we-info">
       发现 {{ draft.time }} 未保存的草稿。
