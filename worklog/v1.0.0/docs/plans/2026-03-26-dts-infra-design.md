@@ -1,5 +1,7 @@
 # DTS-Infra Design Specification
 
+> 2026-09-26 状态说明：本文保留历史设计/审批记录。模块定位、实施顺序、首个 App 和本期运行方式以 [Sprint-5 承接映射](../../sprint-5-202610/assets/planning-reconciliation-20260926.md) 为准；ADR-5～12 尚待各 Task 定稿，本文的旧选型不能覆盖新 Sprint，也不能视为当前已实现。
+
 **Date**: 2026-03-26 (updated 2026-03-27)
 **Status**: DRAFT
 **Author**: AI-assisted collaborative design

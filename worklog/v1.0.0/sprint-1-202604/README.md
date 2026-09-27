@@ -1,7 +1,9 @@
 # Sprint-1: dts-infra bootstrap
 
+> 2026-09-26 复核：本目录及其 Feature/Task 状态均为 3 月规划快照，不是可执行 READY。以后续 [Sprint-5](../sprint-5-202610/README.md) 及其 [承接映射](../sprint-5-202610/assets/planning-reconciliation-20260926.md) 为准；未承接项留待后续重排。
+
 **时间**: 2026-04
-**状态**: READY
+**状态**: SUPERSEDED（历史规划，未执行，退出活动队列）
 **目标**: 从零搭建 dts-infra 仓库，实现 bootstrap 工具，完成"从空集群到 commander 运行"的全链路
 
 ## 背景
@@ -14,11 +16,11 @@ Sprint-1 聚焦 bootstrap 二进制 — 它是整个平台的第一个入口点�
 
 | ID | Feature | Task 数 | 状态 |
 |----|---------|---------|------|
-| F1 | 仓库初始化与项目骨架 | 3 | READY |
-| F2 | 环境预检 | 2 | READY |
-| F3 | GlobalPG 部署 | 2 | READY |
-| F4 | Commander 部署与交接 | 3 | READY |
-| F5 | Studio 后端骨架 | 5 | READY |
+| F1 | 仓库初始化与项目骨架 | 3 | 历史 READY（停用） |
+| F2 | 环境预检 | 2 | 历史 READY（停用） |
+| F3 | GlobalPG 部署 | 2 | 历史 READY（停用） |
+| F4 | Commander 部署与交接 | 3 | 历史 READY（停用） |
+| F5 | Studio 后端骨架 | 5 | 历史 READY（停用） |
 
 ## 完成标准
 - [ ] dts-infra 仓库结构完整（cmd/bootstrap, internal/bootstrap, proto, .skills, deploy/helm）

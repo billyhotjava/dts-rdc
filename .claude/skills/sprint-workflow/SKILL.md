@@ -45,6 +45,12 @@ worklog/v{x.y.z}/
       README.md
 ```
 
+## Cadence (overrides the flowchart below)
+
+- **One sprint per calendar month.** Directory `sprint-{N}-{YYYYMM}`; never create a second sprint for a month that already has one, and never let a sprint span months.
+- **A new requirement is not a new sprint.** "New objective" in the flowchart means *next month's planning*, not a mid-month request. Mid-month: new requirement / review finding / design revision → **new Task in an existing Feature** (current sprint or backlog). A new Feature only for a genuinely new workstream, confirmed at monthly planning; keep 4–8 Features per sprint.
+- **Backlog**: refined work that does not fit this month lives in `worklog/v{x}/backlog/features/BL-{X}-*/` (same Feature/Task format). At the start of each month, pull from the backlog into the new sprint; unfinished tasks go back to the backlog at month end.
+
 ## Decision Rules
 
 ```dot
