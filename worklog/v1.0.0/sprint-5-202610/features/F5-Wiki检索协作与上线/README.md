@@ -14,14 +14,14 @@
 |----|------|--------|--------|------|------|
 | [T01](T01-中文全文检索.md) | 中文全文检索 | Sprint-6 F7/T01 | P0 | DRAFT | F2/T03、F2/T10 |
 | [T02](T02-搜索筛选与结果页.md) | 搜索筛选与结果页 | Sprint-6 F7/T02 | P1 | DRAFT | T01 |
-| [T03](T03-收藏最近浏览标签.md) | 收藏、最近浏览、标签 | Sprint-6 F7/T03 | P2 | DRAFT | F3 |
+| [T03](T03-收藏最近浏览标签.md) | 收藏、最近浏览、标签 | Sprint-6 F7/T03 | P2 | DRAFT | F2/T06、F2/T10、F3/T02、F3/T13 |
 | [T04](T04-页面评论与回复.md) | 页面评论与回复 | Sprint-6 F8/T01 | P1 | DRAFT | F3/T02 |
-| [T05](T05-提及与关注.md) | @提及与关注 | Sprint-6 F8/T02 | P1 | DRAFT | T04、F2/T09 |
+| [T05](T05-提及与关注.md) | @提及与关注 | Sprint-6 F8/T02 | P1 | DRAFT | T04、F2/T09、F2/T10；编辑器接口由 F3/T06 消费 |
 | [T06](T06-站内通知与邮件通知.md) | 站内通知与邮件通知 | Sprint-6 F8/T03 | P1 | DRAFT | T05 |
-| [T07](T07-生产部署编排与非功能验证.md) | 生产部署编排与非功能验证 | Sprint-6 F9/T01 | P0 | DRAFT | F2/T04、F2–F4 |
+| [T07](T07-生产部署编排与非功能验证.md) | 生产部署编排与非功能验证 | Sprint-6 F9/T01 | P0 | DRAFT | F2/T04、F2/T08、F2/T12；完整压测还需本期 Wiki 功能可用 |
 | [T08](T08-备份恢复与runbook.md) | 备份恢复与 runbook | Sprint-6 F9/T02 | P0 | DRAFT | T07 |
-| [T09](T09-并行运行切换与回退.md) | 并行运行、切换与回退 | Sprint-6 F9/T03 | P0 | DRAFT | F4/T05、T08 |
-| [T10](T10-竖线验收与DoD.md) | 竖线验收与 DoD | Sprint-6 F9/T04 | P0 | DRAFT | T09 |
+| [T09](T09-并行运行切换与回退.md) | 并行运行、切换与回退 | Sprint-6 F9/T03 | P0 | DRAFT | F4/T05、T08、T10 阶段 A 切换前通过证据（不依赖 T10 整项 DONE） |
+| [T10](T10-竖线验收与DoD.md) | 竖线验收与 DoD | Sprint-6 F9/T04 | P0 | DRAFT | 阶段 A：T01～T08、本期 F2/F3/F4 交付（含 F3/T16、F4/T05 两阶段）；阶段 B：T09 切换完成 |
 
 > 新需求或 review 发现的问题：在本表追加 Task（编号顺延），不新建 Feature。
 

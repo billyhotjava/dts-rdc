@@ -16,13 +16,14 @@
   2. 阅读 `CopilotChatContract.java` 的组装逻辑，以及前端的 `copilotStreamReducer.ts`、`MessageList.tsx`、`copilotFixedReportMessage.ts`，确定每种 `responseKind` 和 block 类型的字段；
   3. 编写 `ui-message.v1.schema.json`（包括流式事件 `StreamEvent = oneOf{delta, block, evidence, done, error}`），用样本集校验，直到 100% 通过；
 - **后端**：`CopilotChatContract` 输出后在测试中用 schema 校验（契约测试）；运行时不做校验（性能考虑），但在 dev profile 下开启校验并打印警告；
-- **TS 包**：`dts-studio/protocol/dap/ts/` 使用 `json-schema-to-typescript` 生成 `index.d.ts` 与类型守卫；以 `@dts/agent-ui-contract@1.0.0` 的形式发布（发布方式遵循 ADR-010 的互操作约定：通过 npm 私有源或 git tag 依赖）；
-- **前端改造**：webapp 中手写的消息类型改为 import 生成的类型；如果 `MessageList` 遇到未知 block 类型，渲染"不支持的内容"占位（向前兼容）；
+- **与 10 月契约对齐**：对照 `console-contracts-v1` 的 workspace REST/SSE 结构逐字段登记语义映射；领域消息 Schema 是 engine 输出源，Console OpenAPI 是 BFF 输出源，两者由 BL-C/T02 显式适配，不反向重写已冻结契约或维护重复手写 DTO。
+- **TS 包**：`dts-studio/protocol/dap/ts/` 使用 `json-schema-to-typescript` 生成 `index.d.ts`；运行时校验器从同一 Schema 单独生成/编译并测试，声明文件不是运行时校验；以 `@dts/agent-ui-contract@1.0.0` 的形式发布（发布方式遵循 ADR-010 的互操作约定：通过 npm 私有源或 git tag 依赖）；
+- **前端改造**：Console 工作台及 F6/T14 吸收模块使用对应层的生成类型，共享领域块从契约包导入；如果 `MessageList` 遇到未知 block 类型，渲染"不支持的内容"占位（向前兼容）；
 - **prs 侧**：在 prs sprint-queue 的 Sprint-2 输入中登记"消费 `@dts/agent-ui-contract`"（T21 一并处理）。
 
 ## 验证（RED→GREEN）
 - [ ] 样本集 100% 通过 schema 校验
-- [ ] webapp `tsc --noEmit` 通过；消息渲染截图与改造前一致（空会话 / 流式中 / 错误 / 成功，含表格、图表、动作建议）
+- [ ] Console `tsc --noEmit` 通过；消息语义与 F6/T05 原型契约及场景一致（空会话 / 流式中 / 错误 / 成功，含表格、图表、动作建议）
 
 ## Definition of Done
 - [ ] 包 1.0.0 已发布；前端删除手写重复类型

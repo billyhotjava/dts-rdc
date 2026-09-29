@@ -1,5 +1,7 @@
 # DTS-Infra Design Specification
 
+> **2026-09-29 已被取代**：dts-infra 新设计见 [`sprint-5-202610/features/F7-dts-infra-K8s交付底座/design/00-dts-infra-K8s交付底座设计.md`](../../sprint-5-202610/features/F7-dts-infra-K8s交付底座/design/00-dts-infra-K8s交付底座设计.md)（ADR-014：Go `dtsctl` + 品牌化 RKE2 + 离线包唯一路径 + ACK 兼容）。本文仅作历史参考，不得作为实施依据。
+
 > 2026-09-26 状态说明：本文保留历史设计/审批记录。模块定位、实施顺序、首个 App 和本期运行方式以 [Sprint-5 承接映射](../../sprint-5-202610/assets/planning-reconciliation-20260926.md) 为准；ADR-5～12 尚待各 Task 定稿，本文的旧选型不能覆盖新 Sprint，也不能视为当前已实现。
 
 **Date**: 2026-03-26 (updated 2026-03-27)

@@ -1,5 +1,7 @@
 # 产品规划落地与文档校验（2026-09-27）
 
+> 历史快照：本文保留当次统计、发现与结论，不作为当前 Task 数、状态或依赖证明。最新复核及修订结果见 [2026-09-27 文档复核](review-planning-20260927.md)；排期以最新产品规划和队列为准。
+
 范围：[产品能力规划](../../docs/plans/2026-09-27-product-capability-roadmap.md)、版本/Sprint 队列、相关 Feature/Task、验收索引及历史产品说明的适用性提示。本轮只修改 worklog 文档，没有实现、构建、部署产品，也没有把业务验证标记为通过。
 
 ## Review 结论与承接
@@ -54,3 +56,7 @@ Stack 权威仓库/构建路径、实施 ADR 接受、在营口径和独立 orac
 | Wiki 本月收口 | backlog 待细化条目"Wiki MCP 服务"细化为 Sprint-5 F3/T16（READY），Sprint-5 变为 68 Task |
 | 去掉容量措辞 | 删除"按容量拉入 / 超容量后排 / 10-20 评审退回 backlog / 候选月份"等表述；安全、审计、测试与回归不删减的约束保留 |
 | 规则 | `sprint-queue.md` 迭代节奏规则新增第 6 条：Sprint 紧凑连贯、不为单个 Feature 开 Sprint；第 3 条改为 backlog 月初整体转入 |
+
+## copilot webapp 不迁移（09-28 文档承接 09-27 决定）
+
+旧前端不进入 studio，F6/T14 选择性吸收；回退采用 Console/BFF 兼容版本组合，后端并行安排保留。当前 83/69 项以 [09-28 复核记录](review-planning-20260928.md) 为准，本文前面的 09-27 统计是历史快照。

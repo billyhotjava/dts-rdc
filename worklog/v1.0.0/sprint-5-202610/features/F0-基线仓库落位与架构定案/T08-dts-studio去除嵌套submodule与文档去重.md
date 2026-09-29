@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F1/T03（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P0
-**状态**: READY
+**状态**: IN_PROGRESS
 **依赖**: 无
 
 ## 目标
@@ -31,3 +31,7 @@
 
 ## Definition of Done
 - [ ] studio 推送成功，RDC 更新 studio gitlink
+
+## Implementation checkpoint (2026-09-29)
+
+Removed empty nested gitlinks and 11 byte-identical evolution files on the Studio feature branch. Retained the differing product specification. Entry documents now point to the active RDC plan. Remote/main promotion and RDC gitlink update remain pending; this Task is not DONE. See [the evidence](../../assets/studio-refactor-20260929.md).

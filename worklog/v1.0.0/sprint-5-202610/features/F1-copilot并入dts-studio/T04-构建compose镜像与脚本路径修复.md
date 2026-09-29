@@ -1,30 +1,35 @@
-# T04: 构建、compose、镜像与脚本路径修复
+# T04: 构建、镜像与交付路径修复
 
-**原编号**: Sprint-5 F3/T04（2026-09-26 按月度 Sprint 整合重编号）
+**原编号**: Sprint-5 F3/T04（2026-09-26 按月度 Sprint 整合重编号；保留文件名以稳定引用）
 
 **优先级**: P0
-**状态**: DRAFT
-**依赖**: T03
+**状态**: IN_PROGRESS
+**依赖**: T03；正式交付适配消费 F7/T02、T25
 
 ## 目标
-engine 在新位置能用正式入口完成"构建 → 镜像 → compose 启动 → 健康检查"，镜像名切换到 studio 命名，同时保证旧名可用一个版本周期。
+engine 在新位置具备独立的后端构建、测试和打包入口；镜像与正式部署路径按 ADR-014/F7 收口。旧 Compose 仅保留来源参考，不作为 Studio 正式交付或回退入口。
 
 ## 技术设计
-- **需要修改的内容**（原路径 → 新路径，见账本#21）：
-  1. `engine/build.sh`、`engine/dev.sh`、`engine/start.sh`、`engine/smoke-test.sh`、`engine/scripts/*.sh`：修正相对路径（模块目录改名后的影响）；
-  2. `engine/docker-compose.yml`：
-     - `build.context` 指向新目录；
-     - 镜像：`${IMAGE_STUDIO_ENGINE_AI:-dts-studio-engine-ai:${TAG}}`，同时 `docker tag` 旧名 `dts-copilot-ai:${TAG}` 用于兼容；
-     - 新旧部署使用不同 compose project、容器名、端口及数据卷；原容器名保留给旧部署。兼容网络别名限于各自网络，禁止同一网络内歧义解析，在 `assets/rename-debt.md` 登记切换映射；
-  3. `imgversion.conf`：新增 studio 镜像键，旧键保留并注明 deprecated；
-  4. 前端 `webapp/vite.config.ts` 的代理和 `nginx` 配置（`webappNginx.test.ts` 有测试，需要跑通）；
-  5. `.github/` CI（如果 copilot 仓库有）迁到 studio 根目录的 `.github/workflows/engine.yml`，路径过滤 `engine/**`；
-  6. GitNexus：`npx gitnexus analyze` 在 studio 上重建索引（copilot 原有 `.gitnexus/`）。
-- **错误路径**：外部系统（例如老 rs-gateway 路由，见 copilot README "与园林管理平台对接"）通过容器名访问 → 保持旧部署的入口，通过明确路由切换到新部署；不能让新容器复用全局旧名造成并行启动冲突。
+- 根目录 `build.sh` 委托 `engine/build.sh`，支持 `verify`、`package`，默认执行完整后端测试；不加载运行 `.env`，不构建旧 webapp，不启动业务服务。
+- `engine/scripts/with-test-postgres.sh` 为现有 JSONB 用例创建独立测试数据库：随机 loopback 端口、tmpfs、显式测试身份，覆盖继承的 `PG_*`；成功和失败均清理本次创建的容器。离线使用预载镜像，不隐式 pull。
+- Maven module 路径为 `engine-ai` / `engine-analytics`；Java 包名和 artifactId 保持原值。两处测试的 worklog 资源引用改到 `worklog-history`，保持原有断言。
+- 原部署脚本、Compose 和服务配置迁至 `engine/deploy/legacy/`，明确不能直接作为新部署命令使用；历史版本调整随导入保留。
+- **仍待实现**：按 F7/T02 规范向 T25 提供 Studio 镜像、chart 配置及健康探针；镜像命名采用 `dts-studio-engine-ai`，过渡 analytics 的部署范围受 ADR-006 约束。旧 webapp 不进入镜像或 chart。
+- **仍待实现**：CI 调用相同构建入口，记录受测 SHA、镜像标识和制品清单；索引在迁移后按需要重建。不得以 Maven 测试通过代替镜像或 K8s 验收。
 
 ## 验证
-- [ ] `./build.sh` 成功，`docker compose up -d` 之后 `curl :8091/actuator/health` 与 `:8092/api/health` 返回 UP
-- [ ] webapp 可以打开工作台（截图）
+- [x] `/data/dts-studio/build.sh verify` 成功，610 个后端用例无失败/跳过，两份可执行 JAR 产出。
+- [x] 受测代码与记录的 Studio SHA 一致；源仓库及 7 项原有修改保持不变。
+- [x] 测试数据库失败退出保留原退出码，容器已清理，不接触业务库。
+- [ ] 镜像构建与 F7/T25 chart/健康检查验证。
+- [ ] CI 对当前分支执行并保留结果。
+- [ ] F0/T02 固定上下文下 API/SSE 回归；由 T06 联合记录。
 
 ## Definition of Done
-- [ ] 证据进入 `it/IT-02-studio-build.md`
+- [ ] 构建、镜像、CI 与交付接口验证完成，证据进入 `it/IT-02-studio-build.md`；正式部署状态另由 F7/BL-E 记录。
+
+## Implementation checkpoint (2026-09-29)
+
+Root/engine build entry and disposable PostgreSQL harness implemented; both backend JARs built. Legacy deployment files are references only; image/chart/CI delivery remains pending with F7/T25.
+
+Evidence: [implementation record](../../assets/studio-refactor-20260929.md), [IT-02](../../it/IT-02-studio-build.md).

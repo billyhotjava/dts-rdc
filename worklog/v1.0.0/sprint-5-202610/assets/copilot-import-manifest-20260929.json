@@ -1,0 +1,22 @@
+{
+  "source_sha": "719c6d3c0aee476aab417e4ae01ae18356dae170",
+  "source_branch": "main",
+  "source_commits": 150,
+  "history_sha": "25fac83f5a1b3a0bfa180b8f3ec19cfd3cce5a73",
+  "import_sha": "2828d5602e0d26228071fb0b22e1bc4f34472317",
+  "tree_sha": "917c66a4ff0db08f6feefef6add2bc01296f2071",
+  "mapped_files": 1744,
+  "excluded_files": 478,
+  "tags": [],
+  "import_tags": [],
+  "overlays": {
+    "README.md": "3b021cbd9a3d134c7c76649fbe4ea1ff9849831681720c27d892e2edd26797ca",
+    "build.sh": "e291de35b56b5fb2cea009939097c69bc78ed38cae8cd732d345395666935299",
+    "dev.sh": "4ae7b2e91250d19fc72e74cb9d9b2485a39b1a94e09e3bf127c7901046cec549",
+    "docker-compose.yml": "7065b1e7fe55b61caf884bcc0e6fb39dbed6a99abf503c99e6a0f2848e9ba7e5",
+    "imgversion.conf": "3b05bffc242688d680793898b38ebb174b8258f45b3b1604f2903b2fbb3ea808",
+    "start.sh": "3fdb4c02b2f8288ca1f3615eb337a05dfa09802a14fdbdea498ff4b304d34026",
+    "scripts/load-env.sh": "e69a6425c8f27bcc1270e7b7f937aa4582f55d348b7ad1508d100d7e03414120"
+  },
+  "source_unchanged": true
+}

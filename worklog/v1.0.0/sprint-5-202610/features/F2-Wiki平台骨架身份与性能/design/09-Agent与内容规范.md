@@ -71,7 +71,7 @@ CommonMark 0.31 + GFM：表格、任务列表 `- [ ]`、删除线 `~~`、自动�
 | `title` | 字符串 | 可选；缺省取正文第一个 `# 标题` |
 | `status` | 枚举 | 按类型取值（§3.2） |
 | `owner` | 字符串 | Keycloak 登录名（如 `xiezm`） |
-| `tags` | 字符串数组 | 自由标签（与 wiki 标签 Label 同步显示，但以 frontmatter 为准） |
+| `tags` | 字符串数组 | 自由标签；frontmatter 为唯一写入源，page_meta/Label 仅派生，见 design/02 §6 与 F5/T03 |
 | `related` | 字符串数组 | 相关文档的 `id` |
 
 规则：键名小写蛇形或短横线（统一用 `snake_case`）；未知键允许（`additionalProperties: true`），已知键必须符合类型；日期一律 `YYYY-MM-DD`。
@@ -92,8 +92,8 @@ owner: xiezm
 **feature**（Feature README）
 ```yaml
 type: feature
-id: S6/F5                          # ^S[0-9]+/F[0-9]+$
-sprint: sprint-6
+id: S5/F4                          # 或 BL-A
+sprint: sprint-5
 title: Git 双向同步
 status: IN_PROGRESS
 priority: P0                       # P0 | P1 | P2
@@ -103,13 +103,13 @@ owner: xiezm
 **task**（Task 文件）
 ```yaml
 type: task
-id: S6/F4/T03                      # ^S[0-9]+/F[0-9]+/T[0-9]{2}$
-feature: S6/F5
+id: S5/F4/T03                      # 或 BL-A/T03，必须与 feature 前缀一致
+feature: S5/F4
 title: git → wiki 入站同步
 status: READY                      # DRAFT | READY | IN_PROGRESS | DONE | BLOCKED
 priority: P0
 owner: muse-spark                  # 人或 Agent 名
-depends: [S6/F4/T02]
+depends: [S5/F4/T02]
 estimate: 2d                       # 可选
 blocked_reason: ""                 # status=BLOCKED 时必填
 ```
@@ -148,7 +148,7 @@ date: 2026-10-20
 - 看板/列表视图（backlog）：直接基于 `page_meta` 查询，例如"Sprint-5 所有 IN_PROGRESS 的 task"。统计数字由系统计算，文档中不再手写统计。
 
 ### 3.5 存量文档迁移（W12，见 10）
-现有 worklog 中以正文 `**状态**: DRAFT`、`**优先级**: P0`、`**依赖**: …` 表达的信息，由迁移脚本转为 frontmatter 并删除正文中的对应行；脚本幂等、先出 dry-run 报告，经需求方确认后以一个提交在 dts-rdc 中执行；sprint-workflow 技能模板同步改为 frontmatter 形式。
+现有正文元数据提取到 frontmatter，但默认保留全部原行及说明；支持 BL/跨 Sprint ID、范围、aliases 与 depends_note，不能无损解析的条件保留并人工核对。具体规则以 10 §7 为准；脚本先 dry-run，确认后执行，迁移前后核对状态、ID 和依赖语义守恒。模板只更新仓库版本。
 
 ## 4. 图即代码
 
@@ -212,8 +212,8 @@ PNG/JPG 截图仍可作为普通图片；**架构、流程类图禁止只提交�
 | 空间索引 | `GET /api/wiki/spaces/{slug}/llms.txt` → 纯文本 | §5.3 |
 | 保存 | 沿用 `PUT /api/wiki/pages/{id}/content`（带 `baseVersionNo`），新增可选请求头 `X-Wiki-Agent: <agent 名>` | 版本记录 `viaAgent` |
 
-### 5.2 backlog（目标 2026-11 Sprint）：MCP 服务
-MCP 服务（`dts-wiki-mcp`，可作为同一 jar 内的 Streamable HTTP 端点 `/mcp`，或独立进程）暴露工具：
+### 5.2 本月 F3/T16：MCP 服务（2026-09-27 调入）
+MCP 服务（同一 jar 内 Streamable HTTP 端点 `/mcp`，不另建进程）暴露工具：
 
 | 工具 | 输入 | 输出 |
 |------|------|------|

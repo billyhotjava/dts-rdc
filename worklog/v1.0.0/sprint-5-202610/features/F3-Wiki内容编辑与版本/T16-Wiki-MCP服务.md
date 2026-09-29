@@ -2,7 +2,7 @@
 
 **原编号**: 新增（2026-09-27，由 backlog 待细化条目转入；设计见 `design/09` §5.2，使 Wiki v1 在本 Sprint 内收口）
 
-**优先级**: P1 · **状态**: READY · **依赖**: T15（Agent 只读接口与 `viaAgent`）、T04（乐观并发保存）、T14（archify 产物规则）、F2/T10（空间权限矩阵）
+**优先级**: P1 · **状态**: DRAFT · **依赖**: T15（Agent 只读接口与 `viaAgent`）、T04（乐观并发保存）、T14（archify 产物规则）、F2/T10（空间权限矩阵）、F5/T01（检索服务）
 
 ## 目标
 Agent 通过 MCP（Streamable HTTP `/mcp`，与应用同一 jar）以**代表某个用户**的身份检索、读取、查询、更新和新建 Wiki 页面；权限等于该用户的空间权限，版本作者为该用户，`viaAgent` 记录 Agent 名。
@@ -32,3 +32,9 @@ Agent 通过 MCP（Streamable HTTP `/mcp`，与应用同一 jar）以**代表某
 ## Definition of Done
 - [ ] 证据写入 `../../it/wiki/W6.5-diagram-agent.md`（MCP 小节）
 - [ ] 无占位证据
+
+## Ready 前置与授权边界
+
+T14/T15 与 F5/T01 消费接口须可用；个人令牌/令牌交换目前为待定实现，须在本 Task 开始阶段确认发行者、audience、scope、过期/撤销和用户映射，形成可测试方案后再转 READY。`X-Wiki-Agent` 只作署名元数据，不能证明用户身份；禁止由工具参数提供可信 user/role。
+
+检索服务可独立于 MCP 完成，不让 F5/T01 反向依赖本 Task；写工具复用现有写权限、乐观并发与 STRICT 校验。测试覆盖错 issuer/audience、过期/撤销令牌、伪造身份头和跨空间访问，不仅是成功令牌。

@@ -14,7 +14,7 @@
 
 | 序 | ID | Feature | Task 数 | 优先级 | 目标月份 | 来源 |
 |----|----|---------|---------|--------|----------|------|
-| 1 | [BL-A](features/BL-A-AppPack运行时与领域资产外置/README.md) | AppPack运行时与领域资产外置 | 22 | P0 | 2026-11（W1–W3；T22 在 W2） | 原 AppPack / 领域资产 / DAP；新增 DTS-C02 探索 |
+| 1 | [BL-A](features/BL-A-AppPack运行时与领域资产外置/README.md) | AppPack运行时与领域资产外置 | 22 | P0 | 2026-11（W1–W4；T18 安全依赖完成后，T22 W2 探索/W4 收口） | 原 AppPack / 领域资产 / DAP；新增 DTS-C02 探索 |
 | 2 | [BL-S](features/BL-S-铁律安全基座-网关出口审计/README.md) | 铁律安全基座-网关出口审计 | 18 | P0 | 2026-11（W1–W3，含完整审计） | 原统一身份、数据出口与审计 |
 | 3 | [BL-D](features/BL-D-数据中台收敛-BI口径Finance/README.md) | 数据中台收敛-BI口径Finance | 17 | P0（首个数据场景）/P1（其余） | 2026-11（W1–W4） | 原收敛任务；新增 DTS-C01 数据产品 |
 | 4 | [BL-C](features/BL-C-Console-BFF与真实数据接入/README.md) | Console-BFF与真实数据接入 | 8 | P0 | 2026-11（W2 骨架，W3 页面接入，W4 全量切换） | 新增（ADR-013：UI 驱动 BFF） |
@@ -23,13 +23,13 @@
 **依赖**: BL-A 依赖 Sprint-5 F0（ADR-005/012）与 F1；BL-S 依赖 ADR-008/009；BL-D 口径/数据产品依赖 ADR-007，BI 收敛另依赖 ADR-006。BL-E/T01 阶段 A 仅依赖首个场景链，阶段 B 依赖当期全部发布范围，详见其 Task。
 **关键路径**（原 Sprint-5）: F0/T01 → F0/T07 → F0/T12 → F1/T03 → BL-A/T04 → BL-A/T09 → BL-S/T09 → BL-E/T01
 
-**当前选取原则**：[产品能力规划](../docs/plans/2026-09-27-product-capability-roadmap.md) §4 优先一个 PRS 数据场景，跨 BL-A/BL-S/BL-D/BL-E 拉入完整切片，不逐个做完整个 Feature 才联调。共 **5 Feature / 69 Task，全部 DRAFT**，全部计划于 Sprint-6（2026-11）完成，周次见规划 §4。审计最小链与场景一起交付，不以早期试点为由后置。
+**当前选取原则**：[产品能力规划](../docs/plans/2026-09-27-product-capability-roadmap.md) §4 优先一个 PRS 数据场景，跨 BL-A/BL-S/BL-D/BL-C/BL-E 拉入完整切片，不逐个做完整个 Feature 才联调。共 **5 Feature / 69 Task，全部 DRAFT**，全部计划于 Sprint-6（2026-11）完成，周次见规划 §4。审计最小链与场景一起交付，不以早期试点为由后置。
 
 ## 待细化条目（尚无 Task 文件）
 
 | 条目 | 归属 | 目标月份 | 出处 |
 |------|------|----------|------|
-| Wiki 看板/列表视图（基于 `page_meta`） | 同上 | 待定 | 同上 §3.4 |
+| Wiki 看板/列表视图（基于 `page_meta`） | Wiki 后续规划 | 待定 | Sprint-5 F2/design/10 §3.4 |
 | Wiki RAG 生产接入（探索已细化为 BL-A/T22；此行仅指后续实现） | BL-A / studio 知识中心 | T22 结论后评估，非 v1.0.0 必达 | DTS-C02；Sprint-5 Wiki 非目标 |
 
 ## 版本级完成标准（Sprint-6 验收）
@@ -38,7 +38,7 @@
 - [ ] **安全**：红队 SQL 用例集（≥40 条）全部被拦截或在只读事务中失败；跨租户查询 0 行；无租户上下文时 fail-closed（BL-S）。
 - [ ] **UI**：alice 在 DTS Console 工作台完成提问，看到答案、证据等级与审计号（四态截图）；Pack 管理页可查看已安装 Pack（Sprint-5 F6 原型，BL-C 接真实数据，BL-E/T01 验收）。
 - [ ] **竖线**：在运行实例上完成主竖线（契约链见 `sprint-5-202610/README.md` §端到端契约链），Kafka 中可查到对应审计事件（BL-E/T01）。
-- [ ] **可回退**：旧 copilot 部署在切换窗口内保留，可一键切回（BL-E/T02）。
+- [ ] **可回退**：旧 copilot 后端按兼容方案并行；前端回退为已验证 Console/BFF 组合，首版撤回新入口并保留原业务路径（BL-E/T02）。
 - [ ] **业务一致性**：同主体/租户/快照/指标版本下，PRS 原页面/API 与 AI 的项目集合及计数一致，来源、新鲜度、质量异常与无权限有明确反馈（BL-D/T17）。
 - [ ] **价值证据**：保留人工/API 与 AI 同批任务的时间、成功率、纠正次数及成本；未知项明确未测，不以搬仓、表数或服务数充当客户收益（BL-E/T01）。
 - [ ] **知识范围**：10 月授权读取接口与后续 RAG 探索分别记状态；探索结论不计生产知识问答上线。

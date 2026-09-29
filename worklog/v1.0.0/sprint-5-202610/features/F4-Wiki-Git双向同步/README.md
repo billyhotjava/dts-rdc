@@ -15,29 +15,14 @@
 | [T01](T01-同步模型定稿与状态机.md) | 同步模型定稿与状态机 | Sprint-6 F5/T01 | P0 | DRAFT | F2/T06 |
 | [T02](T02-空间同步配置与deploy-key管理.md) | 空间同步配置与 deploy key 管理 | Sprint-6 F5/T02 | P0 | DRAFT | T01 |
 | [T03](T03-git到wiki入站同步.md) | git → wiki 入站同步 | Sprint-6 F5/T03 | P0 | DRAFT | T02 |
-| [T04](T04-wiki到git出站同步.md) | wiki → git 出站同步（含改名/删除/附件） | Sprint-6 F5/T04 | P0 | DRAFT | T02、F3/T03 |
-| [T05](T05-首次导入与现网内容迁移.md) | 首次导入与现网内容迁移 | Sprint-6 F5/T05 | P0 | DRAFT | T03 |
+| [T04](T04-wiki到git出站同步.md) | wiki → git 出站同步（含改名/删除/附件） | Sprint-6 F5/T04 | P0 | DRAFT | T03、F3/T03 |
+| [T05](T05-首次导入与现网内容迁移.md) | 首次导入与现网内容迁移 | Sprint-6 F5/T05 | P0 | DRAFT | T03、T04、T06、F3/T13 |
 | [T06](T06-冲突检测三方合并与同步监控.md) | 冲突检测、三方合并界面与同步监控页 | Sprint-6 F5/T06 | P0 | DRAFT | T03、T04 |
 
 > 新需求或 review 发现的问题：在本表追加 Task（编号顺延），不新建 Feature。
 
-## 来源规格：Sprint-6 F5 Git 双向同步
+## 执行契约
 
-> 以下为整合前 Feature 的契约 / UI / DoR / 完成标准，原样保留；其中的 Task 编号已按上表重编号。
+同步算法以 F2/design/04 为唯一详细设计，迁移顺序及无损规则见 design/10 §5、§7。工作副本由同步器独占，使用已选 ShedLock；先完整入站再物化 outbox，推送拒绝须重新吸收远端变化，操作 ID 与 checkpoint 的确认必须幂等。
 
-### 目标
-每个空间可配置一个 git 仓库和若干同步根（如 DTS：dts-rdc 的 `docs`、`worklog`；PRS：prs-stack 的 `worklog`）。
-同步根下的 Markdown 与附件与 wiki 双向一致；两边同时修改时不静默覆盖。
-
-### 同步模型（W-ADR-7）
-```
-                 ┌──────────── wiki (PG, 事实源) ────────────┐
- 网页编辑 ─► page_version(source=WEB) ─► 出站队列 ─► 工作副本 commit(作者=用户) ─► rebase ─► push
- git push ─► fetch ─► diff(last_synced_commit..origin) ─► 逐文件：
-               · wiki 侧自上次同步未改 → 新版本(source=GIT, git_commit=sha)
-               · wiki 侧也改了且内容不同 → sync_conflict（保存 git 版本），page.sync_status=CONFLICT
-               · 内容相同 → 仅推进同步点
-```
-- 同步点：每个 (空间, 同步根) 记录 `last_synced_commit`；wiki 出站提交成功推送后也推进。
-- 工作副本：服务器上每个仓库一个本地 clone（`/data/dts-wiki-v2/repos/<repo>`），只由同步器进程操作（PG advisory lock 保证单实例）。
-- 冲突解决：界面三方对比（基线 / wiki 版 / git 版），人工合并后产生 `source=MERGE` 版本并正常写回 git。
+T01～T04/T06 同步基础验证后执行 T05 的原文导入和 W12 元数据迁移，再交付 F5/T10-A 切换前验收。故障或待人工冲突期间显示实际延迟，不承诺无条件 60 秒收敛。

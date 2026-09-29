@@ -1,19 +1,23 @@
-# Sprint-5（2026-10）：四模块合并落位 + DTS Wiki v1 上线
+# Sprint-5（2026-10）：四模块合并落位 + Wiki v1 上线 + Console 原型
 
 **时间**: 2026-10-01 ～ 2026-10-31（月度 Sprint；10-01～10-07 国庆假期，实际工作日约 17 天）
 **状态**: IN_PROGRESS（Wiki 工作流已于 9 月末先行完成 W0–W4；四模块工作流 F0/T05 已完成）
 **类型**: Architecture / Repository Consolidation / Implementation
-**目标**（两条工作流，均须在 10-31 前可验收）:
+**目标**（四条工作流；A–C 须在 10-31 前可验收，D 的本月范围见下）:
 - **工作流 A · 四模块合并（F0–F1）**：dts-rdc 的 submodule 指向真实仓库与提交，dts-prs 进入 prs-stack 版本控制，密钥出库；
   ADR-005～010 定稿；copilot 以保留历史的方式并入 dts-studio，构建可用且回归结果与冻结基线等价。
 - **工作流 B · DTS Wiki v1（F2–F5）**：团队成员用统一账号登录 `wiki.yuzhicloud.com`，在有权限的产品空间浏览、搜索、编辑、追溯页面；
-  内容以 PostgreSQL 为唯一事实源，与各产品 git 仓库的 `docs/`、`worklog/` 1 分钟内双向同步，冲突不静默覆盖；现网 wiki 切换下线且可回退。
+  内容以 PostgreSQL 为唯一事实源，与各产品 git 仓库的 `docs/`、`worklog/` 1 分钟内双向同步，冲突不静默覆盖；现网 wiki 经完整验收后切换，回退时保留 PG 独有数据与待同步修改。
+- **工作流 C · Console 原型（F6）**：按 ADR-013 完成约定路由与页面动作的 mock 原型，10-23 冻结 REST/SSE 契约和下游责任映射，供 11 月 BL-C 接入真实数据。
+- **工作流 D · dts-infra K8s 交付底座（F7，2026-09-29 新增）**：放弃 dts-stack 运维体系，dts-infra 以 Go + 品牌化 RKE2（Rancher 开源生态）为底座，离线包为唯一交付路径，兼容阿里云 ACK；v1.0.0 以 K8s 交付且不保留 Compose 回退（ADR-014）。本月可验收：ADR-014 定稿、chart/契约规范、总部制品中心与验证环境、估算收敛 spike（F7/T01～T04）；其余 Task 按月度规则随 Feature 转入 Sprint-6。按工作量规划，核心约 505–770 人天，**v1.0.0 发布日期以 F7/T33 验收为前提，可能顺延**（用户 2026-09-28 接受）。
 
 **节奏规则**: 一个自然月一个 Sprint；新需求优先追加为既有 Feature 的 Task，不临时新建 Feature/Sprint（详见 [`sprint-queue.md`](../sprint-queue.md) §迭代节奏规则）。
-本月容量之外的四模块工作（原"波次 B/C"：AppPack 运行时、安全基座、数据中台收敛、竖线验收）已移入 [`backlog/`](../backlog/README.md)，11 月初规划 Sprint-6 时按优先级拉入。
+后续实现（AppPack、安全基座、数据能力收敛、Console BFF、集成与发布）已移入 [`backlog/`](../backlog/README.md)，11-02 整体转入 Sprint-6，按依赖交付同一业务场景。
+
+**2026-09-29 studio 重构优先级确认**：用户确认先重构 dts-studio。沿用 [F1（首阶段入口）](features/F1-copilot并入dts-studio/README.md) 承接 copilot 引擎迁入与回归，后续 AI 运行时和领域解耦由 BL-A 承接，BL-S/BL-D/BL-C/BL-E 配套完成首个真实场景；不重复新建 Feature。F0 的具体前置仍须闭合，stack 同步提供最小数据接口，完整湖仓重构不作为 studio 启动条件。取数职责和 ADR-014 交付边界的待修订项见 F1；本次不调整任务状态、数量或其他工作流排期。
 
 **2026-09-26 整合**: 原 Sprint-5（14 Feature / 83 Task，跨 10–12 月）与原 Sprint-6（Wiki，10 Feature / 39 Task，同为 10 月）合并为本月度 Sprint：
-本月 7 个 Feature / 82 Task（含 4 个 v1.1 新增 Task、Wiki MCP F3/T16、ADR-013 F0/T19 与 F6 Console 原型 13 个 Task），backlog 5 个 Feature / 69 Task（全部于 Sprint-6 完成）。新旧编号对照见 [`assets/renumber-20260926.md`](assets/renumber-20260926.md)。
+本月 7 个 Feature / 83 Task（含 4 个 v1.1 新增 Task、Wiki MCP F3/T16、ADR-013 F0/T19 与 F6 Console 原型与模块吸收 14 个 Task），backlog 5 个 Feature / 69 Task（全部于 Sprint-6 完成）。新旧编号对照见 [`assets/renumber-20260926.md`](assets/renumber-20260926.md)。
 **2026-09-26 修订**: [整体复核及 PRS 基础承接](assets/planning-reconciliation-20260926.md)。旧 Sprint-1～4 退出活动队列；原型/资料接收 F0/T05 已完成，运行 Gate 仍待执行。
 
 ## 背景与价值
@@ -22,9 +26,9 @@
 
 共享需求依据为 [产品能力规划](../docs/plans/2026-09-27-product-capability-roadmap.md)。四模块目标保持不变，以 DTS-C01 可信经营数据、C02 授权知识供给、C03 行业能力复用、C04 可评估与人工接管串联工程任务。
 
-本轮变更及静态检查见 [产品规划校验记录](assets/product-planning-validation-20260927.md)；记录不代表产品运行验收。
+最新修订与静态检查见 [09-28 文档复核记录](assets/review-planning-20260928.md)；[09-27 文档复核](assets/review-planning-20260927.md) 保留当日结论；[此前产品规划校验](assets/product-planning-validation-20260927.md) 保留历史快照。两者均不代表本轮产品运行验收。
 
-- 本月 82 个 Task（F6 以 mock 原型先行冻结 Console 契约，见 ADR-13）：F0/T04 确认 PRS 首个业务场景和独立 oracle；T14 定义可供业务/AI 共用的指标及信任信息；T18 给出质量、时延、成本和使用价值的测量方法；F3/T15 验证知识读取的权限与版本。其余实现仍在 backlog。
+- 本月 83 个 Task（F6 以 mock 原型先行冻结 Console 契约，见 ADR-13）：F0/T04 确认 PRS 首个业务场景和独立 oracle；T14 定义可供业务/AI 共用的指标及信任信息；T18 给出质量、时延、成本和使用价值的测量方法；F3/T15 验证知识读取的权限与版本。其余实现仍在 backlog。
 - 11 月（Sprint-6）连贯完成 backlog 全部工作：11-20 PRS“在营项目”首次受控联调（BL-D/T17、BL-E/T01 阶段 A），11-30 全范围验收与发布；不再安排 Sprint-7。
 - Wiki RAG 在 BL-A/T22 先做对照探索；不增加 10 月完整 RAG、训练/标注平台或新业务域承诺。
 - 排期按依赖编排、不按人力容量打折；安全、测试和回归工作不得删减。Wiki v1 含 MCP（F3/T16）本月收口。
@@ -69,9 +73,10 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | ADR-8 | 统一网关 | **Traefik + forwardAuth 作为 dts-gateway 的实现**，鉴权服务由 prs-auth 演进为平台 `dts-auth`；Keycloak 单实例，Organization=租户 | 提议（F0/T15） | prs 已验证（F3）；stack/copilot 也用 Traefik | BL-S |
 | ADR-9 | 数据出口 | 头脑所有 SQL 经 **QueryGateway**：AST 白名单 + 只读账号 + READ ONLY 事务 + statement_timeout + 租户上下文注入；Trino/Ranger 作为后续替换实现 | 提议（F0/T15） | 铁律 3；当前 stack 无 Trino/Ranger 运行 | BL-S |
 | ADR-10 | 版本基线 | 平台（studio/stack）目标对齐 prs R-012（JDK 25 / Boot 4.x），本 sprint 只做评估与路线，不强制升级 | 提议（F0/T16） | 避免合并与升级叠加风险 | F0/T16 spike |
-| ADR-11 | 历史保留 | copilot 并入 studio **保留 git 历史**（filter-repo 重写路径到 `engine/` 后 merge `--allow-unrelated-histories`） | 提议（F1/T02 演练后定稿） | 34 sprint 的 blame/证据可追溯 | F1 |
+| ADR-11 | 历史保留 | copilot 并入 studio **保留 git 历史**（filter-repo 重写路径到 `engine/` 后 merge `--allow-unrelated-histories`） | 已定（09-29 F1/T02 双次演练通过） | 34 sprint 的 blame/证据可追溯 | F1 |
 | ADR-12 | 领域资产载体 | 花卉语义包/治理规则/模板/提示词/评测集 以 **AppPack 资产**形式存放于 prs-stack，头脑运行时从 **Pack 注册表**加载，classpath 仅保留过渡回退 | 提议（BL-A/T01） | 兑现 apppack-protocol.rules | BL-A/BL-D |
-| ADR-13 | 交付方法与铁律 #5 解释 | **UI 原型先行（antd 6 自建 DTS Console 外壳，借鉴 shadcn-admin）→ 冻结 OpenAPI 契约 → BFF 只承担前端交互 → 领域模块按常规设计**；原型只用 mock，接真实数据前领域 API + 测试必须完成 | 提议（F0/T19，10-09 前定稿；方向经用户 2026-09-27 确认） | 界面尽早经业务确认，契约从界面倒推；统一 antd 体系，不重写存量 | F6、BL-C；CLAUDE.md 铁律 #5 加注 |
+| ADR-13 | 交付方法与铁律 #5 解释 | **UI 原型先行（antd 6 自建 DTS Console 外壳，借鉴 shadcn-admin）→ 冻结 OpenAPI 契约 → BFF 只承担前端交互 → 领域模块按常规设计**；原型只用 mock，接真实数据前领域 API + 测试必须完成；copilot webapp 不迁移，F6/T14 选择性吸收，不设前端过渡期 | 提议（F0/T19，10-09 前定稿；方向经用户 2026-09-27 确认） | 界面尽早经业务确认，契约从界面倒推；统一 antd 体系，不重写存量 | F6、BL-C；CLAUDE.md 铁律 #5 加注 |
+| ADR-14 | dts-infra 定位与 K8s 交付底座 | **放弃 dts-stack 运维体系；Go 实现 `dtsctl`（安装器 + Helm v4 伞形编排 + `DtsRelease` CRD，编排库后续装入 operator）；现场只交付品牌化 RKE2（仅改用户可见层），不交付 Rancher Manager；离线包为唯一标准路径；总部 Harbor + 现场 RKE2 内置分发；chart 归各模块、infra 持 L2 中间件/BOM/网关公共件；兼容 ACK；v1.0.0 以 K8s 交付、不保留 Compose 回退**；取代 3 月 dts-infra 设计 | 已确认设计（用户 2026-09-28～29 逐段确认），F7/T01 定稿 ADR 文本 | 自主可控与信创（国产 CPU/OS）交付；同一套 chart 覆盖一体机、集群与公有云 | F7 全部；BL-E/T02～T03 改写；BL-S/T04 网关编排归 infra；CLAUDE.md、infra-iron-laws.rules 修订 |
 
 ### 工作流 B · Wiki
 | # | 决策点 | 选择 | 状态 | 理由 | 影响 |
@@ -93,7 +98,7 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 
 | 层 | 契约/落点 | 签名要点 |
 |----|-----------|----------|
-| UI 入口 | Studio webapp `AgentWorkspacePage`（路由 `/workspace`，沿用 copilot S27 agent-first 单入口，账本#20） | 输入框提交问题；答案卡片展示数值 + `accuracyEvidence` 等级 + 数据来源 + 审计号 |
+| UI 入口 | DTS Console `/workspace`（F6/T05；F6/T14 吸收原工作台交互） | 输入框提交问题；答案卡片展示数值 + `accuracyEvidence` 等级 + 数据来源 + 审计号 |
 | 登录（目标，现状见 PRS-G01） | Keycloak（单实例；realm `flower-test`，client `dts-studio-web`，OIDC PKCE） | access_token 含 `organization`（租户）、`realm_access.roles` |
 | 网关 | Traefik（dts-gateway）→ forwardAuth `GET /api/internal/auth/forward`（账本#25） | 2xx 回注 `X-DTS-User-Id / X-DTS-User-Name / X-DTS-Roles / X-DTS-Tenant-Id / X-DTS-Trace-Id`；401/403 直接返回 |
 | API | `POST /api/ai/agent/chat/send`（既有，账本#17 所在服务） | req `{sessionId?, message, domainHint?}`；resp copilot 契约 `{responseKind, blocks[], accuracyEvidence{level,reasons[]}, sourceRefs[], auditId}` |
@@ -109,11 +114,11 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | 层 | 契约/落点 | 签名要点 |
 |----|-----------|----------|
 | UI | `/s/prs/pages/{pageId}`（页面阅读）→"编辑"→ `/s/prs/pages/{pageId}/edit` | 页面树、面包屑、版本号、"来自 git：prs-stack@abc123"标识 |
-| 登录 | Keycloak `yuzhicloud`，client `dts-wiki`（授权码 + PKCE，回调 `/login/oauth2/code/keycloak`） | 角色 `dts-wiki:space-prs`、`dts-wiki:editor` |
-| API | `GET /api/spaces/{slug}/pages/{id}`、`PUT /api/pages/{id}`（`{baseVersion, content, message}` → 200 `{version}` / 409 `{currentVersion}`） | 乐观并发：`baseVersion` = 编辑开始时的版本号 |
-| Service | `PageService.update` → 写 `page_version`（source=`WEB`）→ 发布 `PageChanged` 事件 → `GitSyncService` 入队 | 事务内写库；同步异步进行 |
+| 登录 | Keycloak `yuzhicloud`，client `dts-wiki`（授权码 + PKCE，回调 `/login/oauth2/code/oidc`） | 角色 `dts-wiki:space-prs`、`dts-wiki:editor` |
+| API | `GET /api/wiki/pages/{id}`、`PUT /api/wiki/pages/{id}/content`（`{baseVersionNo, contentMd, message?}`） | 409 `PAGE_VERSION_CONFLICT` 返回 `currentVersionNo`；详情与响应字段以 design/03 为准 |
+| Service | `PageService.saveContent` → 写 `page_version`（source=`WEB`）与 `SyncOutbox` | 同一事务提交内容与出站操作；同步异步进行 |
 | 数据 | `page`（`space_id, parent_id, title, git_path, current_version_id`）、`page_version`（`content_md, author, source, git_commit`）、`sync_binding`、`sync_state` | uk(space_id, git_path) |
-| 同步 | `GitSyncService`：PG→git 提交（author=用户）→ rebase → push；git→PG：fetch → diff 自 `last_synced_commit` → 新版本（source=`GIT`） | 冲突 → `page.sync_status=CONFLICT` |
+| 同步 | fetch → 完整入站 → outbox 物化/提交 → push；远端前移须重新入站后重放 | 按 design/04 幂等确认；内容冲突保留双方版本，不能仅 rebase 后跳过远端区间 |
 | 迁移 | Liquibase `db/changelog/*.xml` | 首次同步导入 dts-rdc（docs/、worklog/）与 prs-stack（worklog/） |
 
 ## 现状勘察账本 (Context Ledger)
@@ -159,9 +164,14 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | 33 | 原 dts-prs 的 93 个文件已原样接收到 prs-stack/sources 与 worklog；新增资料未提交，父子 gitlink 未更新 | source-manifest.json；F0/T05 |
 | 34 | PRS 实际使用 groups、缺租户 default、数字租户、两租户各一个项目；RLS/同步路由与口径有待验证项 | integration-20260926/README.md 的 PRS-G01～G07 |
 | 35 | R-012/BOM 为 9 月 18 日，公共镜像快照为 9 月 20 日；历史运行证据属于旧 BOM，新配置仅有静态核对 | integration-20260926/version-handoff.md；新 BOM 仍由 F0/T03 验收 |
+| 36 | 09-28 核查记录：GitHub dts-stack main 与 s10-stack v2.2.3 同为 `8568eb9`；PRS 旧副本为落后 143 个提交的祖先；RDC 的旧指针 `b2a674b` 不在所查远端分支历史中。用户已选定 dts-stack main | `assets/q1-dts-stack-authority-20260928.md`；本轮仅同步记录，未重跑远端核查/克隆 |
+| 37 | 中间件镜像现状（09-28）：`postgres:18.6`、`pgvector/pgvector:0.8.6-pg18-trixie`（copilot）、wiki 自建 `dts-wiki-db:18-bigm`、`apache/kafka:4.3.1`（KRaft）、`quay.io/keycloak/keycloak:26.7.4`、`traefik:v3.7.13`、`docker.elastic.co/elasticsearch/elasticsearch:8.11.4`（OpenMetadata 用）、`valkey/valkey:9.1.2`（prs）、`ollama/ollama:0.18.0`、`trinodb/trino:451`、`openmetadata/server:1.11.5`、`dts-airflow-om:2.9.3-om`（LocalExecutor） | `PRS/dts-stack/imgversion.conf`、`CP/imgversion.conf`、`CP/docker-compose.yml`、`dts-stack/docker-compose-app.yml:232` |
+| 38 | `RDC/dts-infra` 仅 1 个提交 `b549059`（README 一行），远端 main 相同；无任何代码 | `git -C RDC/dts-infra log`、`git ls-remote` |
+| 39 | stack 现有运维体系：`init.sh`（1856 行）、`start.sh`/`stop.sh`、`docker-compose-app.yml`、`imgversion.conf`；`opmanager/`（Spring Boot 3.4.5 + React 离线升级控制台，经 Docker API 重建 Compose 服务，不依赖 Keycloak/主 PG/Traefik）→ ADR-014 决定放弃 | `PRS/dts-stack/{init.sh,opmanager/README.md}` |
+| 40 | 3 月 infra 设计（bootstrap/commander、bbolt、global-pg infra schema、gRPC、Helm 集中）与 `dts-studio/.rules/10-architecture/infra-iron-laws.rules` 均基于旧 All-in-K8s/25 服务架构，Sprint-1/2 全部 SUPERSEDED 未执行 | `docs/plans/2026-03-26-dts-infra-design.md`；`sprint-queue.md` Sprint-1/2 |
 
 **开放问题**（勘察未决，由对应 Task 关闭）：
-- Q1 dts-stack 权威仓库：GitHub `dts-stack` 当前内容是哪份？`s10-stack` 与 `dts-stack` 的关系（分叉/改名/客户交付线）？→ F0/T01
+- Q1 已关闭（2026-09-28）：dts-stack main 为权威，见 [决定与核查](assets/q1-dts-stack-authority-20260928.md) §4。F0/T01 继续全模块基准/脏文件对账，F0/T07 的指针修正尚未执行。
 - Q2 stack BI 前端落点（`dts-analytics-webapp` 为空）→ F0/T17
 - Q3 外部 Hive（`HiveDriver`）对应哪个客户环境？湖仓底座（Iceberg/Trino）是否本期引入？→ F0/T15
 - Q4 Keycloak 是否已与 stack 共用单实例（prs R-007 称共用）→ BL-S/T01
@@ -184,8 +194,8 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 
 **Wiki 开放问题**：
 - Q1 PRS 的研发文档是否也需要 `docs/`（prs-stack 目前只有 worklog/）？→ F4/T02 配置时确认
-- Q2 wiki 原生页（非 git）是否也要定期导出备份到 git（作为只读快照）？→ F5/T05
-- Q3 dts-rdc 中 `products/prs/`（现网临时 PRS 空间）内容迁往 prs-stack 还是删除？→ F5/T06
+- Q2 wiki 原生页（非 git）是否也要定期导出备份到 git（作为只读快照）？→ F5/T08
+- Q3 dts-rdc 中 `products/prs/`（现网临时 PRS 空间）内容迁往 prs-stack 还是删除？→ F4/T05
 
 ## Gate Registry
 
@@ -200,13 +210,24 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | G3 | [A] 发布安全（旧 copilot 部署并行、可回退） | PENDING | `assets/release-plan.md` | BL-E/T02 |
 | G4 | [A] 可运维性 | PENDING | `assets/runbook.md` | BL-E/T03 |
 | G4 | [A] DoD 验收 | PENDING | `it/` | BL-E/T01 |
-| G0 | [Wiki] 交付基线（空仓库可构建、可部署到 .50、可登录） | PENDING | `it/wiki/baseline.md` | F2/T01、F2/T08 |
+| G0 | [Wiki] 交付基线（空仓库可构建、可部署到 .50、可登录） | PASS（已存档） | `it/wiki/baseline.md` §5，2026-09-27 / w6a2；本轮未重跑 | F2/T09 的完整会话验收仍未完成 |
 | G0 | [Wiki] 领域不变量（与 DTS worklog/docs 规范一致；铁律 #1 可降级：wiki 挂了研发文档仍在 git） | PASS | 本文档 W-ADR-1/7 | — |
 | G1 | [Wiki] 契约链贯通 | GAP | 本文档 §端到端契约链；API 细节在 F2/F3/F4 | F2/T06、F4/T01 |
 | G1 | [Wiki] 非功能预算 | PENDING | `assets/wiki/nfr-budget.md`（页面打开 P95 < 500ms、保存 < 1s、同步延迟 < 60s、检索 P95 < 800ms） | F5/T07 |
 | G3 | [Wiki] 发布安全（与现网 wiki 并行、可回退） | PENDING | `assets/wiki/release-plan.md` | F5/T09 |
 | G4 | [Wiki] 可运维性（备份、告警、runbook） | PENDING | `assets/wiki/runbook.md` | F5/T08 |
 | G4 | [Wiki] DoD 验收 | PENDING | `it/wiki/` | F5/T10 |
+
+| G1 | [Console] 页面动作与 REST/SSE 契约冻结、领域 API 责任明确 | PENDING | `assets/console-contract-map.md` | F6/T13 |
+| G4 | [Console] mock 原型四态、权限展示与业务评审 | PENDING | F6/T13 原型评审记录（非真实数据验收） | F6/T05～T13 |
+| G0 | [Infra] 验证环境（Harbor、多架构 runner、断网 VM、ACK） | PENDING | `assets/infra-env.md` | F7/T03 |
+| G0 | [Infra] 许可证与分发状态复核 | PENDING | `assets/infra-license-review.md` | F7/T01 |
+| G1 | [Infra] 契约链贯通（CLI/UI → 编排 → CRD → 契约 Secret → 审计） | GAP | F7 README §端到端契约链；模块 chart 字段级契约待 F7/T02 | F7/T02 |
+| G1 | [Infra] 非功能预算 | PENDING | 设计 §9 并入 `assets/nfr-budget.md` | F0/T18、F7/T33 |
+| G3 | [Infra] 发布安全（离线升级、回滚、forward-only 备份恢复） | PENDING | `it/infra/IT-infra-e2e.md` | F7/T15、T33 |
+| G4 | [Infra] 可运维性与 DoD（断网 RKE2 + ACK 全场景） | PENDING | `assets/infra-runbook.md`、`it/infra/` | F7/T33 |
+
+**当前前置状态**：Q1 已关闭；F0/T01 剩余基准对账、ADR-005/006 与仓库落位仍分别限制 F1 的执行。Console 设计可先行，实际仓库集成须满足 F0/T08。详见 [09-28 复核记录](assets/review-planning-20260928.md)。
 
 ## 本月范围与 backlog 去向（取代原"波次计划"）
 
@@ -224,24 +245,27 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 
 | ID | Feature | Task 数 | 优先级 | 时间窗 | 状态 | 整合来源 |
 |----|---------|---------|--------|--------|------|----------|
-| [F0](features/F0-基线仓库落位与架构定案/README.md) | 基线仓库落位与架构定案 | 19 | P0 | 2026-10 第 1–3 周 | IN_PROGRESS（DONE=1、DRAFT=14、READY=4） | Sprint-5 F0 G0 基线与权威源确认；Sprint-5 F1 仓库落位与 submodule 重整；Sprint-5 F2 架构决策定稿与规则体系修订 |
-| [F1](features/F1-copilot并入dts-studio/README.md) | copilot并入dts-studio | 6 | P0 | 2026-10 第 2–4 周 | DRAFT（DRAFT=6） | Sprint-5 F3 copilot 并入 dts-studio |
-| [F2](features/F2-Wiki平台骨架身份与性能/README.md) | Wiki平台骨架身份与性能 | 12 | P0 | 2026-10 第 1–2 周（W0–W3 已于 9 月末先行） | IN_PROGRESS（DONE 8 / IN_PROGRESS 2 / DRAFT 2） | Sprint-6 F0 基线与技术选型 spike；Sprint-6 F1 仓库、数据模型与应用骨架；Sprint-6 F2 统一登录与产品级权限 |
-| [F3](features/F3-Wiki内容编辑与版本/README.md) | Wiki内容编辑与版本 | 16 | P0 | 2026-10 第 2–3 周 | IN_PROGRESS（DONE 10 / READY 3 / DRAFT 3） | Sprint-6 F3 空间与页面管理；Sprint-6 F4 编辑器、附件与模板；Sprint-6 F6 版本历史与追溯 |
+| [F0](features/F0-基线仓库落位与架构定案/README.md) | 基线仓库落位与架构定案 | 19 | P0 | 2026-10 第 1–3 周 | IN_PROGRESS（DONE=1 / IN_PROGRESS=2 / READY=3 / DRAFT=13） | Sprint-5 F0 G0 基线与权威源确认；Sprint-5 F1 仓库落位与 submodule 重整；Sprint-5 F2 架构决策定稿与规则体系修订 |
+| [F1](features/F1-copilot并入dts-studio/README.md) | copilot并入dts-studio | 6 | P0 | 2026-10 第 2–4 周 | IN_PROGRESS（DONE=1 / IN_PROGRESS=4 / DRAFT=1） | Sprint-5 F3 copilot 并入 dts-studio |
+| [F2](features/F2-Wiki平台骨架身份与性能/README.md) | Wiki平台骨架身份与性能 | 12 | P0 | 2026-10 第 1–2 周（W0–W3 已于 9 月末先行） | IN_PROGRESS（DONE=8 / IN_PROGRESS=2 / DRAFT=2） | Sprint-6 F0 基线与技术选型 spike；Sprint-6 F1 仓库、数据模型与应用骨架；Sprint-6 F2 统一登录与产品级权限 |
+| [F3](features/F3-Wiki内容编辑与版本/README.md) | Wiki内容编辑与版本 | 16 | P0 | 2026-10 第 2–3 周 | IN_PROGRESS（DONE=10 / READY=2 / DRAFT=4） | Sprint-6 F3 空间与页面管理；Sprint-6 F4 编辑器、附件与模板；Sprint-6 F6 版本历史与追溯 |
 | [F4](features/F4-Wiki-Git双向同步/README.md) | Wiki-Git双向同步 | 6 | P0 | 2026-10 第 3 周 | DRAFT（DRAFT=6） | Sprint-6 F5 Git 双向同步 |
 | [F5](features/F5-Wiki检索协作与上线/README.md) | Wiki检索协作与上线 | 10 | P0/P1 | 2026-10 第 4 周 | DRAFT（DRAFT=10） | Sprint-6 F7 搜索与导航；Sprint-6 F8 协作：评论、@提及、通知；Sprint-6 F9 部署、迁移切换与运维 |
-| [F6](features/F6-DTS-Console外壳与全量UI原型/README.md) | DTS-Console外壳与全量UI原型 | 13 | P0 | 2026-10（10-09～10-23 契约冻结） | DRAFT（READY=4、DRAFT=9） | 新增工作流（ADR-013） |
+| [F6](features/F6-DTS-Console外壳与全量UI原型/README.md) | DTS-Console外壳与全量UI原型 | 14 | P0 | 2026-10（10-09～10-23 契约冻结） | DRAFT（READY=3 / DRAFT=11） | 新增工作流（ADR-013） |
+| [F7](features/F7-dts-infra-K8s交付底座/README.md) | dts-infra K8s交付底座 | 35 | P0 | 2026-10 起（本月 T01～T04；其余随 Feature 转入 Sprint-6） | IN_PROGRESS（READY=4 / IN_PROGRESS=4 / DRAFT=27；dtsctl W1–W4 已完成，见 `it/infra/W1-W4-dtsctl.md`） | 新增工作流（ADR-014，用户 2026-09-28～29 确认） |
 
 **依赖顺序**: 工作流 A：F0（T01 权威源 → T06～T09 仓库落位 → T12～T16 ADR）→ F1（T03 合并后完成 F0/T11 工作副本切换）；
-工作流 B：F2 → F3（T13 内容契约先于 T06 编辑器改造）→ F4 → F5；A、B 两条工作流互不阻塞。
-**关键路径**: A：F0/T01 → F0/T07 → F0/T12 → F1/T03 → F1/T06；B：F2/T12 → F3/T13 → F3/T06 → F4/T03 → F4/T04 → F5/T09
+工作流 B 以 design/10 §5 为准，F5/T01 检索可先行供 MCP 使用，不能把整个 F5 都排在 F3/T16 之后；工作流 C 按 F0/T19 → F6 契约与 mock 原型推进。三条工作流可并行，跨工作流前提以各 Task 依赖为准。
+**工作流 D**：F7/T01 → T02 → 模块 chart 改造（T24～T27）与 dtsctl 核心（T09～T16）并行 → T32 ACK → T33 验收；发行版（T05～T08）与中间件（T17～T20）在 T02/T03 后并行。
+
+**关键路径**: A：F0/T01 → F0/T07 → F0/T12 → F1/T03 → F1/T06；B：同步基础 → F4/T05 导入/迁移 → F5/T10-A 完整验收 → F5/T09 切换 → F5/T10-B 冒烟；C：F6/T01～T04 → 页面原型 → T13 冻结；D：F7/T01 → T02 → T24（stack 改造）/ T10（编排器）→ T33
 
 ## 追溯矩阵 (Traceability)
 
 | 需求点 | Feature | 关键 Task | 验收证据位置 |
 |--------|---------|-----------|--------------|
 | DTS-C01 可信经营数据（本月定义，后续运行） | F0、BL-D、BL-E | F0/T04、T14；BL-D/T17；BL-E/T01 | 本月 `assets/domain-profile.md`；后续 `IT-data-product-prs.md`、`IT-10` |
-| DTS-C02 授权知识供给（本月接口，后续探索） | F3、BL-A | F3/T15；BL-A/T22 | 本月 `it/wiki/W6.5-diagram-agent.md`；后续 `assets/wiki-rag-spike.md` |
+| DTS-C02 授权知识供给（本月接口，后续探索） | F3、BL-C、BL-A | F3/T15、T16；BL-C/T04；BL-A/T22 | 本月 `it/wiki/W6.5-diagram-agent.md`；后续 `assets/wiki-rag-spike.md` |
 | DTS-C03 行业能力复用 | BL-A、BL-D | BL-A/T10、T14；BL-D/T04 | 后续 Pack/引用一致性验收；不计本月完成 |
 | DTS-C04 价值测量与人工接管 | F0、BL-E | F0/T18；BL-E/T01 | 本月 `assets/nfr-budget.md`；后续 `IT-10` 实测 |
 | ADR-1 dts-rdc 总纲，submodule 指向真实仓库 | F0 | F0/T07 | `it/IT-01-repo-layout.md` |
@@ -260,6 +284,8 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | Confluence 式页面管理/历史/评论 | F3、F5 | F3/T02、F3/T11、F5/T04 | `it/wiki/IT-04-pages.md` |
 | 产品级权限（降级后） | F2 | F2/T10 | `it/wiki/IT-02-access.md` |
 | 平滑替换现网 wiki | F5 | F5/T09 | `it/wiki/IT-05-cutover.md` |
+| ADR-14 离线自主交付（国产 CPU/OS、ACK） | F7 | F7/T13、T14、T32、T33 | `it/infra/IT-infra-e2e.md`、`it/infra/os-matrix.md`、`it/infra/ack-e2e.md` |
+| 铁律 #1 人工接管（infra） | F7 | F7/T29、T33 | `it/infra/IT-infra-e2e.md`（停 dtsctl/operator 后 helm 接管） |
 
 > 关键 Task 为 BL-* 的行由 backlog 承接，11-02 转入 Sprint-6 时随之迁移。
 
@@ -272,20 +298,30 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 - [ ] **预算**：`assets/nfr-budget.md` 定义问数 P95、Pack 加载时延、审计丢失率等适应度函数，供 backlog Feature 使用。
 - [ ] **产品依据**：F0/T04 登记主场景、业务确认人、待确认口径与 oracle；T14 明确指标引用/版本/新鲜度及失效规则；T18 补价值与成本测量方法。未决项有责任 Task，未测收益不得填 PASS。
 
+工作流 C（Console）：
+- [ ] F6/T02 约定路由与 T05～T12 全部动作具备 mock 正常/空/加载/错误状态和角色差异，完成业务评审。
+- [ ] F6/T13 冻结契约 v1 与责任映射（含 `/me`、SSE、Wiki 身份委托、评估、AI 开关、导出和页面挂载）；未决项不能冒充已冻结。
+- [ ] 原型证据与 11 月 BL-C/T08 真实数据验收分开记录。
+
 工作流 B（Wiki）：
-- [ ] 主竖线在 .50 运行实例上跑通（两个方向各一次），证据入 `it/IT-03-sync.md`
+- [ ] 主竖线在 .50 运行实例上跑通（两个方向各一次），证据入 `it/wiki/IT-03-sync.md`
 - [ ] 现网 wiki 的全部内容（dts-rdc docs/worklog、prs-stack worklog、练习区）已导入，页面数与文件数一致
 - [ ] 同时修改同一页面产生冲突时：两个版本都保留、界面可三方合并、合并结果同步回 git
 - [ ] 页面改名/移动/删除在 git 中表现为 `git mv`/`git rm` 提交
-- [ ] 旧地址（`/p/<slug>/...`、`/docs/...`）重定向到新地址；现网 wiki 下线且可回退
-- [ ] v1.1：首屏 JS ≤ 300 KB gz、RSS < 400 MB；DTS-MD 内容契约与 frontmatter 校验生效；Agent 只读接口契约测试通过（F2/T12、F3/T13–T15）
+- [ ] W12 迁移与切换前完整验收通过，旧地址重定向有效；切换后冒烟与回退演练留证，PG 独有内容和待同步修改的恢复路径明确
+- [ ] v1.1：首屏 JS ≤ 300 KB gz、RSS < 400 MB；DTS-MD 内容契约与 frontmatter 校验生效；Agent 只读接口与 MCP 权限/契约测试通过（F2/T12、F3/T13–T16）
 
 > 原 Sprint-5 中属于 11 月的完成标准（契约、边界、安全、UI、竖线、可回退）已移至 [`backlog/README.md`](../backlog/README.md) §版本级完成标准。
+
+工作流 D（Infra，本月部分）：
+- [ ] ADR-014 定稿；`infra-license-review.md` 完成（F7/T01）
+- [ ] `chart-spec.md`、`contract-spec.md` 与 `ci/chart-check` 发布（F7/T02）
+- [ ] Harbor、多架构 runner、断网 VM、ACK 环境可用（F7/T03）；三项 spike 结论回填设计 §8（F7/T04）
 
 ## 非目标
 
 工作流 A：
-- 不在本 sprint 引入 k8s 运行时、dts-infra（Go）实现、Neo4j/ClickHouse。
+- ~~不在本 sprint 引入 k8s 运行时、dts-infra（Go）实现~~（2026-09-29 由 ADR-014 推翻，见 F7）；仍不引入 Neo4j/ClickHouse。
 - 不实施 Trino/Ranger/Iceberg 湖仓底座（仅在 QueryGateway 预留实现位，并由 F0/T15 出路线）。
 - 不做 JDK 25 / Boot 4 的实际升级（F0/T16 只出评估与路线）。
 - 不重写 copilot 的 NL2SQL 算法、不新增业务问答域。
@@ -293,9 +329,16 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 - 不处理 metro-stack。
 - 本月不做 AppPack 运行时、统一网关、受控出口、审计入 Kafka、BI/口径/Finance 收敛（在 backlog，Sprint-6 / 11 月）。
 
+工作流 C（Console）：
+- [ ] F6/T02 约定路由与 T05～T12 全部动作具备 mock 正常/空/加载/错误状态和角色差异，完成业务评审。
+- [ ] F6/T13 冻结契约 v1 与责任映射（含 `/me`、SSE、Wiki 身份委托、评估、AI 开关、导出和页面挂载）；未决项不能冒充已冻结。
+- [ ] 原型证据与 11 月 BL-C/T08 真实数据验收分开记录。
+
 工作流 B（Wiki）：
 - 页面级权限、外部/匿名分享、审计报表、访问统计
 - 多人实时协同编辑（W-ADR-3 已为其预留：Markdown 原生编辑器可在后续接 Yjs）
 - PDF/Word 导出、Confluence 数据导入、移动端专门适配
 - 作为 DTS 知识中心的 RAG 接入（backlog，在 dts-studio 规划中承接）
 - 通用训练/标注平台、多模态处理流水线、世界模型与新行业扩展；后续机会须另有真实需求和容量依据。
+
+**2026-09-29 Studio implementation**: [First implementation checkpoint](assets/studio-refactor-20260929.md). F1/T02 DONE; F1/T01/T03/T04/T06 and F0/T08 IN_PROGRESS. The source import is locally committed on a feature branch; 610 backend tests passed. Remote/main promotion, runtime golden regression and business acceptance remain pending.

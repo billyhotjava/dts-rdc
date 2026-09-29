@@ -1,0 +1,83 @@
+{
+  "passed": false,
+  "errors": 3,
+  "warnings": 0,
+  "ignored": [],
+  "checks": [
+    {
+      "id": "HOST-ARCH-001",
+      "level": "error",
+      "passed": true,
+      "message": "architecture x86_64"
+    },
+    {
+      "id": "HOST-BACKUP-001",
+      "level": "error",
+      "passed": true,
+      "message": "backup target /data/backup is writable"
+    },
+    {
+      "id": "HOST-DISK-001",
+      "level": "error",
+      "passed": true,
+      "message": "/var/lib/rancher has 933 GiB free (need 200 GiB)"
+    },
+    {
+      "id": "HOST-DNS-001",
+      "level": "error",
+      "passed": false,
+      "message": "hostname jira does not resolve",
+      "remediation": "add it to /etc/hosts or the site DNS"
+    },
+    {
+      "id": "HOST-FW-001",
+      "level": "warn",
+      "passed": true,
+      "message": "firewalld is not active"
+    },
+    {
+      "id": "HOST-KERNEL-001",
+      "level": "error",
+      "passed": true,
+      "message": "br_netfilter and overlay are loaded or loadable"
+    },
+    {
+      "id": "HOST-OS-001",
+      "level": "error",
+      "passed": true,
+      "message": "rhel 8.10 is supported"
+    },
+    {
+      "id": "HOST-PORT-001",
+      "level": "error",
+      "passed": true,
+      "message": "ports 2379, 2380, 6443, 9345, 10250 are free"
+    },
+    {
+      "id": "HOST-SELINUX-001",
+      "level": "warn",
+      "passed": true,
+      "message": "SELinux is not enforcing"
+    },
+    {
+      "id": "HOST-SWAP-001",
+      "level": "error",
+      "passed": false,
+      "message": "1 swap device(s) active",
+      "remediation": "run swapoff -a and remove swap entries from /etc/fstab"
+    },
+    {
+      "id": "HOST-SYSCTL-001",
+      "level": "error",
+      "passed": true,
+      "message": "ip_forward and bridge-nf-call-iptables are enabled"
+    },
+    {
+      "id": "HOST-TIME-001",
+      "level": "error",
+      "passed": false,
+      "message": "system clock is not NTP-synchronised",
+      "remediation": "configure chrony against the site time source (an internal NTP server in offline sites)"
+    }
+  ]
+}

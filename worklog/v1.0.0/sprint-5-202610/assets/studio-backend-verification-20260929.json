@@ -1,0 +1,25 @@
+{
+  "source_sha": "719c6d3c0aee476aab417e4ae01ae18356dae170",
+  "studio_sha": "06a6a8c6bc3a9731c6e4951a2904bb38bdf6166c",
+  "build_path": "/data/dts-studio",
+  "source_pending_changes_preserved": true,
+  "modules": {
+    "engine-ai": {
+      "suites": 106,
+      "tests": 467,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "engine-analytics": {
+      "suites": 39,
+      "tests": 143,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "verify_log_sha256": "0bdb4abb1f1f2757139186f1c356af3dbec20ad32486525cca1067e4930d691c",
+  "postgres_image_id": "sha256:4b87d5343a0e499eea33b6c19ec152a3ed4a0d1a453eadd26ff415a406821a6e",
+  "test_containers_remaining": []
+}

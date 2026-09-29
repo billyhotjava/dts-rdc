@@ -30,7 +30,7 @@
 | [T14](T14-其余用例的声明式迁移.md) | 其余用例的声明式迁移 | Sprint-5 F6/T04 | P1 | DRAFT | T13 |
 | [T15](T15-删除旧类与accuracyEvidence不回归验证.md) | 删除旧类与 accuracyEvidence 不回归验证 | Sprint-5 F6/T05 | P1 | DRAFT | T14 |
 | [T16](T16-规划器大类拆分.md) | 规划器大类拆分（AssetBackedPlannerPolicy） | Sprint-5 F6/T06 | P2 | DRAFT | BL-A/T14 |
-| [T17](T17-PRS在营项目数据产品最小交付.md) | PRS 在营项目数据产品最小交付 | 2026-09-27 DTS-C01 | P0 | DRAFT | F0/T01、T04、T14；T01～T03；运行安全/审计前提见 Task |
+| [T17](T17-PRS在营项目数据产品最小交付.md) | PRS 在营项目数据产品最小交付 | 2026-09-27 DTS-C01 | P0 | DRAFT | Sprint-5 F0/T01、T04、T14；本 Feature T01～T03；运行验证另依赖 BL-S/T01～T11、T13～T15、T17 的主场景产出（BL-S/T03 需 T01/T02）。 |
 
 > 新需求或 review 发现的问题：在本表追加 Task（编号顺延），不新建 Feature。
 

@@ -2,7 +2,7 @@
 
 **优先级**: P0
 **状态**: DRAFT（DRAFT=22）
-**时间窗**: 2026-11（Sprint-6 W1–W3；T22 探索在 W2）
+**时间窗**: 2026-11（Sprint-6 W1–W4；T18 待完整安全基座，T22 W2 探索/W4 收口）
 **整合来源**: Sprint-5 F4 AppPack 协议落地与头脑 Pack 运行时；Sprint-5 F5 花卉领域资产外置为 prs-pack；Sprint-5 F12 DAP 协议代码化与 Agent UI 契约（2026-09-26 按月度 Sprint 整合）
 
 ## 目标
@@ -14,13 +14,13 @@
 
 | ID | Task | 原编号 | 优先级 | 状态 | 依赖 |
 |----|------|--------|--------|------|------|
-| [T01](T01-pack-manifest-v1-Schema与校验器.md) | pack-manifest v1 Schema 与校验器 | Sprint-5 F4/T01 | P0 | DRAFT | F0/T12、F0/T15、F1/T03（原则与 CLI 工程落点；不等待 T20 整 |
+| [T01](T01-pack-manifest-v1-Schema与校验器.md) | pack-manifest v1 Schema 与校验器 | Sprint-5 F4/T01 | P0 | DRAFT | F0/T12、F0/T15、F1/T03（原则与 CLI 工程落点；不等待 T20 整体完成） |
 | [T02](T02-Pack注册表数据模型与迁移.md) | Pack 注册表数据模型与迁移 | Sprint-5 F4/T02 | P0 | DRAFT | T01、F1/T03 |
 | [T03](T03-Pack安装激活回滚API.md) | Pack 安装/激活/回滚 API | Sprint-5 F4/T03 | P0 | DRAFT | T02 |
 | [T04](T04-语义包与本体服务改为从注册表读取.md) | 语义包与本体服务改为从注册表读取 | Sprint-5 F4/T04 | P0 | DRAFT | T03 |
 | [T05](T05-治理规则类Registry统一改用PackAssetResolver.md) | 治理规则类 Registry 统一改用 PackAssetResolver | Sprint-5 F4/T05 | P0 | DRAFT | T04 |
 | [T06](T06-领域查询模板从Liquibase数据迁为Pack资产.md) | 领域查询模板从 Liquibase 数据迁为 Pack 资产 | Sprint-5 F4/T06 | P1 | DRAFT | T04 |
-| [T07](T07-Pack查询API.md) | Pack 查询 API（界面驱动；UI 见 Sprint-5 F6/T08）| Sprint-5 F4/T07 | P1 | DRAFT | T03、Sprint-5 F6/T13 |
+| [T07](T07-Pack查询API.md) | Pack 查询 API（界面驱动；UI 见 Sprint-5 F6/T08）| Sprint-5 F4/T07 | P1 | DRAFT | T03；Sprint-5 F6/T13（契约 v1） |
 | [T08](T08-prs-stack-pack目录与manifest骨架.md) | prs-stack/pack 目录与 manifest 骨架 | Sprint-5 F5/T01 | P0 | DRAFT | T01（schema）、F0/T06（prs-stack 已建库） |
 | [T09](T09-迁移语义包提示词与直答规则.md) | 迁移语义包、提示词与直答规则 | Sprint-5 F5/T02 | P0 | DRAFT | T08 |
 | [T10](T10-迁移治理规则与评测集.md) | 迁移治理规则与评测集 | Sprint-5 F5/T03 | P0 | DRAFT | T08 |
@@ -35,7 +35,7 @@
 | [T19](T19-studio-skills占位与实际能力对照.md) | studio `.skills` 占位与实际能力对照 | Sprint-5 F12/T05 | P2 | DRAFT | T16 |
 | [T20](T20-修订studio规则体系与设计文档.md) | 修订 studio 规则体系与设计文档 | Sprint-5 F2/T06 | P0 | DRAFT | F0/T12–F0/T16；完整规则对齐再等待 T01（ADR-012/Schema） |
 | [T21](T21-对齐prs与copilot规划.md) | 对齐 prs / copilot 规划（R-013、队列收口） | Sprint-5 F2/T07 | P0 | DRAFT | T20 |
-| [T22](T22-Wiki授权知识检索接入探索.md) | Wiki 授权知识检索接入探索 | 2026-09-27 DTS-C02 | P1 | DRAFT | F3/T15、F2/T10、F1；身份方案见 F0/T15、BL-S/T01/T03 |
+| [T22](T22-Wiki授权知识检索接入探索.md) | Wiki 授权知识检索接入探索 | 2026-09-27 DTS-C02 | P1 | DRAFT | Sprint-5 F3/T15 的真实可调用接口与 F2/T10 权限用例；F1 合并后的 studio 基线；身份方案读取 F0/T15、BL-S/T01/T03 的结论；在线身份验证依赖 BL-C/T04 的 Wiki 委托接入，未就绪时只做离线实验并记录缺口。 |
 
 > 新需求或 review 发现的问题：在本表追加 Task（编号顺延），不新建 Feature。
 
@@ -64,7 +64,7 @@
 | 事件 | `dts.audit.v1` type `dts.pack.{installed,activated,rolledback}` | 见 BL-S |
 
 ### UI/UX 规格（T07）
-- **入口**：Studio webapp → 左侧导航"管理" → "能力包"（路由 `/admin/packs`），只有 `STUDIO_ADMIN` 角色可见。
+- **入口**：DTS Console → Pack 管理（`/packs`，F6/T08），以 BL-S/T01 确认的 Pack 维护者/管理员权限控制。
 - **线框**：
   ```
   ┌ 能力包 ─────────────────────────────────────────────┐

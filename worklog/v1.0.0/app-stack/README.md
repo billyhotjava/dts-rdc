@@ -1,11 +1,9 @@
-# app-stack Worklog
+# app-stack Worklog 入口
 
-这里存放 `app-stack` 相关的设计、计划和执行任务。
+本目录保留早期规划位置。当前 v1.0.0 以 PRS 为首个行业场景，metro 不在本轮实施范围。
 
-当前按子栈拆分：
-- [metro-stack](/opt/prod/dts/rdc/worklog/app-stack/metro-stack)
-- [prs-stack](/opt/prod/dts/rdc/worklog/app-stack/prs-stack)
+- [当前月度队列](../sprint-queue.md)与 [Sprint-5](../sprint-5-202610/README.md)：仓库落位、PRS 资料承接和 Console 原型。
+- [11 月 backlog](../backlog/README.md)：行业 Pack、可信数据场景及真实界面集成。
+- [PRS 资料承接记录](../../../dts-app-stack/prs-stack/worklog/v1.0.0/integration-20260926/README.md)：3 月原型与 9 月重写资料、版本基线和未决项。
 
-本轮目标：
-- 把 `metro-stack` 迁移为独立 Git 仓库并作为 `app-stack` 的正式 submodule
-- 把 `prs-stack` 从当前半成品状态收敛为正式 submodule
+旧路径或原型仅为历史输入；任务以最新月度目录为准，不在此另建 Sprint。

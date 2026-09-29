@@ -10,7 +10,7 @@
 
 2026-09-27 调整：DTS-C01 首次联调必须同时具备 asked/query/answered 及拒绝事件的 outbox → Kafka → append-only 存储证据，因此 T14/T15/T17 的对应切片在 Sprint-6 W2 完成、W3 随阶段 A 验证。部分切片通过不把整项 Task 标 DONE；剩余 Pack/动作/PRS 事件仍按原验收范围跟踪。不用缺审计的链路替代。
 
-Wiki 文档读取按现有空间权限接口执行，后续 studio 委托身份由 BL-A/T22 定义；不把 SQL QueryGateway 当作文档出口实现。缺身份/租户必须显式拒绝；合法空结果可为 0，二者不能混同。
+Wiki 文档读取按现有空间权限接口执行，Console 的 Wiki 委托身份由 BL-C/T04 承接，BL-A/T22 复用并探索 RAG；不把 SQL QueryGateway 当作文档出口实现。缺身份/租户必须显式拒绝；合法空结果可为 0，二者不能混同。
 
 ## Task 列表
 
@@ -20,7 +20,7 @@ Wiki 文档读取按现有空间权限接口执行，后续 studio 委托身份�
 | [T02](T02-dts-auth-prs-auth提升为平台鉴权服务.md) | dts-auth：prs-auth 提升为平台鉴权服务 | Sprint-5 F9/T02 | P0 | DRAFT | T01 |
 | [T03](T03-头脑接入网关身份修复API-Key身份自报.md) | 头脑接入网关身份，修复 API Key 身份自报 | Sprint-5 F9/T03 | P0 | DRAFT | T02 |
 | [T04](T04-统一Traefik网关路由.md) | 统一 Traefik 网关路由 | Sprint-5 F9/T04 | P0 | DRAFT | T02 |
-| [T05](T05-Studio-webapp-OIDC登录.md) | Studio webapp OIDC 登录 | Sprint-5 F9/T05 | P1 | DRAFT | T01、T04 |
+| [T05](T05-Console-OIDC登录.md) | Console OIDC 登录 | Sprint-5 F9/T05 | P1 | DRAFT | T01、T04 |
 | [T06](T06-stack接入统一网关评估与过渡.md) | stack 接入统一网关的评估与过渡 | Sprint-5 F9/T06 | P1 | DRAFT | T04 |
 | [T07](T07-AST-SQL校验器替换正则黑名单.md) | AST SQL 校验器替换正则黑名单 | Sprint-5 F10/T01 | P0 | DRAFT | F0/T15 |
 | [T08](T08-QueryGateway与JdbcGuardedQueryGateway实现.md) | QueryGateway 与 JdbcGuardedQueryGateway 实现 | Sprint-5 F10/T02 | P0 | DRAFT | T07、T10 |
@@ -29,7 +29,7 @@ Wiki 文档读取按现有空间权限接口执行，后续 studio 委托身份�
 | [T11](T11-所有取数路径收口与架构约束测试.md) | 所有取数路径收口与架构约束测试 | Sprint-5 F10/T05 | P0 | DRAFT | T08 |
 | [T12](T12-列级脱敏与行级策略扩展点.md) | 列级脱敏与行级策略扩展点 | Sprint-5 F10/T06 | P2 | DRAFT | T08 |
 | [T13](T13-红队SQL用例集与渗透验证.md) | 红队 SQL 用例集与渗透验证 | Sprint-5 F10/T07 | P0 | DRAFT | T07–T11 |
-| [T14](T14-审计事件schema与topic规划.md) | 审计事件 schema 与 topic 规划 | Sprint-5 F11/T01 | P0 | DRAFT | BL-A/T20 审计/事件条款 |
+| [T14](T14-审计事件schema与topic规划.md) | 审计事件 schema 与 topic 规划 | Sprint-5 F11/T01 | P0 | DRAFT | BL-A/T20 中审计/事件相关条款定稿（不等待 T20 整体完成） |
 | [T15](T15-头脑审计改为outbox到Kafka.md) | 头脑审计改为 outbox → Kafka | Sprint-5 F11/T02 | P1 | DRAFT | T14 |
 | [T16](T16-prs审计与outbox接入.md) | prs 审计与 outbox 接入 | Sprint-5 F11/T03 | P1 | DRAFT | T14、F0/T06 |
 | [T17](T17-stack侧消费与append-only存储.md) | stack 侧消费与 append-only 存储 | Sprint-5 F11/T04 | P1 | DRAFT | T14 |
@@ -52,11 +52,11 @@ Wiki 文档读取按现有空间权限接口执行，后续 studio 委托身份�
 | 身份头 | ADR-008 定义的唯一版本 | `X-DTS-User-Id`、`X-DTS-User-Name`、`X-DTS-Display-Name`、`X-DTS-Roles`、`X-DTS-Tenant-Id`、`X-DTS-Dept`、`X-DTS-Trace-Id`、`X-DTS-Service` |
 | 鉴权端点 | `GET /api/internal/auth/forward`（dts-auth，由 prs-auth 演进而来，账本#27） | 2xx 并在响应头中返回上述头；401 未认证；403 无权访问该路由 |
 | Keycloak | realm `flower` / `flower-test`；clients：`dts-studio-web`（public + PKCE）、`prs-app`（已有）、`dts-stack-web`、`dts-brain-svc`（confidential，服务间调用） | token claims：`sub`、`preferred_username`、`organization`（租户）、`realm_access.roles` |
-| 路由 | Traefik 动态配置 `dts-gateway/dynamic/*.yml` | `studio.*` → engine-ai / webapp；`stack.*` → platform/analytics；`prs.*` → prs 服务；全部挂 forwardAuth 中间件，白名单仅包括健康检查与 OIDC 回调 |
+| 路由 | Traefik 动态配置 `dts-gateway/dynamic/*.yml` | `studio.*` → engine-ai / console / console-bff；`stack.*` → platform/analytics；`prs.*` → prs 服务；全部挂 forwardAuth 中间件，白名单仅包括健康检查与 OIDC 回调 |
 | 服务间 | `X-DTS-Service: <name>` + 服务 token（client_credentials 或 API Key） | 服务调用**不得**携带用户身份头，除非是"代用户调用"并且带有网关签发的上下文（新链路为头脑 → stack BI、头脑 → prs action；老 rs-gateway → 头脑仅按 T03 的限时兼容白名单验证后开放，不能仅凭 delegation 开关放行） |
 
 ### UI/UX 规格（T05）
-- **入口**：访问 Studio webapp → 未登录时跳转 Keycloak 登录页（使用 realm 的主题）→ 登录后回到原来的深链。
+- **入口**：访问 DTS Console → 未登录时跳转 Keycloak 登录页（使用 realm 的主题）→ 登录后回到原来的深链。
 - **四态**：跳转中（全屏 loading "正在登录"）/ 登录失败（Keycloak 错误页，带"返回"链接）/ token 过期（静默刷新；刷新失败时弹出"会话已过期，请重新登录"）/ 成功（右上角显示用户名、租户名，以及退出菜单）。
 - **走查**：1. 浏览器打开 `https://studio.<domain>/workspace` → 2. 跳转到登录页 → 3. 输入 alice/test1234 → 4. 回到工作台，右上角显示"alice · t1" → 5. 提问 → 6. 退出后再访问，重新跳转到登录页。
 

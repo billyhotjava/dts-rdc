@@ -9,7 +9,7 @@
 
 | 历史规划/冲突 | 当前承接 | 验收或剩余事项 |
 |---|---|---|
-| Sprint-1 F1～F4、Sprint-2：Go bootstrap/commander、中间件生命周期 | 后续 infra sprint 重排 | 本期不实施 k8s/infra；并非功能已完成或取消 |
+| Sprint-1 F1～F4、Sprint-2：Go bootstrap/commander、中间件生命周期 | 后续 infra sprint 重排 | 本期不实施 k8s/infra；并非功能已完成或取消（**2026-09-29 更新**：ADR-014 改为本期实施，见 F7） |
 | Sprint-1 F5：Studio Python 后端骨架 | F1 合并现有 copilot；F0/ADR-005 决定实现语言 | 复用真实引擎，不同时建设独立头脑 |
 | Sprint-3：Stack 同时承载 AI、数据、安全、平台 | 数据/BI 保留 Stack（ADR-6 待定），AI 进入 Studio（ADR-3 已定）；BL-S 承接安全 | Trino/Ranger/Iceberg 未运行，本期不假定已有 |
 | Sprint-4：metro 首包、Operator 安装、签名信任链 | 首个验证 App 改 PRS；BL-A 做 Pack 注册运行时 | metro/Operator/完整第三方生态后排，不因有 Schema 就宣称信任链完成 |

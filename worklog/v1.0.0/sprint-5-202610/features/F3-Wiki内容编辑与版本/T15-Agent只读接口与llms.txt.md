@@ -1,6 +1,6 @@
 # T15: Agent 只读接口与 llms.txt（v1.1 W6.5 之二）
 
-**原编号**: 新增（2026-09-26，来自 v1.1 设计 `design/10` §5 W6.5；MCP 服务不在本月，见 `backlog/README.md`）
+**原编号**: 新增（2026-09-26，来自 v1.1 设计 `design/10` §5 W6.5；MCP 后于本 Task，由本月 T16 承接）
 
 **优先级**: P1 · **状态**: READY · **依赖**: T13（`page_meta`、`viaAgent`）
 

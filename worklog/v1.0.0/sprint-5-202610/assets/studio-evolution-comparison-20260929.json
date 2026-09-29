@@ -1,0 +1,62 @@
+[
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-部署与定价方案-V1.0.0.pptx",
+    "sha256": "f38dd7dfac36646556dec4ffb4ca63f15d12c229250c3231335f374d4425e10c",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-部署与定价方案-V1.0.0.pdf",
+    "sha256": "a449394b3aa76e07de56fb835dbb07036b6d5e1a640d65b3389f2fd125819a93",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-商业计划书-V1.0.0.pptx",
+    "sha256": "b3d2ed8596e61142654b4c84cd810fd919067523f5e1def53924b0979a856931",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-产品功能说明书-V1.0.0.pdf",
+    "sha256": "a4cf9090e070a1d53088f6122937f078e6d293ad02222bc6dc73f1fea0e19e2e",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-商业计划书-V1.0.0.pdf",
+    "sha256": "970db1951003b030959f49d4b34f49007941bd769cb83755048b54069fcdd240",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DTS-产品功能说明书-V1.0.0.pptx",
+    "sha256": "4dd02f5e6eab9c4e59722b8945725231c349a538a9c168eba5226f9d5d8d7bfa",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/gen_product_pptx.py",
+    "sha256": "debc4d054f11bdde57884611b59bb3a54cacc39818012a24b7e96aff4366a564",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/BUSINESS-PLAN-V1.0.0.md",
+    "sha256": "22df55fc2fea20679ef28a06553c867dda8409dad752844f9ca43cd3ea32ecca",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/DEPLOYMENT-PRICING-V1.0.0.md",
+    "sha256": "a830e5272dce63359c024cd519e421fea1ffe010f8dbb09e2381d1bdf200e184",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/gen_bp_pptx.py",
+    "sha256": "f87de7717bf5494405749a50454be96e87bed48f02b065405f0383c91d4da8f2",
+    "identical_to_rdc": true
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/PRODUCT-SPEC-V1.0.0.md",
+    "sha256": "6a82ba4f10ef6aa463fbc5a72ccdece19055957dc68a6d16a747eb3688ab96f0",
+    "identical_to_rdc": false
+  },
+  {
+    "path": "worklog/v1.0.0/evolution/gen_deploy_pptx.py",
+    "sha256": "6891a5547616a0ef2bd0c6bd39b768e08a845a0e90c3e86410fdcabdf0b98749",
+    "identical_to_rdc": true
+  }
+]

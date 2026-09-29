@@ -7,17 +7,17 @@
 **依赖**: T07–T09
 
 ## 目标
-Studio webapp 中移除 BI 管理类页面（改为跳转到 stack 分析中心），`engine-analytics` 服务停止部署，同时不留死链。
+`engine-analytics` 停止部署；Console `/bi` 统一跳转 stack 分析中心，存量 BI 功能按处置表核对，不把旧 copilot 前端迁入 Console。
 
 ## 技术设计
-- **页面处置表**（`assets/bi-page-disposition.md`）：copilot webapp 的每个 BI 页面（Cards、CardDetail、CardEditor、Dashboards、DashboardDetail、DashboardEditor、Collections、CollectionItems、Database*、DataPage、ModelsPage、MetricsPage、Public*、fixed-reports 等）→ `redirect(stack 深链) | keep(属于智能体) | delete`；
-- **路由**：保留旧路由一个版本周期，访问时 302 或前端 `Navigate` 到 stack 深链，并显示一次提示"分析功能已迁移到分析中心"；
+- **页面处置表**（`assets/bi-page-disposition.md`）：copilot webapp 的每个 BI 页面（Cards、CardDetail、CardEditor、Dashboards、DashboardDetail、DashboardEditor、Collections、CollectionItems、Database*、DataPage、ModelsPage、MetricsPage、Public*、fixed-reports 等）→ `stack 对应功能/授权深链 | Console 吸收（F6/T14） | 不迁入及理由`；
+- **路由**：不保留旧 copilot 前端路由作为过渡；核对 Console `/bi` 与批准的 stack 深链。已发布/分享链接是否有真实使用者由 T08 迁移清单确认，处理记录不能因前端不迁移而省略。
 - **导航**：侧边栏中 BI 相关菜单改为外链图标并加上说明；
 - **部署**：compose 中移除 `engine-analytics`（旧名 `copilot-analytics`）；Traefik 中 `/api/*` → analytics 的路由（账本#21 所在 compose）改为 stack BI，或删除；
 - **Pack/Liquibase**：engine 中与 `copilot_analytics` 相关的配置清理；数据库 schema 保留只读 30 天后再删除（需要用户确认）。
 
 ## 验证
-- [ ] 遍历处置表中的全部旧路由，每个都能到达预期页面（Playwright 脚本）
+- [ ] 遍历当前 Console 入口及处置表中承诺保留的 stack 功能/分享链接，权限和目标页面符合映射（Playwright 脚本）
 - [ ] `docker compose ps` 中没有 analytics 容器，工作台问数正常
 
 ## Definition of Done

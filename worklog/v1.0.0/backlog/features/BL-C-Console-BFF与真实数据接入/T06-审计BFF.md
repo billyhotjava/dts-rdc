@@ -9,7 +9,7 @@
 
 ## 技术设计
 - 下游：BL-S/T17 append-only 存储的查询接口；BFF 只读。
-- CSV 导出由下游生成或 BFF 流式转换，需审计员角色并写一条导出审计事件。
+- CSV 导出的权限、租户筛选、行数上限和导出审计由 BL-S/T17 的领域 API 负责；BFF 仅流式转发或格式转换，不能绕过下游授权、直写审计库或从 UI 传入租户扩大范围。
 
 ## 验证（RED→GREEN）
 - [ ] 按 traceId 返回 asked/query/answered 完整链路的集成测试

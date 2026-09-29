@@ -1,7 +1,7 @@
 # F0: 基线仓库落位与架构定案
 
 **优先级**: P0
-**状态**: IN_PROGRESS（DONE=1、DRAFT=14、READY=4）
+**状态**: IN_PROGRESS（DONE=1 / IN_PROGRESS=2 / READY=3 / DRAFT=13）
 **时间窗**: 2026-10 第 1–3 周
 **整合来源**: Sprint-5 F0 G0 基线与权威源确认；Sprint-5 F1 仓库落位与 submodule 重整；Sprint-5 F2 架构决策定稿与规则体系修订（2026-09-26 按月度 Sprint 整合）
 
@@ -14,16 +14,16 @@
 
 | ID | Task | 原编号 | 优先级 | 状态 | 依赖 |
 |----|------|--------|--------|------|------|
-| [T01](T01-确认各模块权威仓库与基准提交.md) | 确认各模块权威仓库与基准提交 | Sprint-5 F0/T01 | P0 | DRAFT | 无 |
+| [T01](T01-确认各模块权威仓库与基准提交.md) | 确认各模块权威仓库与基准提交 | Sprint-5 F0/T01 | P0 | IN_PROGRESS | 无 |
 | [T02](T02-冻结合并前copilot行为基线.md) | 冻结合并前 copilot 行为基线（golden set 快照） | Sprint-5 F0/T02 | P0 | DRAFT | T01（基准 SHA） |
 | [T03](T03-三系统交付基线.md) | 三系统交付基线（同机启动、登录、问数 smoke） | Sprint-5 F0/T03 | P0 | DRAFT | T01 |
 | [T04](T04-领域画像摘要与铁律自检.md) | 领域画像摘要与铁律/领域包自检 | Sprint-5 F0/T04 | P1 | DRAFT | T01 |
 | [T05](T05-PRS重写基础承接与差异登记.md) | PRS 重写基础承接与差异登记 | Sprint-5 F0/T05 | P0 | DONE | 无（用户已指定来源与目标；不依赖 Stack 权威仓库选择） |
 | [T06](T06-dts-prs-git化并落位prs-stack.md) | PRS 重写基础纳入 prs-stack 版本控制 | Sprint-5 F1/T01 | P0 | READY | T05（本地资料接收已完成） |
-| [T07](T07-修正dts-rdc各submodule指针.md) | 修正 dts-rdc 各 submodule 指针 | Sprint-5 F1/T02 | P0 | DRAFT | T01、T06、T08 |
-| [T08](T08-dts-studio去除嵌套submodule与文档去重.md) | dts-studio 去除嵌套 submodule，evolution 文档去重 | Sprint-5 F1/T03 | P0 | READY | 无 |
+| [T07](T07-修正dts-rdc各submodule指针.md) | 修正 dts-rdc 各 submodule 指针 | Sprint-5 F1/T02 | P0 | DRAFT | stack 子步骤消费 T01 已有 Q1 决定；完整交付另依赖 T01 基准表、T06、T08 |
+| [T08](T08-dts-studio去除嵌套submodule与文档去重.md) | dts-studio 去除嵌套 submodule，evolution 文档去重 | Sprint-5 F1/T03 | P0 | IN_PROGRESS | 无 |
 | [T09](T09-密钥出库与轮换.md) | 密钥出库与轮换（copilot `.env`、prs `deploy/.env`） | Sprint-5 F1/T04 | P0 | READY | 无 |
-| [T10](T10-入口文档与目录约定更新.md) | 入口文档与目录约定更新 | Sprint-5 F1/T05 | P1 | DRAFT | T07、F0（ADR 定稿后第二轮更新） |
+| [T10](T10-入口文档与目录约定更新.md) | 入口文档与目录约定更新 | Sprint-5 F1/T05 | P1 | DRAFT | T07、T12～T16、T19（本月 ADR/交付方法结论；不依赖整个 F0） |
 | [T11](T11-工作副本迁移与旧路径过渡.md) | 工作副本迁移与旧路径过渡 | Sprint-5 F1/T06 | P1 | DRAFT | T07、F1/T03（copilot 已并入 studio） |
 | [T12](T12-ADR005头脑实现语言与运行形态.md) | ADR-005 头脑实现语言与运行形态 | Sprint-5 F2/T01 | P0 | DRAFT | T01 |
 | [T13](T13-ADR006-BI归属.md) | ADR-006 BI 归属 | Sprint-5 F2/T02 | P0 | DRAFT | T01、T17（波次 A 关闭 Q2/Q6；此只读调查不依赖本 ADR） |
@@ -32,7 +32,7 @@
 | [T16](T16-ADR010版本基线评估.md) | ADR-010 版本基线评估（JDK 25 / Boot 4 spike） | Sprint-5 F2/T05 | P1 | DRAFT | T01 |
 | [T17](T17-分叉差异深度比对与stack-BI前端落点.md) | 分叉差异深度比对与 stack BI 前端落点 | Sprint-5 F7/T01 | P0 | DRAFT | T01（只读调研先于 ADR-006） |
 | [T18](T18-非功能预算与适应度函数.md) | 非功能预算与适应度函数 | Sprint-5 F13/T01 | P0 | DRAFT | T02（基线时延） |
-| [T19](T19-ADR013界面原型先行与契约驱动BFF.md) | ADR-013 界面原型先行与契约驱动 BFF（铁律 #5 澄清） | 新增 | P0 | READY | 无 |
+| [T19](T19-ADR013界面原型先行与契约驱动BFF.md) | ADR-013 界面原型先行与契约驱动 BFF（铁律 #5 澄清） | 新增 | P0 | READY | 无（与 T12～T16 并行，10-09 前定稿，F6 据此开工） |
 
 > 新需求或 review 发现的问题：在本表追加 Task（编号顺延），不新建 Feature。
 
@@ -55,10 +55,10 @@
 | 文档 | `assets/domain-profile.md` | 花卉域词汇表摘要、核心不变量、数据量级（引用 prs F1、copilot S25/S30，不重做） |
 
 ### UI/UX 规格
-非用户面 Feature；基线中的"问数 smoke"使用现有 copilot webapp 工作台（`/workspace`）手工走查并截图。
+非用户面 Feature；合并前可使用来源 copilot 工作台留对照截图，正式回归以 F0/T02 的 API/SSE 基线为准。此取证不表示旧 webapp 迁入新产品或作为回退。
 
 ### Definition of Ready
-- [ ] 契约已钉死（上表）  - [x] 竖切片：不涉及  - [x] UI 落点：不涉及  - [ ] 依赖：需用户确认 Q1（stack 权威仓库）  - [x] 验收可验证
+- [ ] 契约已钉死（上表）  - [x] 竖切片：不涉及  - [x] UI 落点：不涉及  - [ ] 依赖：Q1 已关闭；T01 全模块基准与处置清单仍待完成  - [x] 验收可验证
 
 ### 完成标准
 - [ ] `assets/source-of-truth.md` 经用户签字（在文档末尾记录确认人与日期）
@@ -120,4 +120,4 @@ ADR-001..004 为用户已定的决策，补写成文档存档即可。
 
 ### 完成标准
 - [ ] ADR-001..010 全部为 Accepted（或 Rejected，并写明替代方案），用户签字
-- [ ] `.rules` 中与 ADR 冲突的条款清零（BL-A/T20 附对照表）
+- [ ] 本月已接受 ADR 的冲突条款、适用边界及后续责任已登记到 BL-A/T20；完整规则修订由 Sprint-6 验收，不作为 F0 本月完成前置。
