@@ -1,7 +1,7 @@
 # F7: dts-infra K8s 交付底座
 
 **优先级**: P0
-**状态**: IN_PROGRESS（READY=4 / IN_PROGRESS=4 / DRAFT=27）
+**状态**: IN_PROGRESS（READY=3 / IN_PROGRESS=5 / DRAFT=27）
 **时间窗**: 2026-10 起（按月度规则，10 月未完成的 Task 于 11-02 随 Feature 进入 Sprint-6）
 **整合来源**: 新增工作流（2026-09-28～29 用户确定：放弃 dts-stack 运维体系，dts-infra 以 Go + Rancher 开源生态 RKE2 为底座，v1.0.0 以 K8s 交付）
 **设计**: [`design/00-dts-infra-K8s交付底座设计.md`](design/00-dts-infra-K8s交付底座设计.md)；编码细则 [`design/01-dtsctl编码设计与首批工作包.md`](design/01-dtsctl编码设计与首批工作包.md)（取代 `docs/plans/2026-03-26-dts-infra-design.md`）
@@ -47,7 +47,7 @@
 | ID | Task | 工作包 | 优先级 | 状态 | 估算（人天） | 依赖 |
 |----|------|--------|--------|------|--------------|------|
 | [T01](T01-ADR014-dts-infra定位与K8s交付底座.md) | ADR-014 dts-infra 定位与 K8s 交付底座定稿 | P0 | P0 | READY | 3–5 | 无 |
-| [T02](T02-chart规范与连接契约规范.md) | chart 规范与连接契约规范（chart-spec / contract-spec） | P0 | P0 | READY | 4–6 | T01 |
+| [T02](T02-chart规范与连接契约规范.md) | chart 规范与连接契约规范（chart-spec / contract-spec） | P0 | P0 | IN_PROGRESS | 4–6 | T01 |
 | [T03](T03-总部制品中心与构建验证环境.md) | 总部制品中心与构建/验证环境 | P0 | P0 | READY | 8–12 | T01 |
 | [T04](T04-估算收敛spike.md) | 估算收敛 spike：stack 离线化、昇腾推理、国产 OS SELinux | P0 | P0 | READY | 另计 6–10 | T03（环境） |
 | [T05](T05-RKE2源码构建流水线.md) | RKE2 与系统镜像源码构建流水线（多架构） | P1 | P1 | DRAFT | 20–30 | T03 |

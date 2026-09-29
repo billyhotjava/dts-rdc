@@ -91,9 +91,9 @@
 | F4-Wiki-Git双向同步 | B | P0 | 6 | DRAFT（DRAFT=6） |
 | F5-Wiki检索协作与上线 | B | P0/P1 | 10 | DRAFT（DRAFT=10） |
 | F6-DTS-Console外壳与全量UI原型 | C | P0 | 14 | DRAFT（READY=3 / DRAFT=11） |
-| F7-dts-infra-K8s交付底座 | D | P0 | 35 | IN_PROGRESS（READY=4 / IN_PROGRESS=4 / DRAFT=27） |
+| F7-dts-infra-K8s交付底座 | D | P0 | 35 | IN_PROGRESS（READY=3 / IN_PROGRESS=5 / DRAFT=27） |
 
-**统计**: Feature 8 / Task 118；READY=12, IN_PROGRESS=12, DONE=20, DRAFT=74, BLOCKED=0（按当前 Task 状态汇总；2026-09-29 新增 F7 35 Task）
+**统计**: Feature 8 / Task 118；READY=11, IN_PROGRESS=13, DONE=20, DRAFT=74, BLOCKED=0（按当前 Task 状态汇总；2026-09-29 新增 F7 35 Task）
 **执行顺序**: A：F0 → F1；B：按 `F2/design/10` §5 的任务/阶段顺序推进（F5/T01 可先行供 F3/T16，完整验收先于切换）；C：F0/T19 → F6 外壳/契约/mock 页面 → T13 冻结；D：F7/T01 → T02/T03 → T04 与后续包并行；四条工作流按 Task 前提并行。
 **关键决策**: ADR-14 已确认设计（dts-infra：Go dtsctl + 品牌化 RKE2 + 离线包唯一路径 + ACK 兼容，v1.0.0 K8s 交付）；ADR-1..4 已定；ADR-5..10 本月定稿（推荐：Java 头脑、BI 归 stack、口径 SoT 归 stack、Traefik+forwardAuth、QueryGateway）；Wiki：PG 事实源、JHipster 9 + antd、DTS-MD v1 内容契约、权限仅到产品级。
 **已知风险**: Q1 已关闭，F0/T01 基准对账和 F0/T07 gitlink 落地仍未完成；prs Sprint-1 进行中需避免干扰；Wiki 各同步仓库 deploy key 需用户在 GitHub 添加；.50 不可 docker pull；F7 无鲲鹏实机与麒麟/统信授权（信创实机验证待 T03/O8），ACK 测试需阿里云费用；v1.0.0 发布可能因 F7 顺延。

@@ -266,11 +266,75 @@ func Run(ctx context.Context, env Env, checks []Check, ignore []string) Report /
 
 W1→W2→W3 顺序执行；W4 可在 W2 完成后与 W3 并行。
 
-**进度（2026-09-29）**：W1–W4 已完成并推送（分支 `feat/W1-skeleton` … `feat/W4-preflight-plan`），证据见 `it/infra/W1-W4-dtsctl.md`；尚未合入 main（缺 gh 与自托管 runner）。W5 起（Helm v4 执行、Lease、resume、契约 Secret 生成）依赖 T03 构建验证环境（单节点 RKE2 或 kind + 断网 VM），在 T03 就绪后由规划会话补本文 §9。
+**进度（2026-09-29）**：W5–W6（§9）也已完成，分支 `feat/W5-helm-executor`，证据 `it/infra/W5-W6-executor.md`。W1–W4 已完成并推送（分支 `feat/W1-skeleton` … `feat/W4-preflight-plan`），证据见 `it/infra/W1-W4-dtsctl.md`；尚未合入 main（缺 gh 与自托管 runner）。W5 起（Helm v4 执行、Lease、resume、契约 Secret 生成）依赖 T03 构建验证环境（单节点 RKE2 或 kind + 断网 VM），在 T03 就绪后由规划会话补本文 §9。
 
-## 9. 后续（占位，W5 前补齐）
+## 9. W5–W6：执行器、互斥锁与断点续做（2026-09-29 补齐）
 
-W5 执行器（Helm v4 SDK 安装/升级/等待、revision 记录、状态写回）；W6 Lease 互斥与 resume；W7 契约 Secret 生成与探测（T11）；W8 审计事件与本地 journal（T15）。
+依据 Helm v4.2.4 源码核对：`action.NewConfiguration` + `Init(RESTClientGetter, namespace, "secret")`；`Install`/`Upgrade` 提供 `RunWithContext`；等待策略 `kube.StatusWatcherStrategy`；release 的具体类型是 `pkg/release/v1.Release`（`Releaser` 是 `any`）；OCI 拉取使用 `registry.Client.Pull`，返回的 manifest digest 与 BOM 中的 chart digest 比对。
+
+### 9.1 执行接口（`pkg/orchestrator`，全部可替换为 fake）
+
+```go
+type ChartSource interface { // 按 BOM 组件取 chart
+    Load(ctx context.Context, c bom.Component) (chart.Charter, error)
+}
+// OCISource：registry.Client.Pull(ref:version)，manifest digest ≠ BOM digest → ErrDigestMismatch（退出码 15）
+// DirSource：<root>/<component> 目录（测试；离线包布局由 T14 复用）
+
+type Releases interface { // Helm 抽象
+    Get(ctx context.Context, namespace, name string) (*Deployed, error) // 不存在返回 nil, nil
+    Apply(ctx context.Context, req ApplyRequest) (revision int, err error) // 不存在则 install，否则 upgrade
+    Uninstall(ctx context.Context, namespace, name string) error
+}
+type Deployed struct { Revision int; ChartVersion, SpecHash string; Status string } // Status 取 Helm release 状态
+type ApplyRequest struct { Namespace, Name string; Chart chart.Charter; Values map[string]any; Labels map[string]string; Timeout time.Duration }
+
+type StatusStore interface { // DtsRelease 单例
+    Load(ctx context.Context) (*v1alpha1.DtsRelease, error)
+    Update(ctx context.Context, mutate func(*v1alpha1.DtsReleaseStatus)) error // 冲突自动重试
+}
+
+type Verifier interface { // Verifying 阶段；T11 接入契约探测，此前为 no-op
+    Verify(ctx context.Context, component, namespace string) error
+}
+```
+
+### 9.2 执行规则
+
+| 项 | 规则 |
+|----|------|
+| 命名 | Helm release 名 = 组件名；命名空间 = `dts-<组件名>`（组件名已以 `dts-` 开头则直接用）；Helm 存储为该命名空间内的 Secret；`CreateNamespace=true` |
+| 幂等键 | release 标签 `infra.dts.yuzhicloud.com/spec-hash` = sha256(chart digest + 最终 values 的规范 JSON + 排序后的镜像列表)，取 hex 前 63 位（标签值上限 63 字符）；另写 `infra.dts.yuzhicloud.com/chart-digest` 仅供查看。**已部署且 spec-hash 相同 → 视为完成，直接 Ready**，不再调用 Helm。这条规则同时覆盖 unchanged 与断点续做；只换镜像或只改现场 values 也会触发升级（W5 单测发现只比较 chart digest 会漏掉这两种情况，2026-09-29 修正） |
+| 值 | `profile.overrides[组件]` 深合并 `spec.overrides[组件]`（后者优先），作为 Helm values |
+| 并行 | 层与层之间串行；层内并行，上限 `--parallel`（默认 4） |
+| 状态 | 每个组件依次经过 Pending → Contracting（T11 前直接通过）→ Installing → Verifying → Ready，每次转换都写回 status；external 组件为 Skipped |
+| 失败 | 组件失败 → 该组件标 Failed 并写入原因；同层正在执行的其他组件继续做完；后续层不再开始；上游不回滚；Release 的 phase 为 Failed，命令退出码 13 |
+| 删除 | 所有安装层成功后，按计划的删除顺序执行 `helm uninstall` |
+| 成功 | Release 的 phase 为 Ready，`observedBom` 为目标 BOM；`history` 头部插入 `{bom, revisions}`，保留 20 条；`lastOperation` 的 result 为 Succeeded |
+| Helm 中间态 | release 处于 `pending-install/upgrade/rollback` 状态时组件直接失败，提示 `helm rollback` 或 `dtsctl resume --force-unlock-release`（后者在 W6 之后实现），不自动覆盖 |
+
+### 9.3 W6：操作锁与 resume
+
+- **Lease**：`coordination.k8s.io/v1` Lease `dts-operation`，命名空间 `dts-system`；holderIdentity 为 `<user>@<host>/<operationID>`；时长 60 s，每 20 s 续约。获取时如果 Lease 被他人持有且未过期，返回 `ErrLeaseHeld{Holder, RenewedAt}`，退出码 12；Lease 已过期则接管，并在审计中记录 `dts.infra.lease.takenover`。操作结束时释放（清空 holder）。
+- **resume**：`dtsctl resume` 读取 DtsRelease 的 `spec.bomRef` 与 ConfigMap `dts-bom-<release>`，用与原操作相同的计划再执行一次。依赖 9.2 的幂等键，已完成的组件不会被重复安装。验收：执行中途取消（context cancel 或杀进程），resume 之后各组件的 Helm 修订号与一次成功执行的结果一致。
+- **BOM 入库**：`dtsctl deploy` 先把 BOM 写入 ConfigMap `dts-bom-<release>`（`data.dts-release.yaml`），再创建或更新 DtsRelease 的 spec（bomRef、profile），然后执行。
+
+### 9.4 命令
+
+- `dtsctl deploy FILE --profile P [--kubeconfig K] [--charts-dir D] [--parallel N] [--timeout T]`：已有集群模式（D8）。不指定 `--charts-dir` 时从 BOM 的 OCI 地址拉取 chart，凭据读 `~/.config/helm/registry/config.json`。
+- `dtsctl resume [--kubeconfig K] [--charts-dir D]`
+- `dtsctl status [--kubeconfig K]`：输出 DtsRelease 的 status。
+
+### 9.5 验证
+
+| 场景 | 环境 |
+|------|------|
+| 全新部署、升级、unchanged 不调用 Helm、失败时下游暂停、删除顺序、values 合并 | 单测（fake Releases/StatusStore） |
+| 真实 Helm v4 安装/升级只含 ConfigMap 的测试 chart，读回标签与修订号，DtsRelease status 实际写入 | envtest（kube-apiserver 1.34，无节点） |
+| Lease 互斥（两个执行器并发，后者得到 ErrLeaseHeld）与过期接管 | envtest |
+| 中断后 resume 的结果与一次成功一致 | envtest |
+| 从 Harbor `10.20.0.50:18443/dts` 拉 chart 并校验 digest | 集成测试，设置 `DTS_IT_HARBOR=1` 才运行 |
+| 真实工作负载（Deployment 就绪等待）、断网 | T03 虚拟机集群 |
 
 ## 10. 开发环境（编码会话自备）
 

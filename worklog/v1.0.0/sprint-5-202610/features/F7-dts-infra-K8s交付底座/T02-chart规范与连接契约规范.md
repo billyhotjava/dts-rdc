@@ -2,7 +2,7 @@
 
 **原编号**: 新增（2026-09-29，F7 dts-infra K8s 交付底座）
 
-**优先级**: P0 · **状态**: READY · **工作包**: P0 · **估算**: 4–6 人天 · **依赖**: T01
+**优先级**: P0 · **状态**: IN_PROGRESS（chart-spec v1、contract-spec v1、`dtsctl chart check` 已完成，RED/GREEN 通过，证据 `../../it/infra/T02-chart-spec.md`；O1 base image 待用户决定） · **工作包**: P0 · **估算**: 4–6 人天 · **依赖**: T01
 
 ## 目标
 在 dts-infra 仓库发布 `docs/chart-spec.md` 与 `docs/contract-spec.md`，并提供可复用的 chart 规范检查 CI 步骤，各模块据此写 chart。

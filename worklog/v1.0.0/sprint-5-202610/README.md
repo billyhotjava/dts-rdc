@@ -252,7 +252,7 @@ dts-copilot 经 34 个 sprint 已成为事实上的头脑，但它是"三合一"
 | [F4](features/F4-Wiki-Git双向同步/README.md) | Wiki-Git双向同步 | 6 | P0 | 2026-10 第 3 周 | DRAFT（DRAFT=6） | Sprint-6 F5 Git 双向同步 |
 | [F5](features/F5-Wiki检索协作与上线/README.md) | Wiki检索协作与上线 | 10 | P0/P1 | 2026-10 第 4 周 | DRAFT（DRAFT=10） | Sprint-6 F7 搜索与导航；Sprint-6 F8 协作：评论、@提及、通知；Sprint-6 F9 部署、迁移切换与运维 |
 | [F6](features/F6-DTS-Console外壳与全量UI原型/README.md) | DTS-Console外壳与全量UI原型 | 14 | P0 | 2026-10（10-09～10-23 契约冻结） | DRAFT（READY=3 / DRAFT=11） | 新增工作流（ADR-013） |
-| [F7](features/F7-dts-infra-K8s交付底座/README.md) | dts-infra K8s交付底座 | 35 | P0 | 2026-10 起（本月 T01～T04；其余随 Feature 转入 Sprint-6） | IN_PROGRESS（READY=4 / IN_PROGRESS=4 / DRAFT=27；dtsctl W1–W4 已完成，见 `it/infra/W1-W4-dtsctl.md`） | 新增工作流（ADR-014，用户 2026-09-28～29 确认） |
+| [F7](features/F7-dts-infra-K8s交付底座/README.md) | dts-infra K8s交付底座 | 35 | P0 | 2026-10 起（本月 T01～T04；其余随 Feature 转入 Sprint-6） | IN_PROGRESS（READY=3 / IN_PROGRESS=5 / DRAFT=27；dtsctl W1–W6 与 T02 规范已完成，见 `it/infra/`） | 新增工作流（ADR-014，用户 2026-09-28～29 确认） |
 
 **依赖顺序**: 工作流 A：F0（T01 权威源 → T06～T09 仓库落位 → T12～T16 ADR）→ F1（T03 合并后完成 F0/T11 工作副本切换）；
 工作流 B 以 design/10 §5 为准，F5/T01 检索可先行供 MCP 使用，不能把整个 F5 都排在 F3/T16 之后；工作流 C 按 F0/T19 → F6 契约与 mock 原型推进。三条工作流可并行，跨工作流前提以各 Task 依赖为准。

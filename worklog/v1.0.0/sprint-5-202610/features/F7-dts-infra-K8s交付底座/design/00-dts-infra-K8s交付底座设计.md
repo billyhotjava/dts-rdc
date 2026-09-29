@@ -294,7 +294,7 @@ chart 规范检查为可复用 CI 步骤：`helm lint`、Kyverno CLI 离线策�
 
 ## 7. 各模块改造
 
-共性十项：① chart ② 替换 Bitnami/ES 依赖 ③ 运行时联网排查修复 ④ 配置外置为契约 Secret ⑤ restricted（非 root、只读根文件系统）⑥ 迁移改 Job/initContainer ⑦ 多架构构建 ⑧ ServiceMonitor + 探针 ⑨ 经网关 IngressRoute ⑩ Keycloak client 由 config-cli 声明。
+（2026-09-29 T02 定稿：⑨ 的路由对象改为 Gateway API `HTTPRoute`，挂到共享 Gateway，forwardAuth 经 `ExtensionRef` 引用 Traefik Middleware；细则见 dts-infra `docs/chart-spec.md`）共性十项：① chart ② 替换 Bitnami/ES 依赖 ③ 运行时联网排查修复 ④ 配置外置为契约 Secret ⑤ restricted（非 root、只读根文件系统）⑥ 迁移改 Job/initContainer ⑦ 多架构构建 ⑧ ServiceMonitor + 探针 ⑨ 经网关 IngressRoute ⑩ Keycloak client 由 config-cli 声明。
 
 | 模块 | 特殊项 |
 |------|--------|
