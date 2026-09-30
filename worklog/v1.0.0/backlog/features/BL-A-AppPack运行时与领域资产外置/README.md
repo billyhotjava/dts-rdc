@@ -14,19 +14,19 @@
 
 | ID | Task | 原编号 | 优先级 | 状态 | 依赖 |
 |----|------|--------|--------|------|------|
-| [T01](T01-pack-manifest-v1-Schema与校验器.md) | pack-manifest v1 Schema 与校验器 | Sprint-5 F4/T01 | P0 | DRAFT | F0/T12、F0/T15、F1/T03（原则与 CLI 工程落点；不等待 T20 整体完成） |
-| [T02](T02-Pack注册表数据模型与迁移.md) | Pack 注册表数据模型与迁移 | Sprint-5 F4/T02 | P0 | DRAFT | T01、F1/T03 |
-| [T03](T03-Pack安装激活回滚API.md) | Pack 安装/激活/回滚 API | Sprint-5 F4/T03 | P0 | DRAFT | T02 |
-| [T04](T04-语义包与本体服务改为从注册表读取.md) | 语义包与本体服务改为从注册表读取 | Sprint-5 F4/T04 | P0 | DRAFT | T03 |
-| [T05](T05-治理规则类Registry统一改用PackAssetResolver.md) | 治理规则类 Registry 统一改用 PackAssetResolver | Sprint-5 F4/T05 | P0 | DRAFT | T04 |
-| [T06](T06-领域查询模板从Liquibase数据迁为Pack资产.md) | 领域查询模板从 Liquibase 数据迁为 Pack 资产 | Sprint-5 F4/T06 | P1 | DRAFT | T04 |
-| [T07](T07-Pack查询API.md) | Pack 查询 API（界面驱动；UI 见 Sprint-5 F6/T08）| Sprint-5 F4/T07 | P1 | DRAFT | T03；Sprint-5 F6/T13（契约 v1） |
-| [T08](T08-prs-stack-pack目录与manifest骨架.md) | prs-stack/pack 目录与 manifest 骨架 | Sprint-5 F5/T01 | P0 | DRAFT | T01（schema）、F0/T06（prs-stack 已建库） |
-| [T09](T09-迁移语义包提示词与直答规则.md) | 迁移语义包、提示词与直答规则 | Sprint-5 F5/T02 | P0 | DRAFT | T08 |
-| [T10](T10-迁移治理规则与评测集.md) | 迁移治理规则与评测集 | Sprint-5 F5/T03 | P0 | DRAFT | T08 |
+| [T01](T01-pack-manifest-v1-Schema与校验器.md) | pack-manifest v1 Schema 与校验器 | Sprint-5 F4/T01 | P0 | IN_PROGRESS | F0/T12、F0/T15、F1/T03（原则与 CLI 工程落点；不等待 T20 整体完成） |
+| [T02](T02-Pack注册表数据模型与迁移.md) | Pack 注册表数据模型与迁移 | Sprint-5 F4/T02 | P0 | IN_PROGRESS | T01、F1/T03 |
+| [T03](T03-Pack安装激活回滚API.md) | Pack 安装/激活/回滚 API | Sprint-5 F4/T03 | P0 | IN_PROGRESS | T02 |
+| [T04](T04-语义包与本体服务改为从注册表读取.md) | 语义包与本体服务改为从注册表读取 | Sprint-5 F4/T04 | P0 | IN_PROGRESS | T03 |
+| [T05](T05-治理规则类Registry统一改用PackAssetResolver.md) | 治理规则类 Registry 统一改用 PackAssetResolver | Sprint-5 F4/T05 | P0 | IN_PROGRESS | T04 |
+| [T06](T06-领域查询模板从Liquibase数据迁为Pack资产.md) | 领域查询模板从 Liquibase 数据迁为 Pack 资产 | Sprint-5 F4/T06 | P1 | IN_PROGRESS | T04 |
+| [T07](T07-Pack查询API.md) | Pack 查询 API（界面驱动；UI 见 Sprint-5 F6/T08）| Sprint-5 F4/T07 | P1 | IN_PROGRESS | T03；Sprint-5 F6/T13（契约 v1） |
+| [T08](T08-prs-stack-pack目录与manifest骨架.md) | prs-stack/pack 目录与 manifest 骨架 | Sprint-5 F5/T01 | P0 | IN_PROGRESS | T01（schema）、F0/T06（prs-stack 已建库） |
+| [T09](T09-迁移语义包提示词与直答规则.md) | 迁移语义包、提示词与直答规则 | Sprint-5 F5/T02 | P0 | IN_PROGRESS | T08 |
+| [T10](T10-迁移治理规则与评测集.md) | 迁移治理规则与评测集 | Sprint-5 F5/T03 | P0 | IN_PROGRESS | T08 |
 | [T11](T11-garden工具声明化.md) | garden 工具声明化 | Sprint-5 F5/T04 | P1 | DRAFT | T08、BL-S/T08（工具执行统一走 QueryGateway） |
-| [T12](T12-动作endpoint抽象.md) | 动作 endpoint 抽象（adminapi → 服务引用） | Sprint-5 F5/T05 | P0 | DRAFT | T08 |
-| [T13](T13-Pack构建CI与发布流程.md) | Pack 构建、CI 与发布流程 | Sprint-5 F5/T06 | P1 | DRAFT | T09、T10 |
+| [T12](T12-动作endpoint抽象.md) | 动作 endpoint 抽象（adminapi → 服务引用） | Sprint-5 F5/T05 | P0 | IN_PROGRESS | T08 |
+| [T13](T13-Pack构建CI与发布流程.md) | Pack 构建、CI 与发布流程 | Sprint-5 F5/T06 | P1 | IN_PROGRESS | T09、T10 |
 | [T14](T14-头脑去领域化验收.md) | 头脑去领域化验收 | Sprint-5 F5/T07 | P0 | DRAFT | T09–T13、T05、T06 |
 | [T15](T15-DAP-Ontology-v1定稿.md) | DAP Ontology v1 定稿 | Sprint-5 F12/T01 | P1 | DRAFT | T01 |
 | [T16](T16-Skill描述导出端点.md) | Skill 描述导出端点 | Sprint-5 F12/T02 | P2 | DRAFT | T11 |
@@ -150,3 +150,7 @@ Ontology 层以语义包 schema 为准，Skill 层由 ToolRegistry 导出，UI �
 ## 2026-09-30 来源溯源切片
 
 T04 / T06 已补齐回答的 Pack 版本来源，覆盖缓存、普通回答、SSE 和历史消息；T17 登记子契约复用及 Console 适配要求。528 项 AI 后端测试与真实 HTTP 运行验证通过，106 条模板问题保持基线一致。详见 [本次实现与验证](assets/pack-provenance-20260930.md)。Feature 状态及跨 Feature 剩余边界保持不变。
+
+## 2026-09-30 提交后继续完善
+
+第一轮 Studio / PRS / App Stack / RDC 提交已推送到 feature 分支。随后补齐 T06 的空库 profile、历史种子隔离、启动模式保护及显式模板顺序；PRS 0.1.2 保持原 106 条问题的模板与 SQL 结果。后续改动尚未进行第二轮提交/推送，详见 [新库启动记录](assets/pack-bootstrap-20260930.md)。本表任务状态已按各 Task 文档校正，未把开发验证当作整体 Feature 验收。

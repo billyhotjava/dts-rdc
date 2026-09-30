@@ -1,0 +1,77 @@
+{
+  "date": "2026-09-30",
+  "pushed_checkpoint": {
+    "studio": {
+      "branch": "feature/studio/engine-import",
+      "sha": "2b697d03b75cdbfb3e437efc6683b732eb3547d7"
+    },
+    "prs": {
+      "branch": "feature/studio/pack-runtime",
+      "sha": "8d867d5a31422ed308f1175a9713066d867fb685"
+    },
+    "app_stack": {
+      "branch": "feature/studio/pack-runtime",
+      "sha": "b643656307e5483ede02e707d35eb0539377aa2c"
+    },
+    "rdc": {
+      "branch": "feature/studio/pack-runtime",
+      "sha": "fae2c6fb809e70b912f9f2db7a31f7bbb504fd7e"
+    },
+    "verified_with_git_ls_remote": true
+  },
+  "followup_committed": false,
+  "followup_pushed": false,
+  "source_tree": {
+    "files": 1918,
+    "sha256": "c385814e88fa358433b143c89f369cf944b22282254e1bf38feff0dafef47461",
+    "matches_build_checkout": true
+  },
+  "ai_clean_verify": {
+    "suites": 114,
+    "tests": 531,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/data/dts-studio-bootstrap-20260930/ai-final-verify.log"
+  },
+  "exporter_followup": {
+    "recompiled_and_packaged": true,
+    "isolated_export_passed": true,
+    "export_log": "/data/dts-studio-bootstrap-20260930/export-runtime.log",
+    "non_order_template_fields_unchanged": true,
+    "templates_with_unique_order": 57
+  },
+  "paired_runtime": {
+    "legacy": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "log": "/data/dts-studio-bootstrap-20260930/pack-bootstrap.3ZMvWw/legacy.log"
+    },
+    "fresh": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "log": "/data/dts-studio-bootstrap-20260930/pack-bootstrap.3ZMvWw/fresh.log"
+    }
+  },
+  "original_golden_cases": 106,
+  "original_golden_unchanged": true,
+  "original_golden": "/data/dts-studio-bootstrap-20260930/pack-bootstrap.S6wZU7/legacy-golden.json",
+  "fresh_against_original_log": "/data/dts-studio-bootstrap-20260930/fresh-runtime-ordered.log",
+  "legacy_seed_changesets_filtered": 24,
+  "original_checksums_unchanged": 61,
+  "archive": {
+    "path": "/data/dts-studio-bootstrap-20260930/prs-flower-0.1.2.dtspack",
+    "sha256": "47b5b6369b32cb3db73ab8e6bfc11a2e4a6a1f805ef54465d8f13943fa2ed69c",
+    "pack_name": "prs-flower",
+    "version": "0.1.2",
+    "assets": 31
+  },
+  "live_llm_or_business_query_acceptance": false,
+  "analytics_rerun": false,
+  "remote_ci_verified": false,
+  "production_deployed": false
+}
