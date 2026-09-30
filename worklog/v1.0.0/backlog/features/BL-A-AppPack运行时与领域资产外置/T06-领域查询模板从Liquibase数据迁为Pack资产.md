@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F4/T06（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P1
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: T04
 
 ## 目标
@@ -24,3 +24,13 @@
 
 ## Definition of Done
 - [ ] 模板资产进入 prs-pack，回归通过
+
+## 2026-09-29 编码进展
+
+顺序重放 19 个 changeset 得到 57 个模板；内容指纹识别旧种子、手工模板保护、事务投影与回滚、缓存 generation 刷新已实现。全新发布配置跳过历史种子仍待收口。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。
+
+## 2026-09-30：模板来源追踪
+
+JPA 模板对象映射既有 `source_pack_version_id`，匹配缓存加载时批量解析所属 Pack 名称/版本；缓存命中复用该证据，不以当前 ACTIVE 版本倒推旧模板来源。缺失所属版本时拒绝猜测，手工/历史模板不附加 Pack 来源。未新增数据库迁移或业务数据连接。详见 [验证记录](assets/pack-provenance-20260930.md)。

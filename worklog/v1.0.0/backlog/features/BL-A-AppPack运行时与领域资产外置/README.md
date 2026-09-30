@@ -1,7 +1,7 @@
 # BL-A: AppPack运行时与领域资产外置
 
 **优先级**: P0
-**状态**: DRAFT（DRAFT=22）
+**状态**: IN_PROGRESS（IN_PROGRESS=12 / DRAFT=10）
 **时间窗**: 2026-11（Sprint-6 W1–W4；T18 待完整安全基座，T22 W2 探索/W4 收口）
 **整合来源**: Sprint-5 F4 AppPack 协议落地与头脑 Pack 运行时；Sprint-5 F5 花卉领域资产外置为 prs-pack；Sprint-5 F12 DAP 协议代码化与 Agent UI 契约（2026-09-26 按月度 Sprint 整合）
 
@@ -142,3 +142,11 @@ Ontology 层以语义包 schema 为准，Skill 层由 ToolRegistry 导出，UI �
 ### 完成标准
 - [ ] 后端的 golden set 全部响应通过 `ui-message.v1` 校验
 - [ ] 前端编译时使用生成的类型，手写的重复类型已删除
+
+## 2026-09-29 实现证据
+
+当前已落地 Pack 核心运行时、资源读取和模板投影，详细边界见[编码与验证记录](assets/pack-runtime-20260929.md)。后续工具、动作、DAP/UI 与身份/取数集成保持各自原有依赖，未标记整项完成。
+
+## 2026-09-30 来源溯源切片
+
+T04 / T06 已补齐回答的 Pack 版本来源，覆盖缓存、普通回答、SSE 和历史消息；T17 登记子契约复用及 Console 适配要求。528 项 AI 后端测试与真实 HTTP 运行验证通过，106 条模板问题保持基线一致。详见 [本次实现与验证](assets/pack-provenance-20260930.md)。Feature 状态及跨 Feature 剩余边界保持不变。

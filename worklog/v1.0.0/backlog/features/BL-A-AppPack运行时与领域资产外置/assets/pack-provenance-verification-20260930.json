@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-30",
+  "branch": "feature/studio/engine-import",
+  "source_base": "06a6a8c6bc3a9731c6e4951a2904bb38bdf6166c",
+  "source_tree": {
+    "files": 1909,
+    "sha256": "b62516443033ad17b76a72f473e887f2441f0181fbd575fdf2c85af48538fda9",
+    "matches_build_checkout": true,
+    "uncommitted": true
+  },
+  "ai_clean_verify": {
+    "suites": 113,
+    "tests": 528,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/data/dts-studio-provenance-20260930/ai-verify.log",
+    "packaged": true
+  },
+  "focused": {
+    "tests": 97,
+    "subset_of_full_run": true,
+    "log": "/data/dts-studio-provenance-20260930/focused.log"
+  },
+  "runtime_http": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/data/dts-studio-provenance-20260930/runtime-http.log",
+    "golden_template_questions": 106,
+    "templates": 57,
+    "effective_domains": 5,
+    "chat": true,
+    "sse": true,
+    "persisted_history": true
+  },
+  "new_test_cases": 12,
+  "analytics_rerun": false,
+  "pack": {
+    "name": "prs-flower",
+    "version": "0.1.1",
+    "sha256": "e2b775cdea47005308ddfd82423b361dd4eedfc6742479a2d9998b7c756afc05"
+  },
+  "remote_ci_run": false,
+  "production_deployed": false,
+  "live_llm_or_business_query_acceptance": false
+}

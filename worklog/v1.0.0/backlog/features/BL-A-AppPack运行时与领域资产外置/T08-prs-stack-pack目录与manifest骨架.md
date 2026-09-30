@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F5/T01（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P0
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: T01（schema）、F0/T06（prs-stack 已建库）
 
 ## 目标
@@ -26,3 +26,9 @@
 ## 2026-09-26 承接约束
 
 PRS-G07：现有 `pack/` 是 3 月 JSON/RPC/前端联邦原型，禁止原地覆盖。先在 `pack-next/` 暂存新 schema 目录，本 Task 的 validate/build 命令使用该目录；T13 对照能力迁移表并验证后，保留旧制品到 `pack-legacy/`，再切换新包到最终 `pack/`。这里的最终路径与 BL-A README 一致，暂存阶段尚未完成迁移。
+
+## 2026-09-29 编码进展
+
+prs-stack/pack/studio 已生成独立 dts.pack/v1 源包，严格校验零警告；旧 RPC/UI manifest 保持原契约，未伪装为兼容新协议。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。

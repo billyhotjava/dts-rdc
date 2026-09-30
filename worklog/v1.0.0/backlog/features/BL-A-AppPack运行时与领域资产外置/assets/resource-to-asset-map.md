@@ -4,7 +4,6 @@ Date: 2026-09-29. Asset keys retain the full legacy resource name. Runtime looku
 
 | Resource / key | Kind | Pack path |
 |---|---|---|
-| `semantic-packs/field-operations.json` | `ontology` | `dts-app-stack/prs-stack/pack/studio/semantic-packs/field-operations.json` |
 | `semantic-packs/finance.json` | `ontology` | `dts-app-stack/prs-stack/pack/studio/semantic-packs/finance.json` |
 | `semantic-packs/flowerbiz.json` | `ontology` | `dts-app-stack/prs-stack/pack/studio/semantic-packs/flowerbiz.json` |
 | `semantic-packs/procurement.json` | `ontology` | `dts-app-stack/prs-stack/pack/studio/semantic-packs/procurement.json` |
@@ -36,3 +35,33 @@ Date: 2026-09-29. Asset keys retain the full legacy resource name. Runtime looku
 | `prompts/settlement-few-shots.txt` | `prompts` | `dts-app-stack/prs-stack/pack/studio/prompts/settlement-few-shots.txt` |
 
 The legacy RPC/UI manifest remains `pack/pack-manifest.json`; it is not a `dts.pack/v1` archive.
+
+`field-operations.json` is excluded from the runtime archive: it declares `flowerbiz` and was overwritten by the later `flowerbiz.json` in the old loader. Five domains preserve the effective six-file baseline.
+
+## Reader evidence
+
+| Reader | Source expression |
+|---|---|
+| `BusinessDirectResponseCatalogService:40` | `try (InputStream is = openPackResource(RESOURCE_PATH)) {` |
+| `CaliberCrossSourceRegressionService:36` | `try (InputStream is = openPackResource(DEFAULT_SPEC_RESOURCE)) {` |
+| `CaliberGuardrailSyncService:122` | `JsonNode rules = semanticPackService.getDocument(domain).path("generatedGuardrails").path("rules");` |
+| `CaliberRuleRegistry:62` | `try (InputStream is = openPackResource(RULE_RESOURCE)) {` |
+| `FinanceAmountColumnAlignmentRegistry:37` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceAnswerAuditTrailRegistry:39` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceApplicationMysqlAuthorityRegistry:49` | `InputStream is = openPackResource(resource);` |
+| `FinanceApplicationMysqlAuthorityRegistry:52` | `is = openPackResource(resource);` |
+| `FinanceAuthorityRegistry:40` | `InputStream is = openPackResource(resource);` |
+| `FinanceAuthorityRegistry:43` | `is = openPackResource(resource);` |
+| `FinanceDetailReconciliationSampleRegistry:42` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceDifferentialGridRegistry:42` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceInvariantRegistry:40` | `try (InputStream is = openPackResource(INVARIANT_RESOURCE)) {` |
+| `FinanceInvariantRegressionService:44` | `try (InputStream is = openPackResource(REGRESSION_GRID_RESOURCE)) {` |
+| `FinanceReconciliationScorecardRegistry:38` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceSignoffBaselineRegistry:37` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceSummaryDualReconciliationRegistry:42` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceVoucherSubjectTieoutRegistry:42` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `FinanceWeakPathReconciliationCandidateRegistry:37` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `Nl2SqlAccuracyGoldenSetRegistry:38` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |
+| `Nl2SqlService:204` | `try (InputStream is = openPackResource("/prompts/settlement-few-shots.txt")) {` |
+| `SemanticPackService:66` | `try (InputStream stream = openPackResource(file)) {` |
+| `VoucherLedgerTieoutRegistry:40` | `try (InputStream is = openPackResource(REGISTRY_RESOURCE)) {` |

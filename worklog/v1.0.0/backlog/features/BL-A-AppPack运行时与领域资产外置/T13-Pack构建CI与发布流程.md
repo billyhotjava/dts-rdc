@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F5/T06（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P1
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: T09、T10
 
 ## 目标
@@ -26,3 +26,9 @@ prs-stack 每次合并到 main 时自动校验 Pack；打 tag `pack-v*` 时自�
 ## 2026-09-26 承接约束
 
 执行新包最终路径切换前，验收 T08 的旧 JSON→新 YAML 能力映射并归档旧制品；构建/CI 必须唯一指向最终 `pack/`，不能混打 `pack-next/` 或 `pack-legacy/`。
+
+## 2026-09-29 编码进展
+
+PRS 打包入口及 Studio CI 校验工作流已编码，真实包 CLI 严格校验成功；制品仓发布与 PRS 远端 CI 的跨仓工具供应仍待集成。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。

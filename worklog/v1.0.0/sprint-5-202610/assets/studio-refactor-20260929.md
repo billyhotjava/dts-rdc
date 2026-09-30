@@ -81,3 +81,19 @@ source's CRLF/whitespace was preserved, rather than reformatting the imported tr
 
 See [IT-02](../it/IT-02-studio-build.md) for test results. Import and unit/integration
 verification do not establish a deployed or business-accepted AI brain.
+
+## Subsequent runtime implementation
+
+The 06a6a8c import snapshot above remains historical evidence. Pack runtime, asset readers,
+PRS assets and template ownership have since been implemented on the same feature branch.
+See [the BL-A checkpoint](../../backlog/features/BL-A-AppPack运行时与领域资产外置/assets/pack-runtime-20260929.md)
+for code, isolated test evidence and remaining cross-Feature dependencies. This does not
+close F1 image/chart, source archive, remote promotion or business acceptance tasks.
+
+## Subsequent provenance implementation (2026-09-30)
+
+BL-A now records actual Pack read dependencies in synchronous answers, SSE completion and
+persisted chat replay, including warm caches and template ownership. See the
+[provenance checkpoint](../../backlog/features/BL-A-AppPack运行时与领域资产外置/assets/pack-provenance-20260930.md)
+for the 528-test AI regression and isolated HTTP/SSE verification. The immutable import
+baseline above and the outstanding identity, Stack gateway, Console and delivery tasks remain distinct.

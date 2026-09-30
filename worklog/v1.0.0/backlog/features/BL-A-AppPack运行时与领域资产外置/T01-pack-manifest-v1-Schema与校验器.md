@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F4/T01（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P0
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: F0/T12、F0/T15、F1/T03（原则与 CLI 工程落点；不等待 T20 整体完成）
 
 ## 目标
@@ -50,3 +50,9 @@
 ## 2026-09-26 承接约束
 
 本 Task 同时产出 ADR-012 的正式决策记录；对照 prs-stack 既有 `pack/pack-manifest.json`，列出 RPC/前端入口与新领域资产契约的对应、保留和延期项。旧 `prs-pack@0.1.0` 不可直接改名宣称兼容 `dts.pack/v1`。Schema 完成后回写 T20；未接受前本 Task 保持 DRAFT。
+
+## 2026-09-29 编码进展
+
+Schema、离线 CLI、ZIP/校验和/引用校验、CI 工作流已编码；ADR-012 正式接受与远端 CI 运行仍待闭合。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。

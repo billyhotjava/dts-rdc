@@ -27,3 +27,7 @@
 
 ## Definition of Done
 - [ ] 包 1.0.0 已发布；前端删除手写重复类型
+
+## 2026-09-30：可复用的来源子契约
+
+引擎新增 `protocol/pack-source-ref.v1.schema.json`，普通回答、SSE `done` 和历史消息通过 `packRefs[]` 暴露 `{type:"pack",name,version}`，持久化于 `trace.packRefs`。现有 `sourceRefs` 的 REST 字符串/SSE 字符串数组保持兼容；本 Task 与 BL-C/T02 需把 `packRefs` 适配到 Console 的结构化来源字段，不能把这个子契约标成完整 UI Schema 已交付。完整类型生成、包发布、Console 消费仍未完成，状态保持 DRAFT。

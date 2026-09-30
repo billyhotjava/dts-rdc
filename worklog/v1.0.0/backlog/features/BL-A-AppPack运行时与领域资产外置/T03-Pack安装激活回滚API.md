@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F4/T03（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P0
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: T02
 
 ## 目标
@@ -26,3 +26,9 @@
 
 ## Definition of Done
 - [ ] OpenAPI 文档生成；契约测试通过；审计事件可以在日志或 Kafka 中看到（BL-S 之前先写本地审计表）
+
+## 2026-09-29 编码进展
+
+安装幂等、激活、回滚和审计同事务已实现；当前管理权限为 API Key + 非默认管理员密钥，网关角色接入仍由 BL-S 承接。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。

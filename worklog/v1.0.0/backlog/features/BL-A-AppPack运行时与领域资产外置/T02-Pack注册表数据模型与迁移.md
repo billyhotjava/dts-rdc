@@ -3,7 +3,7 @@
 **原编号**: Sprint-5 F4/T02（2026-09-26 按月度 Sprint 整合重编号）
 
 **优先级**: P0
-**状态**: DRAFT
+**状态**: IN_PROGRESS
 **依赖**: T01、F1/T03
 
 ## 目标
@@ -37,3 +37,9 @@
 
 ## Definition of Done
 - [ ] 迁移合入；干净数据库和已有数据库（F0 基线库的副本）都能升级成功
+
+## 2026-09-29 编码进展
+
+注册表、版本/资产/全局 generation、审计 outbox 及迁移回滚测试已实现；复用 Spring JDBC 事务，未另建重复 JPA 实体。
+
+证据与未完成项：[Pack runtime checkpoint](assets/pack-runtime-20260929.md)。状态不等同于部署或业务验收完成。
