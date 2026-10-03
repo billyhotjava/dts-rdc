@@ -20,6 +20,8 @@
 本月 7 个 Feature / 83 Task（含 4 个 v1.1 新增 Task、Wiki MCP F3/T16、ADR-013 F0/T19 与 F6 Console 原型与模块吸收 14 个 Task），backlog 5 个 Feature / 69 Task（全部于 Sprint-6 完成）。新旧编号对照见 [`assets/renumber-20260926.md`](assets/renumber-20260926.md)。
 **2026-09-26 修订**: [整体复核及 PRS 基础承接](assets/planning-reconciliation-20260926.md)。旧 Sprint-1～4 退出活动队列；原型/资料接收 F0/T05 已完成，运行 Gate 仍待执行。
 
+**2026-10-02 repository review**: [Local modularity cleanup and verification](assets/repository-modularity-review-20261002.md). Analytics moved to Stack, shared Pack tools extracted into Common, and obsolete source/build outputs removed after backup. This source verification does not complete pending ADRs or production delivery.
+
 ## 背景与价值
 
 ### 产品能力与月度切片（2026-09-27）
