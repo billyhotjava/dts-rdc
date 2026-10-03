@@ -15,7 +15,5 @@
       "worklog": "products/prs/worklog"
     }
   ],
-  "extras": [
-    { "dir": "sandbox", "name": "练习区" }
-  ]
+  "extras": []
 }

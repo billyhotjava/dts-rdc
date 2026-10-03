@@ -1,8 +1,0 @@
-[Unit]
-Description=Keycloak database backup (dts-sso-db)
-Requires=docker.service
-After=docker.service
-
-[Service]
-Type=oneshot
-ExecStart=/data/dts-sso/backup/keycloak-backup.sh

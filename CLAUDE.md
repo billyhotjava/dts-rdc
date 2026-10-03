@@ -1,3 +1,8 @@
+> Current checkout note (2026-10-02): see AGENTS.md and README.md for implemented
+> module boundaries. Analytics is now in dts-stack/analytics; Common is a pure Pack
+> artifact in dts-common; deployment assets belong to dts-infra/deploy. This local
+> source cleanup does not mark pending Sprint ADRs or production delivery complete.
+
 # DTS — AI Decision Operating System
 
 > Decision Twins System: Ontology + Intent + Agent
