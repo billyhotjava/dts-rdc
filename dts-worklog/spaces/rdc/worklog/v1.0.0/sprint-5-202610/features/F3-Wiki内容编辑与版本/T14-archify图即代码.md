@@ -3,7 +3,7 @@ type: task
 id: S5/F3/T14
 feature: S5/F3
 title: "archify 图即代码（v1.1 W6.5 之一）"
-status: READY
+status: IN_PROGRESS
 priority: P1
 depends: [S5/F3/T08, S5/F3/T13]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F3/T08, S5/F3/T13]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | READY | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-06 | IN_PROGRESS | Authorized diagram bundles implemented in MCP; reading UI/build tool remain pending. |

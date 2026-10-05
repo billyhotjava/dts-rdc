@@ -3,7 +3,7 @@ type: feature
 id: S5/F5
 sprint: sprint-5
 title: "Wiki检索协作与上线"
-status: DRAFT
+status: IN_PROGRESS
 ---
 # F5: Wiki检索协作与上线
 
@@ -16,3 +16,12 @@ status: DRAFT
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+
+| 2026-10-06 | IN_PROGRESS | Source review and local delivery progressed; runtime acceptance remains gated in the current register. |
+
+## Current verification scope
+
+Company-owned Wiki source and local completion evidence are tracked in
+[the acceptance register](../../it/wiki/final-acceptance.md). Runtime acceptance
+remains pending the handoff gates; historical outbound plans do not override
+inbound-only D10 A-prime.

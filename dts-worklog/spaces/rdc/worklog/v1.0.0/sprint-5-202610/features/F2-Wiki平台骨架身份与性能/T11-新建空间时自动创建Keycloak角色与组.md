@@ -3,7 +3,7 @@ type: task
 id: S5/F2/T11
 feature: S5/F2
 title: "新建空间时自动创建 Keycloak 角色与组"
-status: DRAFT
+status: IN_PROGRESS
 priority: P1
 depends: [S5/F2/T10]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F2/T10]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-05 | IN_PROGRESS | Manifest role script passed local tests at Infra `bc65ebd`; G0/G2 real account verification remains pending. See [WP4](../../it/wiki/WP4-space-roles.md). |

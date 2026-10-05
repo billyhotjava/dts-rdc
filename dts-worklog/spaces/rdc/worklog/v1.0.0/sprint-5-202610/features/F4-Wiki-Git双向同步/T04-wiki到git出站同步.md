@@ -18,3 +18,9 @@ depends: [S5/F4/T03, S5/F3/T03]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+
+## Current delivery scope
+
+The current handoff selects inbound-only synchronization (D10 A-prime). This
+archived outbound/conflict task remains DRAFT and is excluded from current
+release acceptance. Git content remains read-only and produces no outbox.

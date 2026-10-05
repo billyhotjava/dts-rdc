@@ -3,7 +3,7 @@ type: task
 id: S5/F4/T02
 feature: S5/F4
 title: "空间同步配置与 deploy key 管理"
-status: DRAFT
+status: IN_PROGRESS
 priority: P0
 depends: [S5/F4/T01]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F4/T01]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-05 | IN_PROGRESS | Local manifest/inbound verification passed at `b3c47ac`; runtime acceptance remains pending. See [WP2](../../it/wiki/WP2-manifest-inbound.md). |

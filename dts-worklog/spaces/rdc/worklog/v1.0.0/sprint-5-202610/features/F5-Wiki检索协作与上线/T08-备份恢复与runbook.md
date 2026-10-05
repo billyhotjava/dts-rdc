@@ -3,7 +3,7 @@ type: task
 id: S5/F5/T08
 feature: S5/F5
 title: "备份恢复与 runbook"
-status: DRAFT
+status: IN_PROGRESS
 priority: P0
 depends: [S5/F5/T07]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F5/T07]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-06 | IN_PROGRESS | Consistent backup and isolated restore passed disposable-container rehearsal. |

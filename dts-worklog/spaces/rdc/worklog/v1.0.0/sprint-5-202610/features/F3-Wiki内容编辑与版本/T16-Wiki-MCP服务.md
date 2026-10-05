@@ -3,7 +3,7 @@ type: task
 id: S5/F3/T16
 feature: S5/F3
 title: "Wiki MCP 服务"
-status: DRAFT
+status: IN_PROGRESS
 priority: P1
 depends: [S5/F3/T15, S5/F3/T04, S5/F3/T14, S5/F2/T10, S5/F5/T01]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F3/T15, S5/F3/T04, S5/F3/T14, S5/F2/T10, S5/F5/T01]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-06 | IN_PROGRESS | Personal OAuth MCP and idempotent registration passed local tests; real PKCE acceptance pending. |
