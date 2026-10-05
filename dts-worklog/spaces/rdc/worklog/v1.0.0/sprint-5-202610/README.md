@@ -1,7 +1,21 @@
+---
+type: sprint
+id: sprint-5
+title: "Sprint-5（2026-10）：四模块合并落位 + Wiki v1 上线 + Console 原型 + dts-infra K8s 交付底座"
+status: IN_PROGRESS
+timebox:
+  start: 2026-10-01
+  end: 2026-10-31
+goal: "A 四模块合并与 ADR-005～010 定稿；B DTS Wiki v1 上线（产品中立，内容来自 dts-worklog）；C Console 原型并冻结契约；D dts-infra K8s 交付底座（ADR-014、chart/契约规范、制品中心）"
+---
 # Sprint-5（2026-10）续
 
 **状态**: IN_PROGRESS
 **前半月记录**: [归档 Sprint-5](../../../archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/README.md)。Feature、Task、ADR 原文都在归档中；本目录只记录 2026-10-05 起的新增 Task、状态变更和证据，Feature 编号沿用归档。
+
+## 元数据卡片
+
+`features/` 下每个 Feature（`README.md`）和 Task 各对应一张卡片，按归档目录结构排列。卡片只包含 frontmatter（状态、优先级、依赖）、指向归档原文的链接和状态变更记录，**状态以卡片为准**。backlog 在拉入 Sprint 并重新编号时再建卡片。依据：[frontmatter dry-run 报告](assets/frontmatter-dry-run-20261005.md)。
 
 ## 2026-10-05 起的变更
 
@@ -9,6 +23,8 @@
 |---|---|---|
 | 10-05 | D18–D23：dts-wiki 改为产品中立；研发和 App 内容迁入 dts-worklog；产品能力文档放在 dts-docs（取代 D17） | [F0 设计](features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md) |
 | 10-05 | 新增 F0/T20：wiki 与内容分离迁移 | [T20](features/F0-基线仓库落位与架构定案/T20-wiki产品与worklog内容分离迁移.md) |
+| 10-05 | dts-wiki 开发会话工作指导：WP1–WP9、硬规则、状态回写方式、用户事项 G0/G2–G5 | [工作指导](assets/handoff-20261005-dts-wiki-dev-session.md) |
+| 10-05 | T20 M8c：按方案 A 建立 8 张 Feature 卡片和 118 张 Task 卡片（状态取自归档快照，待复核） | [dry-run 报告](assets/frontmatter-dry-run-20261005.md) |
 | 10-05 | T20 M8a：dts-common 1.1.0 加入 `wiki-content` v1 契约与 `content-lint`；归档已封存；新增 CI 与边界规则 | 同上 |
 
 ## 与归档的状态差异

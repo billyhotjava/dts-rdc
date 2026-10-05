@@ -95,9 +95,11 @@ sprint-workflow 的目标目录改为 `dts-worklog/spaces/<slug>/worklog/v{x}/`�
 | M7 | dts-wiki 按 §7 改造，部署到 .50，接入 dts-rdc 内容源 | wiki 会话 |
 | M8a | `wiki-content/v1` 契约（清单 + frontmatter schema）放进 dts-common 1.1.0；`content-lint` 检查清单、roots、frontmatter、重复 id、软链接，以及归档封存；两份归档已封存到 `dts-worklog/checksums/`；CI `content-lint.yml`；边界检查禁止根目录 `worklog/`、`docs/`、`products/`、dts-wiki `content/`、App `worklog/` | 已完成 |
 | M8b | dts-docs 内容包纳入发布流水线（F7/T27） | 待排期 |
-| M8c | 现有文档补齐 frontmatter（原 S4b W12，先出 dry-run 报告）；目前全仓 0 个文件带 frontmatter | 待排期 |
+| M8c | 现有文档补齐 frontmatter：按 dry-run 报告方案 A，在活动 worklog 中建立元数据卡片，状态以卡片为准 | 已完成（128 个文件带 frontmatter） |
 
 ## 7. 给 dts-wiki 开发会话的输入
+
+可执行版本（工作包、完成标准、用户事项）见 [dts-wiki 开发会话工作指导](../../../assets/handoff-20261005-dts-wiki-dev-session.md)；本节是它的设计依据。
 
 S4a 计划的目标不变：入站同步、git 绑定页只读、部署到 .50。变更如下：
 
