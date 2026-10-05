@@ -1,0 +1,20 @@
+# Space manifest consumed by dts-wiki. One wiki space per entry; `roots` are paths
+# relative to the root of the content repository (dts-rdc). Slugs are never renamed;
+# removing an entry stops syncing but keeps the space data in the wiki.
+version: 1
+spaces:
+  - slug: dts
+    name: DTS 产品能力
+    description: DTS product capability documents; shipped read-only with every release.
+    roots: [dts-docs]
+    role: space-dts
+  - slug: rdc
+    name: DTS 研发中心
+    description: DTS research & development records.
+    roots: [dts-worklog/spaces/rdc/worklog, dts-worklog/spaces/rdc/archive]
+    role: space-rdc
+  - slug: prs
+    name: PRS 花卉租赁
+    description: Flower-rental industry App built on DTS.
+    roots: [dts-worklog/spaces/prs/worklog, dts-worklog/spaces/prs/archive]
+    role: space-prs

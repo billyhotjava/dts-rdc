@@ -1,0 +1,480 @@
+{
+  "imported_on": "2026-09-26",
+  "source_root": "/opt/prod/prs/source/dts-prs",
+  "source_git": "not an independent git repository; use per-file sha256",
+  "target_base_commit": "fc3d0e7fc86925b69609bfc826e00275a765b049",
+  "import_mode": "additive; original backend/frontend/pack preserved",
+  "files": [
+    {
+      "path": "sources/README.md",
+      "bytes": 3212,
+      "sha256": "e22ad9d3f826a65fb3e784c5169bf516a75fef8babdb34bf17bb0039a8d42852"
+    },
+    {
+      "path": "sources/TEMPLATE.md",
+      "bytes": 1423,
+      "sha256": "1906024a6159dbb700cc09b797993077a811ce57df47d176d042fa06d9f2f16b"
+    },
+    {
+      "path": "sources/deploy/.env.example",
+      "bytes": 600,
+      "sha256": "6e525ee7f7417db6dd9f3eec713e5065b2f0784b4278d30ad1fc3f2a1eddc73a"
+    },
+    {
+      "path": "sources/deploy/docker-compose.dev.yml",
+      "bytes": 3459,
+      "sha256": "c5d337d573e03f9a575ec4e0385b441b7e4e3d0d2404bc87e8df9aab7a22b1f8"
+    },
+    {
+      "path": "sources/deploy/fixtures/mysql-init.sql",
+      "bytes": 970,
+      "sha256": "8b2f8f01f73c947fe8320808bf6c707f9c2ac99773dafcc49c56d2393e452802"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/Chart.yaml",
+      "bytes": 156,
+      "sha256": "7771eac73329da0d2d9df98417796081afd3419b4211c1761bbcf7c9782a60e9"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/README.md",
+      "bytes": 847,
+      "sha256": "1c9d5cb785e92ff03c293ec0e8f66c440a6e1eebe5ecfdca7ae34c93557f4178"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/templates/deployment.yaml",
+      "bytes": 1444,
+      "sha256": "2e4cdb997b00301950666ace63e4530b4ad06ce0f2438c0d420d065d59bea45a"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/templates/httproute.yaml",
+      "bytes": 538,
+      "sha256": "7b4e34fe7f952d673a203e5dc50661c167adf9b26b6785ead74c625d56bf87dc"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/templates/service.yaml",
+      "bytes": 266,
+      "sha256": "128d243f8c434a42f2a650ab0c9befa33129150d7f7caf765cf0370bec34c080"
+    },
+    {
+      "path": "sources/deploy/helm/prs-service/values.yaml",
+      "bytes": 558,
+      "sha256": "2a09d3722dd9f88e5143a11091e6fccfa0c3e84d3a003d49d63e8c0b13bb4f76"
+    },
+    {
+      "path": "sources/deploy/keycloak/realm-flower-test.json",
+      "bytes": 3126,
+      "sha256": "50ba473eda047317dd905512ad5b05cfa6e0ccc5299426854864f814884eadfc"
+    },
+    {
+      "path": "sources/deploy/traefik/dynamic/prs.yml",
+      "bytes": 1669,
+      "sha256": "174a9d3b1d7bdec36b474f9786d93af508263973c6d1bb3f3c62da2d471a9d2b"
+    },
+    {
+      "path": "sources/pom.xml",
+      "bytes": 3204,
+      "sha256": "14cbd93e1d85d0bab857e0e8244720be137663780732b0473073c22519cef05c"
+    },
+    {
+      "path": "sources/prs-auth/Dockerfile",
+      "bytes": 1140,
+      "sha256": "c6713e479c1b92b7f56964d149b3ecda13d8d31dd8712000dd91520d349b1be0"
+    },
+    {
+      "path": "sources/prs-auth/pom.xml",
+      "bytes": 1678,
+      "sha256": "62a781357fabcb7d43826ddd770e1e30891a04af2a39772b8d57fac9ca703f07"
+    },
+    {
+      "path": "sources/prs-auth/src/main/java/com/yuzhi/prs/auth/AuthApplication.java",
+      "bytes": 538,
+      "sha256": "b51bcf2e9cc05c9540189bcefad153b98e64987d53012caf7485ae3c03051430"
+    },
+    {
+      "path": "sources/prs-auth/src/main/java/com/yuzhi/prs/auth/ForwardAuthController.java",
+      "bytes": 5355,
+      "sha256": "4ab5475637421a7a8b68b00704a0b479b6de832a7e13427c5bd0b9f9ec016d7f"
+    },
+    {
+      "path": "sources/prs-auth/src/main/java/com/yuzhi/prs/auth/SecurityConfig.java",
+      "bytes": 4637,
+      "sha256": "47d101c4180f2a9946a0960619b773437c01dee1c7787a0999cf6e0f1902dbdf"
+    },
+    {
+      "path": "sources/prs-auth/src/main/java/com/yuzhi/prs/auth/SessionService.java",
+      "bytes": 1933,
+      "sha256": "1a2b2685482b6ec636662edb6ec11ce6867f9b248f975763af86a0a419affad0"
+    },
+    {
+      "path": "sources/prs-auth/src/main/resources/application.yml",
+      "bytes": 664,
+      "sha256": "8480763a109a58372712adecd33c73d73b179510f0472d90be1fbc15b62d49c7"
+    },
+    {
+      "path": "sources/prs-auth/src/test/java/com/yuzhi/prs/auth/SessionJsonTest.java",
+      "bytes": 853,
+      "sha256": "6f15eab67f4482a37a69bdcc7918798e1207d69d7ce60ec3411a5c21ae1f15f7"
+    },
+    {
+      "path": "sources/prs-common/pom.xml",
+      "bytes": 1186,
+      "sha256": "aa19b9ac4a7f05fa9ce5c810c5117669e342dee69fe2da23228ccad30742e6f3"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/PrsCommonConfig.java",
+      "bytes": 430,
+      "sha256": "dce9f88edd89e7cba290d63ce8409888a582c340d65aebde4ec472f6ded3b446"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/openapi/OpenApiConfig.java",
+      "bytes": 665,
+      "sha256": "35d5c08096d0e12ab01ccb1788d1d38b5092342c258d6a7c054569c8809ca6c0"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/security/CurrentUser.java",
+      "bytes": 483,
+      "sha256": "b5f4916cb6f5ed6f5af951d82313fdab6bd401a13c5dc7470bae9c0a17387e1e"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/security/UserContextFilter.java",
+      "bytes": 2173,
+      "sha256": "4c243996137df1a5dc0e3c3cc418b5479f43ed47f6cef8d76aecf20090ca49ce"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/security/UserContextHolder.java",
+      "bytes": 472,
+      "sha256": "8abea174e808d01769e82e7505e8d4260d7e2198d6d59449c780336b46cd85ab"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/web/BizException.java",
+      "bytes": 415,
+      "sha256": "22b9ea6d3d7d85690db372ad9e807021e16e21ff417992a064da91f223235cf1"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/web/GlobalExceptionHandler.java",
+      "bytes": 1758,
+      "sha256": "eca168363c2c08fb18a0dce16eb32beab1715f3ae1f99f51cf1e7c0a855e82c7"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/web/JacksonConfig.java",
+      "bytes": 1012,
+      "sha256": "1ad681e6ccaea79e3826ea60c418e5c1efb19912186f7094c4be559d5b22ba33"
+    },
+    {
+      "path": "sources/prs-common/src/main/java/com/yuzhi/prs/common/web/R.java",
+      "bytes": 1088,
+      "sha256": "c42e991a339452fe12ccfdb0c206a5e05385e051f8e0167521638ee0d6f42c19"
+    },
+    {
+      "path": "sources/prs-common/src/test/java/com/yuzhi/prs/common/web/CommonTest.java",
+      "bytes": 944,
+      "sha256": "b582a9a2190d71086e3c9b39411ae8e9251b1209fd3a7f6a3c114e7eff5e0280"
+    },
+    {
+      "path": "sources/prs-platform/Dockerfile",
+      "bytes": 1156,
+      "sha256": "fab2c58310e9c639ad3adee4b14c4262f1acb75d67c4a320a77cd8b6950e78be"
+    },
+    {
+      "path": "sources/prs-platform/pom.xml",
+      "bytes": 1624,
+      "sha256": "b1c82dc05b73d798859dd3d395ae3fd4c188e1b4513f4bb0b0a99dac8ffda848"
+    },
+    {
+      "path": "sources/prs-platform/src/main/java/com/yuzhi/prs/platform/LiquibaseConfig.java",
+      "bytes": 1036,
+      "sha256": "0be9c509f5fdb772fed8401ddcdd66d8eb5a135998b8444f7999dc644e76cb21"
+    },
+    {
+      "path": "sources/prs-platform/src/main/java/com/yuzhi/prs/platform/PlatformApplication.java",
+      "bytes": 551,
+      "sha256": "168ed21dc7b017c0cb9770318728258229ffcfc1d20f0eb74f3ab7f3f01d0bbd"
+    },
+    {
+      "path": "sources/prs-platform/src/main/resources/application.yml",
+      "bytes": 743,
+      "sha256": "ff5fda43ef02935394f635f4667c51a959b74e6adf336103b7847c481ef4caf7"
+    },
+    {
+      "path": "sources/prs-platform/src/main/resources/db/changelog/001-baseline.xml",
+      "bytes": 3652,
+      "sha256": "55aec42c7d789e39415cba7611133fdaae5bd5fead2bf083df2730be148bdcbc"
+    },
+    {
+      "path": "sources/prs-platform/src/main/resources/db/changelog/002-seed.xml",
+      "bytes": 1684,
+      "sha256": "f7386b696bd43a6aeb8c78680287c1adfa368f92c60d8833459d7eb910782dae"
+    },
+    {
+      "path": "sources/prs-platform/src/main/resources/db/changelog/003-project.xml",
+      "bytes": 3533,
+      "sha256": "51d2c9bb01ac74724b0a1394829ba52b193b872e2e114f052fde28edde574e5e"
+    },
+    {
+      "path": "sources/prs-platform/src/main/resources/db/changelog/db.changelog-master.xml",
+      "bytes": 483,
+      "sha256": "0ea606c2f251142b12bcb771e534e25a912d9d1fc6b3944908fc8dddf6a597ee"
+    },
+    {
+      "path": "sources/prs-project/Dockerfile",
+      "bytes": 1152,
+      "sha256": "c90aad676c6b323441d42fb73912a37c868f828ef85a4f8afef6f5d9f37690b9"
+    },
+    {
+      "path": "sources/prs-project/pom.xml",
+      "bytes": 1924,
+      "sha256": "6e14f9cd7f87c7220b9701510ef0e5d7d37eeeb2d6cc9be1f219111ddc83dfe3"
+    },
+    {
+      "path": "sources/prs-project/src/main/java/com/yuzhi/prs/project/ProjectApplication.java",
+      "bytes": 559,
+      "sha256": "b195884bf08e28e65b486e3a82312d5eac5da0ffb5a966d123ba065a2c0e8a64"
+    },
+    {
+      "path": "sources/prs-project/src/main/java/com/yuzhi/prs/project/ProjectController.java",
+      "bytes": 2482,
+      "sha256": "4ff7af7cf3511579fb07e5f4df9324ed794b91352a4a8510fa206942747ed564"
+    },
+    {
+      "path": "sources/prs-project/src/main/java/com/yuzhi/prs/project/ProjectSyncService.java",
+      "bytes": 4117,
+      "sha256": "04e952300bf2d59f5c83308dc7271f8393138a8338220b94f2da1ed40b1fda46"
+    },
+    {
+      "path": "sources/prs-project/src/main/java/com/yuzhi/prs/project/SyncController.java",
+      "bytes": 1189,
+      "sha256": "7fc8cf7f6c8c5e53cc0906e0e2e1cea0de711395f3fe8e273037e720b514048f"
+    },
+    {
+      "path": "sources/prs-project/src/main/resources/application.yml",
+      "bytes": 651,
+      "sha256": "5c8724685b9c162ec5528272a465201093bb3ea5a75d5cf78b29cd3bf3e3fbc9"
+    },
+    {
+      "path": "sources/prs-shadow/Dockerfile",
+      "bytes": 1148,
+      "sha256": "4910553f5fe7f4b85031659d942983d7e71d18f20436a0d4ed69497541e2d266"
+    },
+    {
+      "path": "sources/prs-shadow/pom.xml",
+      "bytes": 1199,
+      "sha256": "da8d3a824ec32bde681fb0942762f1a943b1b53abe42faaae310267e5c4f30fb"
+    },
+    {
+      "path": "sources/prs-shadow/src/main/java/com/yuzhi/prs/shadow/EchoController.java",
+      "bytes": 768,
+      "sha256": "c55eb0b06fc7dbbe537f92804d1ca54372531243ce42e59e0d35ca7efb64762b"
+    },
+    {
+      "path": "sources/prs-shadow/src/main/java/com/yuzhi/prs/shadow/ShadowApplication.java",
+      "bytes": 540,
+      "sha256": "67dde87717f7b765c2bd45390a8640e86de21832c29fce46e31d2da2c3ab778f"
+    },
+    {
+      "path": "sources/prs-shadow/src/main/resources/application.yml",
+      "bytes": 374,
+      "sha256": "601a2f1833fa7b0990cde2287e70e225e0efbf77df20cbe3e198dfc244279464"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/README.md",
+      "bytes": 17953,
+      "sha256": "f53dda66dc0a550b19dd29f429b9fbcf5611cd72069396e3b4e57d311da65e3e"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/assets/公共镜像基线.md",
+      "bytes": 3285,
+      "sha256": "d418dbefc71b0932f96c5fec584ebfc8292a3d0a2bcf031007f53310c27c7b7f"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/assets/多租户与云原生演进.md",
+      "bytes": 10187,
+      "sha256": "ed576f928866d28d7d8e6429e33bb46a7b05a9d3c7268109edf7f8bf52fa5d6a"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/assets/版本基线.md",
+      "bytes": 9510,
+      "sha256": "ab1a6cc5163807b1e89289ebc9085a26da03fec3787e111d9538b30fc1bc373d"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/assets/迁移清单-v0.1.md",
+      "bytes": 67245,
+      "sha256": "bd51e619e3b435d8084cb856403454b91aa9c54862e4fd60413a7b72f7f79815"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F1-迁移清单定稿与口径签字/README.md",
+      "bytes": 3533,
+      "sha256": "44b39fd927fc33832e3c6283a98ec70fd6cf3aeb33d541bb1abd4978e3dba4e7"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F1-迁移清单定稿与口径签字/T01-组装清单.md",
+      "bytes": 1950,
+      "sha256": "313b3cddaefa7c29537c1bcfb945d4dbf5550c88b6a7c5c9e2815ba0cac5489f"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F1-迁移清单定稿与口径签字/T02-口径签核跟进.md",
+      "bytes": 1289,
+      "sha256": "76d1a5937aeb5d5158f511a6277685ca0ca42922e56a4706bce280a3ccaaf036"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F1-迁移清单定稿与口径签字/T03-排序与单据目录确认.md",
+      "bytes": 1547,
+      "sha256": "22fd79e59af4943fe7bb510bd5ff3d3fb009dca03643afe88f93efe13eaa5293"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F1-迁移清单定稿与口径签字/T04-能力视图重组.md",
+      "bytes": 1525,
+      "sha256": "4a12052a958194b3e6c1cc339da6b7156a5d2006f12b1424ce499f4018d2bb86"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F2-技术底座规范v0.1/README.md",
+      "bytes": 4307,
+      "sha256": "e6ed0a6068aaa08347d864120ec2aefb185c3efd7b961cbc6502abe9901e60e1"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F2-技术底座规范v0.1/SPEC-技术底座规范-v0.1.md",
+      "bytes": 3771,
+      "sha256": "4d94ce4ac6c3d8d98707c9986998d3d99a3134d5265177d15fb548f1e5314f22"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F2-技术底座规范v0.1/T01-规范起草.md",
+      "bytes": 5457,
+      "sha256": "f9cd36b57af882c06f2e18e85f8b743f0bc41e9596c5793dd74bd7f74ebfea21"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F2-技术底座规范v0.1/T02-规范评审.md",
+      "bytes": 976,
+      "sha256": "345c5bb1ab9ce442bcca66b1c29a4b81fdbe16049db7bf00c15eef58e05c838a"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F2-技术底座规范v0.1/T03-模板验证.md",
+      "bytes": 3317,
+      "sha256": "b8a84aa98fa449ef35126690d1b6510e33edacea0c7753e9f0d25ecb50475e87"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/README.md",
+      "bytes": 5621,
+      "sha256": "79f8536849eed407ad70e526f583502a39ab2d8346da77dd45e20c7a7b7a0e59"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/T01-realm设计配置.md",
+      "bytes": 2664,
+      "sha256": "5f3a74f5988344540d721d97b102bff1aaa760ed50bc78ab594760aecdc9801d"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/T02-网关改造.md",
+      "bytes": 1776,
+      "sha256": "e142630ddc0fdc243a741fe67821d814f49d49f642b61a74de56cb8fc6d1a87e"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/T03-端到端验证.md",
+      "bytes": 1068,
+      "sha256": "64f1a3c72cb8a4e478725f8d2730b05b9e7a650b9882f628917460fc26ec3ed4"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/T04-登录测试.md",
+      "bytes": 1818,
+      "sha256": "f2f7493b624e2b9d35b817f9f4a31d5a24a8caa8e1543abf58901185d8895187"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F3-Keycloak打通/T05-网关OIDC细化设计.md",
+      "bytes": 4277,
+      "sha256": "09f978d5a3b4541e845c149f19c3b041597725ddd778cf6a34a249348b258cac"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F4-可运行基线/README.md",
+      "bytes": 3212,
+      "sha256": "298caa41ffc3349f20c27960afa78d905e6731a37d5864d156049d867e76a298"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F4-可运行基线/T01-基线搭建.md",
+      "bytes": 1841,
+      "sha256": "0d617d94961160476f1022541ca96ee604fc21105b7c9ff8978fbbd6d57a2cd2"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F4-可运行基线/T02-基线验证.md",
+      "bytes": 1051,
+      "sha256": "991490b8d1c26250b8c94c8116ecefc1400c8168ea84e87d552b82c0cbf57527"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F4-可运行基线/T03-k8s-ready自检与Helm骨架.md",
+      "bytes": 1746,
+      "sha256": "af0b5e83790adc5498e5c8ec594ca406b96b1373f52ab460120adda9a334dd2d"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F5-消息协议骨架/README.md",
+      "bytes": 2815,
+      "sha256": "c8d4d8cff8fdd5bbc112a34570d0fc71df0604b22d0156c2993ac303f689b236"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F5-消息协议骨架/T01-消息协议Schema.md",
+      "bytes": 1027,
+      "sha256": "a48d540c2b7607d88d167b99d25be43486548ab26ffbc84487caa68fff56c902"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F5-消息协议骨架/T02-注册表骨架.md",
+      "bytes": 739,
+      "sha256": "1d826acfd3c0fa59ade585b665dd403451d1b7c0712298633256f2b58d3d2519"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F6-数据契约与绞杀共存/README.md",
+      "bytes": 4336,
+      "sha256": "613f89106236fc1e35a8cfbc6c8fc0f9544b809ac98fe7a0b35daf2720636fd3"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F6-数据契约与绞杀共存/T01-共存策略ADR.md",
+      "bytes": 2537,
+      "sha256": "b66168774e8c4d4efb4e54b5ca08e9c81f4300c922d03e439609f19e22276b88"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F6-数据契约与绞杀共存/T02-下游影响与兼容契约.md",
+      "bytes": 2256,
+      "sha256": "74f47db24f562e06239891a8702ce0d0aef52870ce9df830398fa64b74bacd8c"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F7-三系统行走骨架/README.md",
+      "bytes": 4511,
+      "sha256": "0ae8e2bcb9fc52fffb3beb151bfb3256f2d45f263bc0c43438da821706d7123c"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F7-三系统行走骨架/T01-项目只读服务.md",
+      "bytes": 1631,
+      "sha256": "9348aea7283321e11cde10bf2acafe7986e1b94190c81c5de556bd61cea353a0"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F7-三系统行走骨架/T02-老库单向同步.md",
+      "bytes": 1504,
+      "sha256": "098b19b6b65e91adf5a945e8f88b5160de352e67a58decd803e2963eb781ca70"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F7-三系统行走骨架/T03-入湖与兼容视图.md",
+      "bytes": 1380,
+      "sha256": "529dff737869884aa377f2b0ce7fc17e2ff5a3ebf604b0f12b2bc1a2a5126c0f"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/features/F7-三系统行走骨架/T04-问数对照验收.md",
+      "bytes": 1431,
+      "sha256": "fb39371bd10a9307d937b00aa55eff2636dc5fd97a52ff49296bcd56b2b23e73"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/it/README.md",
+      "bytes": 673,
+      "sha256": "65d9fabe2591369602c78a228571b1160b2e535588bcf2ed6d77ccfb881a06e2"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-1-202609/it/baseline.md",
+      "bytes": 1114,
+      "sha256": "2b695a6d8f6530cc598d6074dd85f75ee857344edc9441a4009b19c492e5f31b"
+    },
+    {
+      "path": "worklog/v1.0.0/sprint-queue.md",
+      "bytes": 12257,
+      "sha256": "be2f0e14c2bce1e9a44fd2221619bc0b54a5388c28894008021122296030edff"
+    }
+  ],
+  "excluded_count": 68,
+  "excluded_policy": [
+    "build outputs and dependencies",
+    ".env and key material",
+    "git metadata"
+  ]
+}

@@ -29,7 +29,7 @@ Do NOT use for: one-line fixes, retroactive rewriting of old sprints unless requ
 
 ## Directory Standard
 
-Target directory auto-detected from current branch version (e.g. `v2.2.2` -> `worklog/v2.2.2/`).
+Target directory: in dts-rdc, `dts-worklog/spaces/<slug>/worklog/v{x.y.z}/` (`<slug>` = `rdc` for DTS platform work, the App slug for App work; see `dts-worklog/spaces.yml`). Never write into `dts-worklog/spaces/*/archive/` (frozen). In other repositories, auto-detect from the branch version (e.g. `v2.2.2` -> `worklog/v2.2.2/`).
 
 ```
 worklog/v{x.y.z}/

@@ -1,9 +1,10 @@
 # DTS RDC
 
 Research and development coordination for Decision Twins System. This checkout
-contains independent product repositories, shared protocol artifacts, formal
-product documents and development evidence. Current planning is maintained in
-[October Sprint 5](worklog/v1.0.0/sprint-5-202610/README.md); earlier plans remain
+contains independent product repositories, shared protocol artifacts, DTS product
+capability documents (`dts-docs/`) and development records (`dts-worklog/`). Current
+planning is maintained in [October Sprint 5](dts-worklog/spaces/rdc/worklog/v1.0.0/sprint-5-202610/README.md)
+(records before 2026-10-05 are [archived](dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/README.md)); earlier plans remain
 historical inputs, not proof that their proposed services are implemented.
 
 ## Module ownership
@@ -57,10 +58,12 @@ preserved, not upgraded during this cleanup.
 
 ## Repository navigation
 
-- [Repository modularity review](worklog/v1.0.0/sprint-5-202610/assets/repository-modularity-review-20261002.md)
-- [Sprint queue](worklog/v1.0.0/sprint-queue.md)
-- [Worklog index](worklog/v1.0.0/README.md)
-- [Planning reconciliation](worklog/v1.0.0/sprint-5-202610/assets/planning-reconciliation-20260926.md)
+- [Wiki/worklog separation design](dts-worklog/spaces/rdc/worklog/v1.0.0/sprint-5-202610/features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md)
+- [Content layout](dts-worklog/README.md) and [product capability docs](dts-docs/README.md)
+- [Repository modularity review](dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/assets/repository-modularity-review-20261002.md)
+- [Sprint queue](dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-queue.md)
+- [Active worklog](dts-worklog/spaces/rdc/worklog/README.md) · [archived worklog index](dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/README.md)
+- [Planning reconciliation](dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/assets/planning-reconciliation-20260926.md)
 - [Contributor boundaries](AGENTS.md) and [project conventions](CLAUDE.md)
 
 Human override, authenticated entry, authorized data, traceable operations and

@@ -21,7 +21,7 @@
 
 ### 当前规划权威
 
-以 `worklog/v1.0.0/sprint-5-202610/README.md` 及其 ADR 状态为准。3 月设计/旧 Sprint 中的 Python 头脑、25 服务、All-in-K8s 等是历史方案，变更映射见 `assets/planning-reconciliation-20260926.md`；不能在新 Sprint 中同时按两套边界实施。
+以 `dts-worklog/spaces/rdc/worklog/v1.0.0/sprint-5-202610/README.md`（Sprint-5 续）及归档 `dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/README.md` 的 ADR 状态为准。3 月设计/旧 Sprint 中的 Python 头脑、25 服务、All-in-K8s 等是历史方案，变更映射见 `assets/planning-reconciliation-20260926.md`；不能在新 Sprint 中同时按两套边界实施。
 
 - **dts-rdc**：总纲、跨模块规划与子仓库索引。
 - **dts-studio**：并入 copilot 的 AI 头脑；Java 主体是 ADR-005 提议，未定稿前不宣称完成。
@@ -31,7 +31,7 @@
 
 ### 版本与工作副本
 
-PRS 输入见 `dts-app-stack/prs-stack/worklog/v1.0.0/integration-20260926/`。BOM/公共镜像是 9 月锁定快照；应用版本与公共镜像分开管理，静态配置不代表升级运行通过。
+PRS 输入见 `dts-worklog/spaces/prs/archive/prs-stack-worklog/v1.0.0/integration-20260926/`。BOM/公共镜像是 9 月锁定快照；应用版本与公共镜像分开管理，静态配置不代表升级运行通过。
 原始工作副本在 F0/T01 确认、F1/T06 切换前仍沿用各仓库现有开发/构建约束；本次本地资料接收不自动改变权威路径，不在源目录初始化新历史或覆盖旧原型。
 当前采用 Compose 验证；通信、安全与部署实现按 Accepted ADR 执行，不能从历史愿景直接推定服务已经运行。
 
@@ -67,32 +67,35 @@ PRS 输入见 `dts-app-stack/prs-stack/worklog/v1.0.0/integration-20260926/`。B
 │   └── .memory/                 # 领域知识 (ontology/conversations/decisions)
 ├── dts-stack/                   # 湖仓数据中台 (submodule)
 ├── dts-app-stack/               # 行业 App (submodule)
-├── worklog/                     # 工作日志 (sprint-workflow 格式)
-│   └── v1.0.0/                  # 当前版本工作记录
-│       ├── sprint-queue.md      # Sprint 全局队列
-│       ├── sprint-{N}-{YYYYMM}/ # Sprint 目录 (Feature > Task > IT)
-│       ├── docs/                # 设计文档 / 计划
-│       ├── draft/               # 旧版 sprint 归档
-│       └── evolution/           # 产品文档
+├── dts-wiki/                    # Wiki 产品 (submodule, 产品中立, 不含内容)
+├── dts-common/                  # 版本化契约与离线 Pack 工具 (目录)
+├── dts-docs/                    # DTS 产品能力文档 (正式/可交付, wiki `dts` 空间)
+├── dts-worklog/                 # 研发与 App 内容 (目录, wiki 内容源)
+│   ├── spaces.yml               # 空间清单 (dts / rdc / prs)
+│   ├── templates/space/         # 空间模板
+│   └── spaces/<slug>/
+│       ├── worklog/             # 活动工作记录 (sprint-workflow 格式)
+│       └── archive/             # 2026-10-05 前的整体归档 (只读)
 └── CLAUDE.md                    # 本文件 — 项目入口
 ```
 
 ## 文档放置规则
 
-- **与开发有关的文档一律放在 `worklog/`**：设计与方案、技术选型/spike 结论、Sprint/Feature/Task、验收证据（`it/`）、会议决策、非功能预算等，按 sprint-workflow 组织在对应 Sprint 的 Feature/Task 或 `assets/` 下。
-- **`docs/` 只放正式文档**：产品文档、用户手册、对外文档、运维 runbook 等可以交付或长期对外引用的内容。
-- 子仓库（dts-wiki、prs-stack 等）同样遵守：开发文档放 dts-rdc 的 `worklog/`（或该仓库自己的 `worklog/`），不放在代码仓库的 `docs/`。
+- **与开发有关的文档一律放在 `dts-worklog/spaces/<slug>/worklog/`**（DTS 研发为 `rdc`，行业 App 为各自 slug）：设计与方案、技术选型/spike 结论、Sprint/Feature/Task、验收证据（`it/`）、会议决策、非功能预算等，按 sprint-workflow 组织在对应 Sprint 的 Feature/Task 或 `assets/` 下。`spaces/<slug>/archive/` 只读，归档中的未关闭规划在活动 worklog 记录状态变更。设计依据：`dts-worklog/spaces/rdc/worklog/v1.0.0/sprint-5-202610/features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md`。
+- **`dts-docs/` 只放 DTS 产品能力文档**：可随版本交付给客户的正式内容（能力说明、App 开发指南、集成、部署）；模块 runbook/契约规范随代码放各仓库 `docs/`。
+- **dts-wiki 是产品中立的 wiki**：不在其仓库放任何内容，不写死空间名；空间由 `dts-worklog/spaces.yml` 声明。
+- 子仓库（dts-wiki、prs-stack 等）同样遵守：开发文档放 dts-rdc 的 `dts-worklog/spaces/<slug>/worklog/`，代码仓库不再建 `worklog/`。
 
 ## Sprint 节奏规则
 
-- **一个自然月一个 Sprint**（`worklog/v1.0.0/sprint-<N>-<YYYYMM>/`），同一月份只能有一个 Sprint，Sprint 不跨月、不延长。
+- **一个自然月一个 Sprint**（`dts-worklog/spaces/<slug>/worklog/v1.0.0/sprint-<N>-<YYYYMM>/`），同一月份只能有一个 Sprint，Sprint 不跨月、不延长。
 - **新需求 ≠ 新 Sprint / 新 Feature**：新需求、review 问题、设计修订一律先找归属的既有 Feature，追加 Task；确需新工作流时在月度规划评审中新增 Feature。
-- 本月容量外的已细化工作放 `worklog/v1.0.0/backlog/`（`BL-*`），每月初从 backlog 拉入当月 Sprint；规则见 `worklog/v1.0.0/sprint-queue.md` §迭代节奏规则。
+- 本月容量外的已细化工作放活动 worklog 的 `v1.0.0/backlog/`（`BL-*`；现有 backlog 在归档 `dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/backlog/`），每月初从 backlog 拉入当月 Sprint；规则见归档 `dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/sprint-queue.md` §迭代节奏规则。
 
 ## Key References
 
-- Infra design: `worklog/v1.0.0/docs/plans/2026-03-26-dts-infra-design.md`
-- Architecture design: `worklog/v1.0.0/docs/plans/2026-03-11-ai-decision-os-design.md`
+- Infra design: `dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/docs/plans/2026-03-26-dts-infra-design.md`
+- Architecture design: `dts-worklog/spaces/rdc/archive/dts-rdc-worklog/v1.0.0/docs/plans/2026-03-11-ai-decision-os-design.md`
 - Infra iron laws: `dts-studio/.rules/10-architecture/infra-iron-laws.rules`
 - Product docs: `~/Documents/dts/` (商业计划书, 产品介绍, Palantir 分析)
 - Memory: `~/.claude/projects/-opt-prod-dts-dts-rdc/memory/`

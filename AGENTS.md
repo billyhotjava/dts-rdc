@@ -1,7 +1,7 @@
 # Repository boundaries
 
 Communicate with the user in Chinese. Write new code comments and documentation
-in English. Follow the current Sprint 5 worklog and module-local conventions;
+in English. Follow the active Sprint 5 worklog (`dts-worklog/spaces/rdc/worklog/`) and module-local conventions;
 March decomposition plans and imported deployment instructions are historical.
 
 ## Editing and ownership
@@ -30,6 +30,9 @@ For Stack changes, run `dts-stack/build.sh verify`, including the PostgreSQL sch
 isolation test. Test wrappers require a preloaded image, never a business database.
 Runtime deployments are separate from local source/build verification.
 
-Formal guides and runbooks belong in module READMEs/docs. Design, review findings
-and verification evidence belong in the existing Sprint's worklog/assets. Keep
+DTS product capability documents belong in `dts-docs/`; module runbooks in module
+READMEs/docs. Design, review findings and verification evidence belong in the active
+Sprint under `dts-worklog/spaces/<slug>/worklog/`. Never recreate a root or module
+`worklog/`, and never edit `dts-worklog/spaces/*/archive/`. dts-wiki holds no content
+and no hard-coded space names; spaces come from `dts-worklog/spaces.yml`. Keep
 credentials in external configuration; never copy `.env` into Common or docs.
