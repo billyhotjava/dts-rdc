@@ -1,7 +1,8 @@
 # DTS Common Pack Contracts
 
 A small, framework-free contract artifact shared by the Studio Pack runtime and
-App Pack producers. It contains the existing manifest/asset/provenance JSON
+App Pack producers, and (since 1.1.0) the `wiki-content` v1 contract shared by DTS
+Wiki and its content repositories. It contains the existing manifest/asset/provenance JSON
 schemas, the offline archive validator, its exception type and a deterministic
 build/validation CLI. Industry ontologies, JDBC execution, persistence, registry
 activation, authorization and deployment belong to the consuming modules.
@@ -13,6 +14,8 @@ activation, authorization and deployment belong to the consuming modules.
 | `com.yuzhi.dts:dts-common-pack:1.0.0` | Java consumers of the validator or classpath schemas |
 | `dts-common-pack-1.0.0-cli.jar` (classifier `cli`) | Pack producers in any language; no Studio process required |
 | `src/main/resources/protocol/` | Versioned JSON schemas for other language consumers |
+| `protocol/wiki-content/` | Space manifest (`spaces.yml`) and DTS-MD frontmatter schemas, v1 |
+| `tools/content-lint` | Offline lint of a content repository (manifest, roots, frontmatter, sealed archives) |
 
 Requires Java 21 and Maven 3.9+. Jackson and JSON Schema validation versions were
 preserved from the existing Studio implementation. There is no Spring, JPA,
@@ -24,6 +27,25 @@ Consumers do not need a Common Git submodule and are free to avoid this dependen
 ./tools/pack-cli validate /path/to/pack-source --strict
 ./tools/pack-cli build /path/to/pack-source -o /new/path/output.dtspack --strict
 ```
+
+## Wiki content contract (wiki-content v1)
+
+`content-lint check <repository-root> [--manifest dts-worklog/spaces.yml]` validates the
+space manifest against `space-manifest.v1`, requires every root to be a directory owned
+by exactly one space and every `spaces/<slug>/` directory to be declared, validates
+frontmatter of known types (`sprint`, `feature`, `task`, `adr`, `evidence`, `page`)
+using the same split rule as DTS Wiki, rejects duplicate document ids within a space
+and symlinks, and verifies that each `spaces/<slug>/archive/<name>/` matches its sealed
+checksum file `checksums/<slug>/<name>.sha256`. `content-lint seal <archive-directory>`
+creates that file once; an existing seal is never overwritten.
+
+```bash
+./build.sh clean install
+./tools/content-lint check /opt/prod/dts/dts-rdc
+```
+
+Version 1.1.0 adds this contract without changing the Pack schemas or APIs; consumers
+pinned to 1.0.0 are unaffected.
 
 The ordinary JAR preserves `/protocol/...` classpath resource names. The CLI JAR
 includes its runtime libraries; `DTS_PACK_CLI_JAR` and `JAVA` can select a packaged

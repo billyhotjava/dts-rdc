@@ -9,6 +9,7 @@
 |---|---|---|
 | 10-05 | D18–D23：dts-wiki 改为产品中立；研发和 App 内容迁入 dts-worklog；产品能力文档放在 dts-docs（取代 D17） | [F0 设计](features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md) |
 | 10-05 | 新增 F0/T20：wiki 与内容分离迁移 | [T20](features/F0-基线仓库落位与架构定案/T20-wiki产品与worklog内容分离迁移.md) |
+| 10-05 | T20 M8a：dts-common 1.1.0 加入 `wiki-content` v1 契约与 `content-lint`；归档已封存；新增 CI 与边界规则 | 同上 |
 
 ## 与归档的状态差异
 

@@ -21,7 +21,13 @@ templates/space/               # empty skeleton of a space
 spaces/<slug>/worklog/         # active development records (sprint-workflow format)
 spaces/<slug>/docs/            # optional formal documents of an App space
 spaces/<slug>/archive/<name>/  # frozen records imported as a whole; read-only, never edited
+checksums/<slug>/<name>.sha256 # seal of each archive, verified by content-lint
 ```
+
+Check the layout, frontmatter and archive seals with
+`dts-common/tools/content-lint check .` from the dts-rdc root (wiki-content v1 contract
+in dts-common; CI workflow `content-lint.yml`). Seal a new archive once with
+`dts-common/tools/content-lint seal dts-worklog/spaces/<slug>/archive/<name>`.
 
 DTS product capability documents are not here: they live in `../dts-docs/` and form
 the `dts` space.

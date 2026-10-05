@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+# Offline wiki-content v1 lint: content-lint check <repository-root> [--manifest <path>] | seal <archive-directory>
 set -euo pipefail
 module_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 jar="${DTS_PACK_CLI_JAR:-$module_dir/target/dts-common-pack-1.1.0-cli.jar}"
 if [[ ! -f "$jar" ]]; then echo 'Build dts-common first: ./build.sh package' >&2; exit 1; fi
-exec "${JAVA:-java}" -jar "$jar" "$@"
+exec "${JAVA:-java}" -cp "$jar" com.yuzhi.dts.common.content.ContentLint "$@"

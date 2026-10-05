@@ -26,7 +26,8 @@ March decomposition plans and imported deployment instructions are historical.
 
 Run `python3 scripts/check-boundaries.py` after structural changes. For Pack changes,
 run `dts-common/build.sh clean install`, the Studio backend tests and a PRS CLI build.
-For Stack changes, run `dts-stack/build.sh verify`, including the PostgreSQL schema
+For document changes in `dts-worklog/` or `dts-docs/`, run
+`dts-common/tools/content-lint check .`. For Stack changes, run `dts-stack/build.sh verify`, including the PostgreSQL schema
 isolation test. Test wrappers require a preloaded image, never a business database.
 Runtime deployments are separate from local source/build verification.
 

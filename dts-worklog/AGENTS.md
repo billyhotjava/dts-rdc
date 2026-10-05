@@ -9,4 +9,7 @@
 - DTS product capability documents belong to `../dts-docs/`, not here.
 - Keep `spaces.yml` in sync with `spaces/`; a directory without a manifest entry is not
   imported by the wiki.
+- Run `dts-common/tools/content-lint check .` (from the dts-rdc root) after changing
+  content or the manifest; seal new archives with `content-lint seal`. Never regenerate
+  an existing seal to hide an archive change.
 - No credentials, tokens, private keys or `.env` content.

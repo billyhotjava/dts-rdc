@@ -97,6 +97,24 @@ def check_changelog(path):
             check_changelog((base / element.attrib["file"]).resolve())
 
 check_changelog(resources / "config/liquibase/master.xml")
+
+# Content layout (design D18-D23): documents live in dts-worklog/ and dts-docs/ only;
+# dts-wiki stays product-neutral. Content itself is linted by dts-common/tools/content-lint.
+for relative, message in (
+    ("worklog", "Development records belong in dts-worklog/spaces/<slug>/worklog"),
+    ("docs", "Product capability documents belong in dts-docs"),
+    ("products", "Legacy static-wiki content; spaces are declared in dts-worklog/spaces.yml"),
+    ("dts-wiki/content", "dts-wiki must not hold content"),
+    ("dts-wiki/worklog", "dts-wiki must not hold content"),
+):
+    if (ROOT / relative).exists():
+        errors.append(f"{relative}: {message}")
+for app in sorted((ROOT / "dts-app-stack").glob("*/worklog")):
+    errors.append(f"{app.relative_to(ROOT)}: App records belong in dts-worklog/spaces/<app>/worklog")
+for required in ("dts-worklog/spaces.yml", "dts-docs/README.md"):
+    if not (ROOT / required).is_file():
+        errors.append(f"{required}: missing")
+
 if errors:
     print("Boundary checks failed:\n" + "\n".join(errors), file=sys.stderr)
     sys.exit(1)

@@ -1,6 +1,6 @@
 # Wiki 产品与 worklog 内容分离及模块关系设计（2026-10-05）
 
-**状态**: 方向经用户 2026-10-05 两轮确认；目录调整已在本地执行（见 [F0/T20](../T20-wiki产品与worklog内容分离迁移.md)），尚未提交
+**状态**: 方向经用户 2026-10-05 两轮确认；M1–M6 已提交并推送（dts-rdc `9a19533`），M8 契约与检查已落地（见 [F0/T20](../T20-wiki产品与worklog内容分离迁移.md)）
 **范围**: dts-wiki、dts-worklog、dts-docs、dts-rdc 四者的职责与接口，以及它们与 base、studio、infra、common 的关系
 **关系**: **取代 [模块边界与公共底座设计](../../../../../../archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/features/F0-基线仓库落位与架构定案/design/2026-10-03-模块边界与公共底座设计.md) 的 D17**；D10（入站优先、git 绑定页只读）不变；修订 S4 范围与 [S4a 计划](../../../../../../archive/dts-rdc-worklog/v1.0.0/sprint-5-202610/features/F4-Wiki-Git双向同步/design/01-S4a研发文档统一与入站同步实施计划.md) 的同步源定义
 **分工**: dts-wiki 的程序开发由独立的开发会话负责，按 §7 的输入执行；本文和目录迁移（§6）由 RDC 架构会话负责
@@ -91,9 +91,11 @@ sprint-workflow 的目标目录改为 `dts-worklog/spaces/<slug>/worklog/v{x}/`�
 | M3 | 守恒校验：文件集合一致（rdc 383、prs 45），内容差异只有相对链接改写；共改写 57 个链接 | 已完成，见 T20 证据 |
 | M4 | `docs/` 改名为 `dts-docs/` 并重写 README；删除 `products/`、`products.json` | 已完成（本地） |
 | M5 | 更新入口文档：dts-rdc `CLAUDE.md`、`AGENTS.md`、`README.md`，sprint-workflow skill，dts-studio `CLAUDE.md`，dts-app-stack 与 prs-stack 的 README | 已完成（本地） |
-| M6 | 提交，顺序为 prs-stack → dts-app-stack → dts-studio → dts-rdc；推送 | 待用户确认 |
+| M6 | 提交，顺序为 prs-stack → dts-app-stack → dts-studio → dts-rdc；推送 | 已完成：`bb26e7b` → `c90e1f4` → `e3b1a1f` → `9a19533` |
 | M7 | dts-wiki 按 §7 改造，部署到 .50，接入 dts-rdc 内容源 | wiki 会话 |
-| M8 | `wiki-content/v1` 契约放进 dts-common；为 dts-worklog/dts-docs 增加 lint；dts-docs 内容包纳入发布流水线（F7） | 待排期 |
+| M8a | `wiki-content/v1` 契约（清单 + frontmatter schema）放进 dts-common 1.1.0；`content-lint` 检查清单、roots、frontmatter、重复 id、软链接，以及归档封存；两份归档已封存到 `dts-worklog/checksums/`；CI `content-lint.yml`；边界检查禁止根目录 `worklog/`、`docs/`、`products/`、dts-wiki `content/`、App `worklog/` | 已完成 |
+| M8b | dts-docs 内容包纳入发布流水线（F7/T27） | 待排期 |
+| M8c | 现有文档补齐 frontmatter（原 S4b W12，先出 dry-run 报告）；目前全仓 0 个文件带 frontmatter | 待排期 |
 
 ## 7. 给 dts-wiki 开发会话的输入
 
@@ -103,8 +105,8 @@ S4a 计划的目标不变：入站同步、git 绑定页只读、部署到 .50�
 2. 内容源为 **dts-rdc 仓库**（`git@github.com:billyhotjava/dts-rdc.git`，`main`），清单为 `dts-worklog/spaces.yml`。wiki 的配置只保留 `application.wiki.content.{repo-url, branch, manifest-path, deploy-key-path}` 和 `outbound-enabled=false`，不再使用 `application.wiki.spaces`。
 3. **只用一把只读 deploy key**，加在 dts-rdc 仓库上（S4a 的 G4 由 3 把改为 1 把）。每个空间的同步根取自 `roots[]`，路径相对于仓库根目录；`roots` 以外的路径一律不导入（dts-rdc 中还有代码与子模块指针）。
 4. 代码里不得写死清单中的任何 slug。新增条目时自动建立空间并完成首轮导入；删除条目时只停止同步，不删除数据。
-5. 本期 `dts` 空间同样走 git 入站。产品形态下的内容包导入，只在 F7/T27 中记录需求，本期不实现。
-6. 在 M8 完成之前，frontmatter schema 以 dts-wiki 现有的 `src/main/resources/content-schemas/` 为准，字段保持不变。
+5. 本期 `dts` 空间同样走 git 入站；wiki 应忽略 `dts-worklog/checksums/`（不在任何 root 内）。产品形态下的内容包导入，只在 F7/T27 中记录需求，本期不实现。
+6. 内容契约以 dts-common 1.1.0 的 `protocol/wiki-content/` 为准（清单 `space-manifest.v1`，frontmatter 与 wiki 现有 schema 字段一致，只是 `$id` 改成带版本号）。wiki 可以依赖 `com.yuzhi.dts:dts-common-pack:1.1.0` 读取 schema，也可以按版本复制一份并在测试中比对是否一致。
 7. dts-wiki 的 `CLAUDE.md` 要改为指向 `dts-worklog/spaces/rdc/worklog/` 和归档中的 F2–F5 设计；现在写的 `sprint-6-202610` 路径已经失效。验收证据写入 `dts-worklog/spaces/rdc/worklog/v1.0.0/sprint-5-202610/it/wiki/`，不写进 dts-wiki。
 
 ## 8. 对既有计划的影响

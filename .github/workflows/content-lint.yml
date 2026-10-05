@@ -1,0 +1,21 @@
+name: Wiki content lint
+on:
+  pull_request:
+    paths: ['dts-worklog/**', 'dts-docs/**', 'dts-common/**', '.github/workflows/content-lint.yml']
+  push:
+    paths: ['dts-worklog/**', 'dts-docs/**', 'dts-common/**', '.github/workflows/content-lint.yml']
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: dts-common/pom.xml
+      - run: ./dts-common/build.sh package -DskipTests
+      - run: ./dts-common/tools/content-lint check .
