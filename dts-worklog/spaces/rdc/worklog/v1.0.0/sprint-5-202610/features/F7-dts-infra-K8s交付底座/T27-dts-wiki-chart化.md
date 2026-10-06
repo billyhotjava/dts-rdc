@@ -3,7 +3,7 @@ type: task
 id: S5/F7/T27
 feature: S5/F7
 title: "dts-wiki chart 化与附件迁移 S3"
-status: DRAFT
+status: IN_PROGRESS
 priority: P1
 depends: [S5/F7/T02, S5/F7/T17, S5/F7/T18, S5/F7/T20]
 ---
@@ -18,3 +18,4 @@ depends: [S5/F7/T02, S5/F7/T17, S5/F7/T18, S5/F7/T20]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-07 | IN_PROGRESS | WP15 adds the single-replica Wiki Helm chart, external PG/OIDC contracts, ordered migration and persistent attachments. S3 migration, signed multi-architecture publication and site acceptance remain open. See [WP15](../../it/wiki/WP15-kubernetes-reading.md). |

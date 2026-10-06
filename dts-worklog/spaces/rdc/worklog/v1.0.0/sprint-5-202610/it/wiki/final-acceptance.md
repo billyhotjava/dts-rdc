@@ -158,3 +158,27 @@ queued, and the superseded run was cancelled by concurrency. No real CI PASS is
 claimed. The updated checksummed operator toolkit includes the two public keys
 and no private material. See [WP14](WP14-runtime-access.md) for actual outcomes,
 artifact provenance and the administrator-access prerequisites that remain open.
+
+
+## WP15 follow-up: lightweight reading and local Kubernetes acceptance
+
+Wiki main `0f287e7` and Infra main `f847cc8` are pushed. Stable per-document
+heading anchors, a collapsible outline and the corrected space-home creation
+parent now support the lightweight knowledge workflow. The single-replica chart
+uses external PG/OIDC contracts, a retained PVC, migration Job and separate
+internal management listener. Source verification passed 25 operator, 84 frontend,
+125 unit and 117 integration cases, plus production asset/metadata checks.
+
+The final AMD64 candidate passed ten real local kind groups, including an actual
+Prometheus scrape, native edits/conflicts/reader isolation, Pod replacement with
+draft/history/attachment retention, dependency outage/recovery with zero app
+restarts, private read-only Git key staging and PVC retention on uninstall. The
+fixture namespace was cleaned up. Five local Chrome reading checks passed with
+no console errors. These prove local deployment mechanics, not company identity,
+customer Gateway/TLS/CNI, scale, backup restore or cutover.
+
+S3 and multi-replica support remain open; HQ signing/ARM publication and actual
+site PG extension compatibility remain release prerequisites. The exact Wiki
+Actions run remains queued, and the earlier server-side SSH/content-key rejection
+has not changed. No `.50` deployment or old-version/content deletion occurred.
+See [WP15 evidence](WP15-kubernetes-reading.md) for final digests and actual reports.

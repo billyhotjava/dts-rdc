@@ -81,3 +81,29 @@ do not alter sshd policy speculatively or substitute one identity for the other.
 The current Actions run is queued, with no Runner result. The public preflight
 still fails the r2 version assertion. See [WP14 evidence](../it/wiki/WP14-runtime-access.md)
 for fingerprints, public-key handoff files and the updated operator archive.
+
+
+## WP15 Kubernetes delivery path
+
+The 2026-10-07 product direction prioritizes a lightweight Wiki deployed on
+Kubernetes. Wiki `0f287e7` plus Infra `f847cc8` provide the first single-replica
+Helm candidate. Its final local AMD64 OCI manifest is
+`sha256:493a67fe81ff631bd186469f018f0c476bed8331132725c3c0b30c23e3e735ef`;
+[WP15 evidence](../it/wiki/WP15-kubernetes-reading.md) records the packaged chart,
+351 source tests, ten actual local kind groups and browser reading checks.
+This candidate does not replace any previously deployed or prepared Compose
+image/archive. No customer installation has occurred.
+
+Use Infra `charts/dts-wiki/README.md` and Wiki `docs/kubernetes.md`. Before site
+installation, qualify the PG provider's pg_bigm extension, publish approved signed
+image/chart artifacts for the site's architecture, provision external Wiki
+PG/OIDC contracts, select persistent storage and configure actual Gateway/TLS
+and network policies. Run the chart migration Job, then acceptance using the
+internal management origin separately from the application origin. Keep one
+replica; browser sessions and editing presence are in memory, while durable drafts
+and versions remain in PG and attachment bytes on the retained PVC.
+
+S3, multi-replica support, representative NFR, coordinated backup/restore and
+previous-binary compatibility remain unfinished. Site deployment, old-data cleanup
+and cutover still require their actual environment and identified scope. Earlier
+server-side key rejection cannot be repaired by changing a Helm values file.

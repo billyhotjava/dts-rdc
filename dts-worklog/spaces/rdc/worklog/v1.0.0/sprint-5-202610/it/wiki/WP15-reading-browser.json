@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "fixture": true,
+  "browser": "Chrome/154.0.8037.97",
+  "checks": [
+    "Five outline entries, including Unicode and duplicate headings, match rendered IDs",
+    "Outline can collapse and expand with the native details control",
+    "Unicode duplicate-heading link scrolls to the correct target with header clearance",
+    "SPA visits to another document and back preserve heading IDs",
+    "Opening a deep link directly scrolls after asynchronous page rendering"
+  ],
+  "consoleErrors": []
+}

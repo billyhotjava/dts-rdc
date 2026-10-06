@@ -1,0 +1,35 @@
+WP15 final source verification — 2026-10-07 01:10:21 Asia/Shanghai
+Wiki source: 0f287e79790e6c3fb57fb496dc3c3954852de245 (clean build)
+Command: ./build.sh verify (Java 25.0.4-tem, Node 24, pnpm 12; Docker group via sg)
+Operator HTTP: 25 passed
+Frontend: 84 passed, 14 files
+Unit: 125, failures 0, errors 0, skipped 0
+Integration: 117, failures 0, errors 0, skipped 0
+Checkstyle: 0 violations
+TypeScript and architecture gates: PASS
+Home gzip JS 293.6 KB / 300 KB; CSS 0.5 KB / 60 KB
+Production JAR/frontend byte equality: PASS
+Embedded commit abbrev/describe: 0f287e7 / 0f287e7
+BUILD SUCCESS
+
+Kubernetes candidate: sprint5-wp15-20261007-r3
+OCI manifest: sha256:493a67fe81ff631bd186469f018f0c476bed8331132725c3c0b30c23e3e735ef
+Manifest bytes hashed against local registry: PASS (AMD64 + provenance, no ARM app)
+Local kind acceptance: 10 groups PASS, 152.8 s, 40 migration rows, 0 app restarts
+Git-key staging: owner UID 1001, directory access 0700, files 0600, read-only mount
+Prometheus: actual ServiceMonitor target discovered and healthy
+Uninstall: Wiki PVC retained before fixture namespace cleanup
+Chrome 154 local read fixture: 5 groups PASS, 0 console errors
+Helm chart-spec v1 and complete chartcheck package tests: PASS
+Chart package: 10 files, excluded hack/ fixtures and bytecode, no credentials
+Chart archive SHA256: 13193a4e91303615d4629a6cb8715dcce951efc00c27572d8f95f3fae7d074e6
+
+Local canonical log: /tmp/wp15-canonical-final.log
+Local kind log: /tmp/wp15-kind-release.log
+Real company identity, Gateway/TLS/CNI, representative NFR, backup/restore,
+previous-binary compatibility, signed multi-arch delivery and S3 remain open.
+Actions 37501600148: queued, not CI PASS (observed at 01:12).
+No .50 deployment or old content/version deletion performed.
+
+Coordination: boundary PASS (3129 source/build files, 67 active Stack changelogs)
+Content lint: 3 spaces, 608 files, 149 frontmatter files, 2 sealed archives, 0 errors
