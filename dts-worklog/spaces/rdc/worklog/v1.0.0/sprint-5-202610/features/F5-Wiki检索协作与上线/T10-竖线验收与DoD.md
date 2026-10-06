@@ -20,3 +20,4 @@ depends: [S5/F5/T01, S5/F5/T08, S5/F4, S5/F5/T09]
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
 
 | 2026-10-06 | IN_PROGRESS | Current source acceptance and deployment gates are tracked in it/wiki/final-acceptance.md; runtime cutover acceptance remains pending. |
+| 2026-10-06 | IN_PROGRESS | Actual HTTP probes found healthy/readied older `345083e-dirty`; protected APIs reject anonymous reads. Scoped identity/MCP/commit smoke is now executable, but SSH/real identity acceptance is still pending. See [WP13](../../it/wiki/WP13-runtime-acceptance.md). |

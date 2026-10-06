@@ -119,3 +119,26 @@ because real runtime/identity/SMTP/scale/backup/cutover acceptance is pending.
 The temporary browser/Vite processes and baseline worktree were removed; the
 temporary Docker ACL is removed after artifact preparation. Public keys remain
 in external SSH storage for the outstanding gates.
+
+## WP13 follow-up: executable acceptance and actual runtime version
+
+The subsequent user-authorized continuation added identity/permission/MCP smoke,
+explicit deployed-commit checks, controlled owned-page save probes and trusted
+Runner CI. Sixteen isolated HTTP cases passed. Canonical verification and the
+operator toolkit are tracked in [WP13](WP13-runtime-acceptance.md).
+
+Actual public HTTP probes now establish that existing v2 health/readiness are UP,
+anonymous protected API reads return 401, and the login entry redirects to company
+SSO. Its version metadata reports `345083e-dirty`, not the r2 candidate. SSH still
+rejects the current build host. These new observations supersede any assumption
+that a healthy v2 is already the verified new release; no deployment occurred.
+
+Runtime/identity/data/SMTP/scale/backup/cutover acceptance remains PARTIAL under
+[the concrete release plan](../../assets/wiki-release-plan.md). The original r2
+image archive and its checksums remain the prepared application candidate.
+
+WP13 canonical verification passed 16 operator/80 frontend/121 unit/115 integration
+cases, plus the JAR/frontend byte check and unchanged bundle budget. Wiki main
+`452021b` is pushed; its separately checksummed operator toolkit is ready. The
+existing r2 application bundle remains the runtime candidate. See WP13 for
+source/build provenance, artifact checksums and the unresolved real CI/access gates.

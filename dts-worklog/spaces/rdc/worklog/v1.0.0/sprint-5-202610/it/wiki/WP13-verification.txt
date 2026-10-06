@@ -1,0 +1,12 @@
+Canonical gate completed 2026-10-06 13:45 Asia/Shanghai.
+Application/test build commit: feab3e1.
+CI trigger correction: 452021b; separate YAML/runner/trigger validation PASS.
+
+Ran 16 tests in 9.423s
+      Tests  80 passed (80)
+home JS gzip: 293.5 KB (budget 300 KB)
+home CSS gzip: 0.4 KB (budget 60 KB)
+[INFO] Tests run: 121, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 115, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+Production jar contains the verified frontend assets.

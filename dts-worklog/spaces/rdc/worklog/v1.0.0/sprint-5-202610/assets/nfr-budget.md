@@ -32,7 +32,7 @@ checks; the release evidence records its final result.
 | Delivery and failure | Durable deduplicated intents; ten-minute update grouping; bounded retries and expired claim recovery | `WikiNotificationIT` | F5/T06 | Local PASS with SMTP fixture; real transport GAP |
 | Data scale/API latency | At least10,000 authorized pages,50 workers; page P95<200ms, search P95<800ms | `tools/acceptance-benchmark --base-url <origin> --page-id <native-id> --search <approved-term>` | F5/T07 | GAP: no runtime access/data/authentication |
 | Render latency | Page interactive P95<500ms, record browser/cache/network/scale | Runtime browser performance trace on approved v2 origin | F5/T07 | GAP: no runtime trace; fixture timings not accepted |
-| Save latency | Database commit P95<1s; include conflict-free edits and representative Markdown | Timestamp API write measurements on disposable acceptance pages | F5/T07 | GAP: no runtime save harness/result yet |
+| Save latency | Database commit P95<1s; include conflict-free edits and representative Markdown | `tools/acceptance-benchmark --base-url <origin> --page-id <native-id> --search <approved-term> --save-space <approved-disposable-space>` measures an API round trip companion; separately correlate DB timing | F5/T07 | Harness fixtures PASS; runtime/representative-body/DB timing GAP |
 | Index/query plans | pg_bigm and filtered metadata/personal indexes; measured plans at10,000-page scale | Runtime `EXPLAIN (ANALYZE, BUFFERS)` on approved disposable acceptance data | F5/T07 | GAP: migrations exercised, large-scale plans unmeasured |
 | Memory | One replica; container768MiB; target Java RSS<400MiB | Runtime `docker stats --no-stream` and Java process RSS sampling | F5/T07 | GAP: limit configured, RSS unmeasured |
 | Browser compatibility | Current Chrome fixture smoke; no customer Chrome95 result claimed | Reviewed WP3/WP10/WP11/WP12 fixture browser checks | F5/T10 | Local PASS; actual supported customer-browser acceptance GAP |
@@ -41,17 +41,22 @@ checks; the release evidence records its final result.
 
 Every runtime GAP remains owned by F5/T07 or F5/T10. The initial-budget task can
 close after documenting the targets; performance acceptance cannot close without
-real measurements. Render/save and query-plan harnesses still require the approved
-instance and disposable acceptance data; the rows above explicitly identify that
-missing executable automation. They are not green fitness checks.
+real measurements. Render and query-plan collection still require executable
+automation and the approved instance/data. WP13 supplies save API automation;
+representative Markdown and isolated database commit timing still need runtime
+evidence. These rows are not green fitness checks.
 
-`tools/acceptance-benchmark` is read-only, refuses insufficient authorized scale,
+`tools/acceptance-benchmark` defaults to read-only, refuses insufficient authorized scale,
 uses an externally supplied `WIKI_BENCHMARK_TOKEN`, limits responses and timeouts,
 and refuses redirects. Its localhost HTTP fixture passed worker execution and
 scale rejection. This proves the harness only; it does not prove Wiki capacity.
 Run at the default50 workers/10 requests each with a representative native page
 and search term on approved data. Never seed or reset the business database to
-satisfy the benchmark. Store its JSON result without the token.
+satisfy the benchmark. Store its JSON result without the token. The optional
+`--save-space` mode explicitly creates new native probe pages in an approved
+disposable space and soft-deletes only ownership-validated pages. Existing pages
+are never edited. Failures include cleanup status and possible unacknowledged
+creates; retained immutable history is documented in Wiki `docs/acceptance.md`.
 
 ## Reviewed fixed limits
 

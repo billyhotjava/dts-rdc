@@ -18,3 +18,4 @@ depends: [S5/F2/T05, S5/F2/T07]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | IN_PROGRESS | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-06 | IN_PROGRESS | Trusted-runner CI and the canonical operator-tool gate are configured; actual Runner registration/CI execution remain pending. See [WP13](../../it/wiki/WP13-runtime-acceptance.md). |
