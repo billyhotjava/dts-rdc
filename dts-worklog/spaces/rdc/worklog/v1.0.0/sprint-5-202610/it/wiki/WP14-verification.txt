@@ -1,0 +1,59 @@
+WP14 verification, 2026-10-06, Asia/Shanghai
+
+Infra source: 44b1f98146d117ea81259d22c6b9ba9affb808cd
+Wiki source: 28f96228ef291e19da5b4f01ac65355c1ccf8164
+Both module commits merged into main and pushed.
+
+python3 -m unittest discover -s dts-infra/deploy/ssh -p 'test_*.py' -v
+Ran 9 tests in 0.004s: OK
+python3 -m unittest discover -s dts-wiki/tests/tools -p 'test_*.py' -v
+Ran 22 tests in 13.421s: OK
+Changed Python files: py_compile PASS
+Both module diffs: git diff --check PASS
+No Go/application/UI/migration source changed; prior application gates retained.
+
+Actual host SSH probe:
+  result: GAP
+  stage: SERVER_KEY_REJECTED
+  connectionEstablished: true
+  hostKeyVerified: true
+  selectedKeyOffered: true
+  selectedKeyAccepted: false
+  authenticated: false
+Public/private login fingerprints match; private permissions 0600, directory 0700.
+The user confirmed root as the approved target account; target-side logs or
+public-key authorization through existing console access are still required.
+
+Actual content-repository HEAD read with dedicated key:
+  selectedKeyOffered: true
+  selectedKeyAccepted: false
+  repositoryRead: false
+  stage: SERVER_KEY_REJECTED
+  writePermissionVerified: false
+
+Actual v2 --public-only --expected-commit 688d6b9:
+  health: PASS
+  health/readiness: PASS
+  anonymous-api-rejected: PASS
+  deployed-commit: FAIL
+  overall: FAIL
+  identityAcceptance: GAP
+
+Prepared r2 image, inspected through an unstarted disposable container:
+  git.commit.id.abbrev=688d6b9
+  git.commit.id.describe=688d6b9
+Disposable inspection container and temporary copied JAR removed.
+
+GitHub Actions:
+  37420271477 / 452021b: initially queued, subsequently cancelled by superseding push
+  37434648851 / 28f9622: queued, conclusion null
+No successful Runner execution is claimed.
+
+Operator toolkit: /tmp/dts-wiki-acceptance-wp14-20261006.tar.gz
+Internal SHA256SUMS: 12/12 PASS
+Archive bytes: 17800
+Archive SHA256: 89268b3da39f580c1d11dd5faa361ac20c21fdf8948f70b46d806b333972941b
+Public key export fingerprints: both PASS
+No target account, authorized_keys, sshd policy, database or proxy changes executed.
+RDC boundary check: PASS, 3127 source/build files, 67 active Stack changelogs.
+RDC content-lint: 3 spaces, 602 files, 147 frontmatter, 2 sealed archives, 0 errors.

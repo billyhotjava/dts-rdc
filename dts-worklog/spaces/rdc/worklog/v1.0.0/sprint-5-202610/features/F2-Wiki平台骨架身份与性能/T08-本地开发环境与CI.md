@@ -19,3 +19,4 @@ depends: [S5/F2/T05, S5/F2/T07]
 |---|---|---|
 | 2026-10-05 | IN_PROGRESS | 由归档状态初始化（F0/T20 M8c，未复核） |
 | 2026-10-06 | IN_PROGRESS | Trusted-runner CI and the canonical operator-tool gate are configured; actual Runner registration/CI execution remain pending. See [WP13](../../it/wiki/WP13-runtime-acceptance.md). |
+| 2026-10-06 | IN_PROGRESS | Infra selected-key diagnostics isolate server-side host authorization rejection; actual Actions runs are visible, with the current run queued. Approved SSH access and Runner execution remain pending. See [WP14](../../it/wiki/WP14-runtime-access.md). |

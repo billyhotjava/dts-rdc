@@ -142,3 +142,19 @@ cases, plus the JAR/frontend byte check and unchanged bundle budget. Wiki main
 `452021b` is pushed; its separately checksummed operator toolkit is ready. The
 existing r2 application bundle remains the runtime candidate. See WP13 for
 source/build provenance, artifact checksums and the unresolved real CI/access gates.
+
+## WP14 follow-up: isolated key rejections and representative probes
+
+Infra `44b1f98` adds selected-key SSH diagnostics and a server-side runbook. Actual
+host/public-key matching and explicit offer checks isolate remote authorization
+rejection for root; the separate GitHub content key also remains rejected. Wiki
+`28f9622` adds public-only checks, dirty-build rejection and representative external
+Markdown save measurements. All 22 operator HTTP and 9 SSH cases passed. The
+prepared r2 image has clean `688d6b9` metadata; actual v2 still fails its expected
+release assertion. No remote configuration or deployment occurred.
+
+Actions can now be inspected through the GitHub connector: the current run is
+queued, and the superseded run was cancelled by concurrency. No real CI PASS is
+claimed. The updated checksummed operator toolkit includes the two public keys
+and no private material. See [WP14](WP14-runtime-access.md) for actual outcomes,
+artifact provenance and the administrator-access prerequisites that remain open.

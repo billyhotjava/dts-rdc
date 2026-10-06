@@ -6,8 +6,9 @@ G3 remains GAP; G4 remains PENDING until actual target acceptance is recorded.
 ## Scope, migrations and compatibility
 
 The application candidate remains the checksummed offline r2 bundle at source
-`688d6b9`. WP13 adds acceptance tooling/CI at `452021b`, with no application API,
-entity or migration changes. Ship its separate operator toolkit alongside r2;
+`688d6b9`. WP14 updates acceptance tooling at `28f9622` and Infra host-access
+diagnostics at `44b1f98`, with no application API, entity or migration changes.
+Ship its separate operator toolkit alongside r2;
 never replace the application image under the existing release tag.
 
 The target is only `/data/dts-wiki-v2`, port 18091. Current public probes report
@@ -71,3 +72,12 @@ SSH authorization, memberships/tokens, the content key, real backup/migration
 state, scale/compatibility measurements and cutover scheduling remain pending.
 CI source is configured; Infra S2 Runner registration and the first real run are
 pending. Local fixture PASS does not close these runtime gates.
+
+WP14 isolated both key rejections: the selected host-login key is offered but
+not accepted for root, and the dedicated GitHub content key is also rejected.
+The user confirmed root as the approved account. Use the owning Infra SSH
+runbook through existing console/administrator access;
+do not alter sshd policy speculatively or substitute one identity for the other.
+The current Actions run is queued, with no Runner result. The public preflight
+still fails the r2 version assertion. See [WP14 evidence](../it/wiki/WP14-runtime-access.md)
+for fingerprints, public-key handoff files and the updated operator archive.

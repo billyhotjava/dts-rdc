@@ -32,7 +32,7 @@ checks; the release evidence records its final result.
 | Delivery and failure | Durable deduplicated intents; ten-minute update grouping; bounded retries and expired claim recovery | `WikiNotificationIT` | F5/T06 | Local PASS with SMTP fixture; real transport GAP |
 | Data scale/API latency | At least10,000 authorized pages,50 workers; page P95<200ms, search P95<800ms | `tools/acceptance-benchmark --base-url <origin> --page-id <native-id> --search <approved-term>` | F5/T07 | GAP: no runtime access/data/authentication |
 | Render latency | Page interactive P95<500ms, record browser/cache/network/scale | Runtime browser performance trace on approved v2 origin | F5/T07 | GAP: no runtime trace; fixture timings not accepted |
-| Save latency | Database commit P95<1s; include conflict-free edits and representative Markdown | `tools/acceptance-benchmark --base-url <origin> --page-id <native-id> --search <approved-term> --save-space <approved-disposable-space>` measures an API round trip companion; separately correlate DB timing | F5/T07 | Harness fixtures PASS; runtime/representative-body/DB timing GAP |
+| Save latency | Database commit P95<1s; include conflict-free edits and representative Markdown | `tools/acceptance-benchmark --base-url <origin> --page-id <native-id> --search <approved-term> --save-space <approved-disposable-space> --save-content-file <approved-markdown-file>` measures an API round trip companion with body size/SHA-256; separately correlate DB timing | F5/T07 | Harness fixtures PASS; actual representative-body runtime/DB timing GAP |
 | Index/query plans | pg_bigm and filtered metadata/personal indexes; measured plans at10,000-page scale | Runtime `EXPLAIN (ANALYZE, BUFFERS)` on approved disposable acceptance data | F5/T07 | GAP: migrations exercised, large-scale plans unmeasured |
 | Memory | One replica; container768MiB; target Java RSS<400MiB | Runtime `docker stats --no-stream` and Java process RSS sampling | F5/T07 | GAP: limit configured, RSS unmeasured |
 | Browser compatibility | Current Chrome fixture smoke; no customer Chrome95 result claimed | Reviewed WP3/WP10/WP11/WP12 fixture browser checks | F5/T10 | Local PASS; actual supported customer-browser acceptance GAP |
@@ -43,7 +43,8 @@ Every runtime GAP remains owned by F5/T07 or F5/T10. The initial-budget task can
 close after documenting the targets; performance acceptance cannot close without
 real measurements. Render and query-plan collection still require executable
 automation and the approved instance/data. WP13 supplies save API automation;
-representative Markdown and isolated database commit timing still need runtime
+WP14 adds external representative Markdown and size/digest reporting. Actual
+representative saves and isolated database commit timing still need runtime
 evidence. These rows are not green fitness checks.
 
 `tools/acceptance-benchmark` defaults to read-only, refuses insufficient authorized scale,
