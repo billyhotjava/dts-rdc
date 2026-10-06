@@ -23,6 +23,7 @@ goal: "A 四模块合并与 ADR-005～010 定稿；B DTS Wiki v1 上线（产品
 |---|---|---|
 | 10-05 | D18–D23：dts-wiki 改为产品中立；研发和 App 内容迁入 dts-worklog；产品能力文档放在 dts-docs（取代 D17） | [F0 设计](features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md) |
 | 10-05 | 新增 F0/T20：wiki 与内容分离迁移 | [T20](features/F0-基线仓库落位与架构定案/T20-wiki产品与worklog内容分离迁移.md) |
+| 10-06 | F7 S2-W4（不依赖 E3 的部分）：dtsctl 部署前离线验签；本地验证集群 dts-local 与 E3 镜像路径一致，端到端通过；修复 dts-pg 在没有消费方时的缺陷（0.1.1） | [F7 design/03 §6](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |
 | 10-06 | F7 S2-W3 构建链：签名、扫描、多架构，本地端到端验证通过；Trivy 拦下 2 个依赖的 3 个 HIGH 并已升级修复 | [F7 design/03 §6](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |
 | 10-06 | F7 S2 研发构建与制品流：现状评审与实施计划（W0–W6、待决 D-S2-1～3、用户事项 U1～U4）；W0 本机基线完成 | [F7 design/03](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |
 | 10-05 | dts-wiki 开发会话工作指导：WP1–WP9、硬规则、状态回写方式、用户事项 G0/G2–G5 | [工作指导](assets/handoff-20261005-dts-wiki-dev-session.md) |
