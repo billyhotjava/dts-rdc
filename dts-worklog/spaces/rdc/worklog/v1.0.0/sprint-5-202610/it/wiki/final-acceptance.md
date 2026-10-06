@@ -179,11 +179,19 @@ customer Gateway/TLS/CNI, scale, backup restore or cutover.
 
 S3 and multi-replica support remain open; HQ signing/ARM publication and actual
 site PG extension compatibility remain release prerequisites. The exact Wiki
-Actions run remains queued, and the earlier server-side SSH/content-key rejection
-has not changed. No `.50` deployment or old-version/content deletion occurred.
+Actions run was last observed queued. The selected-key follow-up below updates
+the earlier access findings. No `.50` deployment or old-version/content deletion occurred.
 See [WP15 evidence](WP15-kubernetes-reading.md) for final digests and actual reports.
 
 The final WP15 chart is 0.1.1. A fresh kind run now passes eleven groups, including
 administrator public-key display from the supplied private key on a read-only
-mount. Server-side SSH/Git authorization is still open. The unchanged application
+mount. The unchanged application
 source remains `0f287e7`; the final chart archive/checksum is in the WP15 follow-up.
+
+At 2026-10-07 01:29 Asia/Shanghai, the designated content key successfully read
+the coordination repository's main ref (`0b0c9f3`) using strict host verification
+and explicit key selection. This supersedes WP14's GitHub read-access rejection;
+target provisioning and actual import/update acceptance remain pending. The
+selected host key is still rejected for `root@10.20.0.50`. No private key was
+printed or remote configuration changed. [WP15 evidence](WP15-kubernetes-reading.md)
+records the separate exit statuses and final coordination checks.

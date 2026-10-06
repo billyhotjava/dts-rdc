@@ -114,3 +114,11 @@ key during init so administrator reads work on the read-only Secret staging
 mount. Eleven local kind groups pass. The application digest/source stay unchanged;
 see the WP15 public-key follow-up for the final chart checksum. This does not
 replace target-machine or content-repository authorization.
+
+The 2026-10-07 01:29 Asia/Shanghai selected-key probe now confirms GitHub read
+access using the dedicated content key, superseding the historical WP14
+rejection above. The host key remains rejected for `root@10.20.0.50`. Before
+installation, provision that content key and pinned known_hosts through the
+external Secret contract and verify actual content import/update behavior.
+No production deployment, old-version cleanup or remote configuration change
+has occurred; see [WP15 access evidence](../it/wiki/WP15-kubernetes-reading.md).

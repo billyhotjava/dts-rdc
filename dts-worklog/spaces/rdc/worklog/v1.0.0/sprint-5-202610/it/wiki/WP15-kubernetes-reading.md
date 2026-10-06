@@ -102,9 +102,10 @@ GitHub Actions run [37501600148](https://github.com/billyhotjava/dts-wiki/action
 for exact source `0f287e7` is queued as observed at 01:12 Asia/Shanghai; no CI PASS
 is claimed. Local tests are complete independently of that runner queue.
 
-The two server-side key authorization gaps from WP14 remain unresolved. No new
-`.50` access was assumed, no production deployment/cutover occurred, and no old
-version/content deletion occurred without an identified scope and access.
+The latest selected-key probe below supersedes WP14's content-repository
+rejection. Target-machine root authorization remains unresolved. No `.50` access
+was assumed, no production deployment/cutover occurred, and no old version/content
+deletion occurred without an identified scope and access.
 
 ## Coordination gates
 
@@ -132,4 +133,27 @@ historical evidence; this verified 0.1.1 candidate supersedes it for installatio
 The final archive is `/tmp/dts-wiki-kubernetes-wp15-20261007/dts-wiki-0.1.1.tgz`,
 SHA-256 `9895930a8f7a6ade662b00d85bba90c4fcecc3226de5ce005330dc7b1aac6341`.
 Chart-spec and chartcheck tests pass; the package excludes fixtures and credentials.
-The two server-side authorization rejections from WP14 remain separate open gates.
+External authorization is assessed separately in the selected-key probe below.
+
+## Selected-key access follow-up
+
+At 2026-10-07 01:29 Asia/Shanghai, fresh read-only probes used BatchMode,
+StrictHostKeyChecking, IdentitiesOnly and IdentityAgent=none with explicit keys:
+
+- Target login with the existing host key to `root@10.20.0.50` exited 255 with
+  `Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password)`.
+  No command executed on the target.
+- `git ls-remote git@github.com:billyhotjava/dts-rdc.git refs/heads/main` with
+  the dedicated external content key `dts-wiki-content-20261006` exited 0 and
+  returned `0b0c9f33fa63bd6d489e68b572bfe99fe976c443 refs/heads/main`.
+  This proves repository read access with that selected key. It supersedes the
+  earlier content-key rejection; it does not establish its write privileges.
+
+No key material was printed and no remote configuration changed. Target-runtime
+Secret provisioning, real content import/update latency and company identity
+acceptance remain unverified. No production deployment or old-content cleanup
+occurred.
+
+Final coordination checks after chart 0.1.1 passed: boundary validation covers
+3,129 source/build files and 67 active Stack changelogs; content lint covers
+3 spaces, 609 files, 149 frontmatter files and 2 sealed archives with zero errors.
