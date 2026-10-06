@@ -23,6 +23,7 @@ goal: "A 四模块合并与 ADR-005～010 定稿；B DTS Wiki v1 上线（产品
 |---|---|---|
 | 10-05 | D18–D23：dts-wiki 改为产品中立；研发和 App 内容迁入 dts-worklog；产品能力文档放在 dts-docs（取代 D17） | [F0 设计](features/F0-基线仓库落位与架构定案/design/2026-10-05-wiki产品与worklog内容分离及模块关系设计.md) |
 | 10-05 | 新增 F0/T20：wiki 与内容分离迁移 | [T20](features/F0-基线仓库落位与架构定案/T20-wiki产品与worklog内容分离迁移.md) |
+| 10-07 | F7 S2-W6 日志：D-S2-4 按方案 A 定案；新增 CHART016 节点代理例外；VictoriaLogs + Fluent Bit 已在 dts-local 端到端验证（不丢、不重） | [F7 design/03 §6](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |
 | 10-06 | F7 S2-W6 指标：Prometheus Operator + Prometheus 已在 dts-local 验证；dtsctl 覆盖支持 `"*"`；新增 chart 规则 CHART015；日志采集等待 D-S2-4 | [F7 design/03 §6](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |
 | 10-06 | 环境整理：开发主机访问清单 + 专用基础设施密钥 `id_ed25519_dts_e2` | dts-infra `docs/development-ci-host.md` |
 | 10-06 | F7 S2-W5 证书底座：cert-manager v1.21.1 + 内部 CA，dts-local 上安装、签发、续期演练均通过；E3 不通的根因定位为 PVE 转发放行（修复脚本待用户在 PVE 执行） | [F7 design/03 §6](features/F7-dts-infra-K8s交付底座/design/03-S2研发构建与制品流实施计划.md) |

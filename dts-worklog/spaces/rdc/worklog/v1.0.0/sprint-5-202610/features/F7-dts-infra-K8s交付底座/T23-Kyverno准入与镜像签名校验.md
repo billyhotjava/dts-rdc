@@ -18,3 +18,4 @@ depends: [S5/F7/T14]
 | 日期 | 状态 | 说明 |
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
+| 2026-10-07 | DRAFT | 新增输入：Kyverno 策略须在集群中执行 chart-spec CHART016（节点代理例外，决策 D-S2-4），与 `dtsctl chart check` 保持一致 |
