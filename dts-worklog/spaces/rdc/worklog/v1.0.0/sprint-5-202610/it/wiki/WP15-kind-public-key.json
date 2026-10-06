@@ -1,0 +1,65 @@
+{
+  "result": "PASS",
+  "namespace": "wiki-smoke-b85e7f7d46",
+  "image": "ghcr.io/dts/wiki/app@sha256:493a67fe81ff631bd186469f018f0c476bed8331132725c3c0b30c23e3e735ef",
+  "elapsedSeconds": 147.7,
+  "checks": [
+    {
+      "check": "fresh migration without an OIDC contract in the Job",
+      "result": "PASS"
+    },
+    {
+      "check": "idempotent pre-upgrade migration",
+      "result": "PASS"
+    },
+    {
+      "check": "non-root read-only application starts with writable PVC and tmp",
+      "result": "PASS"
+    },
+    {
+      "check": "internal probes and metrics; application API and actuator isolation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing Prometheus discovers and scrapes the ServiceMonitor management target",
+      "result": "PASS"
+    },
+    {
+      "check": "native editing, optimistic conflicts, reader isolation, private draft and attachment",
+      "result": "PASS"
+    },
+    {
+      "check": "Pod replacement retains pages, two immutable versions, private draft and attachment hash",
+      "result": "PASS"
+    },
+    {
+      "check": "database outage fails readiness without restarting the live process; recovery succeeds",
+      "result": "PASS"
+    },
+    {
+      "check": "projected Git key and pinned known_hosts stage into owner-only read-only ephemeral storage",
+      "result": "PASS"
+    },
+    {
+      "check": "administrator reads the configured public key without generating a new key in the read-only mount",
+      "result": "PASS"
+    },
+    {
+      "check": "Helm uninstall retains the application PVC",
+      "result": "PASS"
+    }
+  ],
+  "runtime": {
+    "git": {
+      "commit": {
+        "id": {
+          "describe": "0f287e7",
+          "abbrev": "0f287e7"
+        }
+      },
+      "branch": "feat/wp15-kubernetes-reading"
+    },
+    "changelogRows": 40,
+    "podRestartCount": 0
+  }
+}

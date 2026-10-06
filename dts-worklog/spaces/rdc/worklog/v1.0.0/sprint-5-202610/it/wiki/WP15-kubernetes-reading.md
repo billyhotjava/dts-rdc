@@ -112,3 +112,24 @@ version/content deletion occurred without an identified scope and access.
 changelogs checked. Content lint passed: 3 spaces, 608 files, 149 frontmatter
 files, 2 sealed archives, zero errors. Archive content and applied migrations
 remain intact. Module changes and evidence are recorded in their owning repos.
+
+
+## Public-key display follow-up: chart 0.1.1
+
+Infra main `13b8a4f` is pushed. The final chart version is **0.1.1**. Init derives `content.key.pub` from the
+externally supplied private key and stages it with owner-only permissions before
+the application mounts the directory read-only. The existing administrator
+public-key endpoint can then read the matching key without trying to create a new
+keypair on that mount. No new Wiki binary or external SSH/Git authorization changed.
+
+[Final public-key kind report](WP15-kind-public-key.json) records **eleven PASS
+groups**, including the configured-key administrator read, all previous lifecycle
+and permission checks, and preserved PVC after uninstall. Exact application commit
+remains `0f287e7`; elapsed time is 147.7 seconds. Fixture namespace
+`wiki-smoke-b85e7f7d46` was cleaned up. The earlier 0.1.0 report/package remains
+historical evidence; this verified 0.1.1 candidate supersedes it for installation.
+
+The final archive is `/tmp/dts-wiki-kubernetes-wp15-20261007/dts-wiki-0.1.1.tgz`,
+SHA-256 `9895930a8f7a6ade662b00d85bba90c4fcecc3226de5ce005330dc7b1aac6341`.
+Chart-spec and chartcheck tests pass; the package excludes fixtures and credentials.
+The two server-side authorization rejections from WP14 remain separate open gates.

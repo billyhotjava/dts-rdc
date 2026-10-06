@@ -33,3 +33,8 @@ No .50 deployment or old content/version deletion performed.
 
 Coordination: boundary PASS (3129 source/build files, 67 active Stack changelogs)
 Content lint: 3 spaces, 608 files, 149 frontmatter files, 2 sealed archives, 0 errors
+
+Final chart 0.1.1 follow-up: 11 kind groups PASS, 147.7 s
+Admin public-key read matches the mounted key; no new keypair generated
+Chart 0.1.1 SHA256: 9895930a8f7a6ade662b00d85bba90c4fcecc3226de5ce005330dc7b1aac6341
+Wiki image/source and 351 source-test results unchanged

@@ -182,3 +182,8 @@ site PG extension compatibility remain release prerequisites. The exact Wiki
 Actions run remains queued, and the earlier server-side SSH/content-key rejection
 has not changed. No `.50` deployment or old-version/content deletion occurred.
 See [WP15 evidence](WP15-kubernetes-reading.md) for final digests and actual reports.
+
+The final WP15 chart is 0.1.1. A fresh kind run now passes eleven groups, including
+administrator public-key display from the supplied private key on a read-only
+mount. Server-side SSH/Git authorization is still open. The unchanged application
+source remains `0f287e7`; the final chart archive/checksum is in the WP15 follow-up.

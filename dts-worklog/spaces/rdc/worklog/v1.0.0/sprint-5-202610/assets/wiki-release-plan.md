@@ -107,3 +107,10 @@ S3, multi-replica support, representative NFR, coordinated backup/restore and
 previous-binary compatibility remain unfinished. Site deployment, old-data cleanup
 and cutover still require their actual environment and identified scope. Earlier
 server-side key rejection cannot be repaired by changing a Helm values file.
+
+
+The final WP15 chart candidate is 0.1.1: it also derives the configured public
+key during init so administrator reads work on the read-only Secret staging
+mount. Eleven local kind groups pass. The application digest/source stay unchanged;
+see the WP15 public-key follow-up for the final chart checksum. This does not
+replace target-machine or content-repository authorization.

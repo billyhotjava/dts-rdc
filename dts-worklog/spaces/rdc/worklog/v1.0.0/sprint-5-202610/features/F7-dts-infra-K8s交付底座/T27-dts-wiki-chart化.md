@@ -19,3 +19,4 @@ depends: [S5/F7/T02, S5/F7/T17, S5/F7/T18, S5/F7/T20]
 |---|---|---|
 | 2026-10-05 | DRAFT | 由归档状态初始化（F0/T20 M8c，未复核） |
 | 2026-10-07 | IN_PROGRESS | WP15 adds the single-replica Wiki Helm chart, external PG/OIDC contracts, ordered migration and persistent attachments. S3 migration, signed multi-architecture publication and site acceptance remain open. See [WP15](../../it/wiki/WP15-kubernetes-reading.md). |
+| 2026-10-07 | IN_PROGRESS | Final chart 0.1.1 derives the configured public key for read-only staging. All eleven kind groups pass, including the administrator public-key endpoint. External key grants, S3 and site release gates remain open. See [WP15](../../it/wiki/WP15-kubernetes-reading.md). |
