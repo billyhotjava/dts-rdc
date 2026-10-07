@@ -208,3 +208,10 @@ Operator fixes are pushed at Wiki `d0d25b5`. See [WP17](WP17-development-runtime
 for evidence and superseding artifact identities. This does not close the
 remaining scale, previous-binary compatibility, customer K8s, MCP/directory/mail
 or public cutover gates.
+
+WP17's final transport follow-up replaces the intermittent GitHub peer pin with
+a source-restricted relay on the existing .6 proxy. Infra `3bcfe46` owns the
+relay; Wiki `72770f1` documents it. Final .50 readiness, all five roots at the
+published update, ten browser checks and a second unchanged cycle pass. No
+temporary SSO users remain. The .6 proxy is a development dependency; customer
+Kubernetes still needs its own qualified outbound route. See [WP17](WP17-development-runtime.md).

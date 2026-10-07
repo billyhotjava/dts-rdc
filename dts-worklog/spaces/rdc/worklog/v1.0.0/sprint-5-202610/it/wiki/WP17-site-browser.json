@@ -52,5 +52,9 @@
     }
   ],
   "errors": [],
-  "temporarySsoUsersRemoved": 3
+  "temporarySsoUsersRemoved": 3,
+  "applicationSource": "0f287e79790e6c3fb57fb496dc3c3954852de245",
+  "applicationContainerId": "2bb55fa9799ba2b1900df0a5b3239b325c80882c9f3d328d082fa5b4a41534c6",
+  "gitTransport": "restricted-development-proxy",
+  "retainedDatabaseContainerId": "3b480c8e1356b4c9331b2105f242a2fb2677a803c5f84ddc5ddf8bcc8759812a"
 }

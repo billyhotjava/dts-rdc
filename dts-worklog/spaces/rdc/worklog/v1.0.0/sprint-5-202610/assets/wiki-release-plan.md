@@ -148,3 +148,10 @@ remainder. [WP17](../it/wiki/WP17-development-runtime.md) records exact artifact
 scoped legacy adoption and temporary Git peer configuration. Broad G3/G4 remain
 open for previous-binary compatibility, representative NFR and the separately
 qualified customer/public rollout; development acceptance is complete.
+
+WP17's final transport follow-up replaces the intermittent GitHub peer pin with
+a source-restricted relay on the existing .6 proxy. Infra `3bcfe46` owns the
+relay; Wiki `72770f1` documents it. Final .50 readiness, all five roots at the
+published update, ten browser checks and a second unchanged cycle pass. No
+temporary SSO users remain. The .6 proxy is a development dependency; customer
+Kubernetes still needs its own qualified outbound route. See [WP17](../it/wiki/WP17-development-runtime.md).

@@ -1,0 +1,81 @@
+{
+  "result": "PASS",
+  "gitProxy": "http://10.20.0.6:10819",
+  "allowedPeer": "10.20.0.50",
+  "first": {
+    "capturedAt": "2026-10-07T11:27:43.044834+00:00",
+    "pages": 618,
+    "versions": 952,
+    "attachments": 26,
+    "roots": [
+      {
+        "id": 1501,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:27:35.53751",
+        "status": "OK"
+      },
+      {
+        "id": 1502,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:27:36.394195",
+        "status": "OK"
+      },
+      {
+        "id": 1503,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:27:36.397073",
+        "status": "OK"
+      },
+      {
+        "id": 1504,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:27:37.258826",
+        "status": "OK"
+      },
+      {
+        "id": 1505,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:27:37.260636",
+        "status": "OK"
+      }
+    ]
+  },
+  "second": {
+    "capturedAt": "2026-10-07T11:28:23.277965+00:00",
+    "pages": 618,
+    "versions": 952,
+    "attachments": 26,
+    "roots": [
+      {
+        "id": 1501,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:28:09.110761",
+        "status": "OK"
+      },
+      {
+        "id": 1502,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:28:10.055909",
+        "status": "OK"
+      },
+      {
+        "id": 1503,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:28:10.05746",
+        "status": "OK"
+      },
+      {
+        "id": 1504,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:28:10.941788",
+        "status": "OK"
+      },
+      {
+        "id": 1505,
+        "commit": "0850765c6afe61b2cf69bbcd51ea83b828d457f0",
+        "fetchedAt": "2026-10-07T11:28:10.943558",
+        "status": "OK"
+      }
+    ]
+  }
+}

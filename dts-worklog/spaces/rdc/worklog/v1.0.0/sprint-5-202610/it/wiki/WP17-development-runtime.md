@@ -18,7 +18,7 @@ the access boundary observed in [WP16](WP16-development-deployment.md).
 
 Only the v2 application was upgraded. The live PostgreSQL 18.6 image, container
 and storage were retained. Original Wiki 18090, Jira, Keycloak, Docker daemon,
-host DNS/firewall and public proxy were not replaced or reconfigured.
+host DNS/firewall and public website proxy were not replaced or reconfigured.
 Container IDs for the retained database, shared Keycloak and older Wiki services
 match the inspected pre-upgrade instances. Final app and DB restart counts are 0.
 
@@ -148,3 +148,38 @@ PG extensions/storage/Gateway/TLS, representative NFR, S3/multiple replicas,
 previous-binary read/write rollback compatibility, directory revocation, personal
 MCP and optional SMTP qualification remain separate open Sprint work. No public
 cutover or old-instance/content deletion was performed by this deployment.
+
+## Final Git transport follow-up
+
+A real newly published content update exposed intermittent direct GitHub routing
+after the successful unchanged cycles. The peer pin timed out and did not import
+root commit `0850765`; it was insufficient for sustained incremental delivery.
+The existing .6 loopback proxy works. Infra `3bcfe46` adds a dedicated, bounded
+relay on `10.20.0.6:10819`, accepting only source `10.20.0.50` and forwarding to
+the unchanged local proxy on 10818. The unit is enabled at boot, runs as devops
+with a 64 MB limit and restarts on failure. It does not modify existing proxy
+listeners, SSH policy, host DNS/firewall or .50 services. Two real TCP tests pass,
+including a 256 KB bidirectional half-close and source rejection; systemd unit
+validation passes. The actual .50 container fully fetched `0850765` through this
+relay, while a different source was rejected before upstream contact.
+
+Final external Git settings replace the peer pin with
+`http.https://github.com/.proxy=http://10.20.0.6:10819`. This scopes routing to Git
+requests for GitHub; the canonical HTTPS URL and certificate verification remain.
+Keycloak/DB connections do not use it. The relay is a development dependency on
+.6 and its existing proxy, not the customer Kubernetes egress contract. Monitor
+service availability and import freshness, and remove the owned relay only after
+a full direct fetch and incremental import pass. See the owning
+[Infra runbook](https://github.com/billyhotjava/dts-infra/blob/main/deploy/wiki-git-proxy/README.md).
+
+The final proxy runtime reports UP readiness and app restart count 0. All five
+roots advanced to published commit `0850765`, and the new WP17 document was
+imported. The full ten-check browser suite passed again on the final container;
+all original native row digests still match, and the IdP API reports zero
+remaining temporary WP17 users. Two owned native acceptance pages and their
+attachments were soft-deleted across the successful runs, retaining history.
+The [final proxy cycle report](WP17-proxy-cycle.json) shows later successful
+fetches with unchanged counts over 40 seconds: 618 pages, 952 versions and 26
+attachment records. Wiki `72770f1` documents the final connection; its binary
+remains `0f287e7`. The earlier peer-pin observations above are historical, and
+this restricted proxy is the final effective Git route.
