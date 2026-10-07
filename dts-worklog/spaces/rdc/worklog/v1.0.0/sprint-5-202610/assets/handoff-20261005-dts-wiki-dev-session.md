@@ -145,7 +145,7 @@ Streamable HTTP + OAuth 2.1 资源服务器，Keycloak client `dts-wiki-agent`�
 
 | # | 时点 | 事项 |
 |---|---|---|
-| G0 | WP1 | 把开发机 10.20.0.6 的专用密钥 `id_ed25519_dts_e2.pub` 加入 10.20.0.50 的 root（公钥和完整访问清单见 dts-infra `docs/development-ci-host.md` 的 Access map） |
+| G0 | WP1 | 让开发机能以 root 登录 10.20.0.50，二选一：在开发机上执行 `python3 dts-infra/deploy/ssh/password.py set dts-e1` 托管 root 密码；或者把专用公钥 `id_ed25519_dts_e2.pub` 加入 authorized_keys（也可以用 `password.py install-key dts-e1` 一次完成）。详见 dts-infra `deploy/ssh/README.md` 与 `docs/development-ci-host.md` |
 | G2 | WP4 | 确认各空间的成员名单（默认：`rdc` 沿用“产品-DTS 平台”现有成员） |
 | G3 | WP5 | 同意先备份、再重置验收库 `/data/dts-wiki-v2` |
 | G4 | WP5 | 在 GitHub `billyhotjava/dts-rdc` → Settings → Deploy keys 中添加 1 把**只读** key |
