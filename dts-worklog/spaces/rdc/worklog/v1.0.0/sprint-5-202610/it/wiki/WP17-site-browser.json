@@ -1,0 +1,56 @@
+{
+  "result": "PASS",
+  "target": "http://10.20.0.50:18091",
+  "realIdentityProvider": "https://sso.yuzhicloud.com/realms/yuzhicloud",
+  "checks": [
+    {
+      "check": "developer-real-oidc-session",
+      "result": "PASS",
+      "visibleSpaces": [
+        "rdc"
+      ]
+    },
+    {
+      "check": "native-create-save-conflict-history-restore",
+      "result": "PASS"
+    },
+    {
+      "check": "native-attachment-upload-download",
+      "result": "PASS"
+    },
+    {
+      "check": "native-content-search",
+      "result": "PASS"
+    },
+    {
+      "check": "live-authenticated-page-outline",
+      "result": "PASS"
+    },
+    {
+      "check": "git-page-write-rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "reader-real-oidc-session",
+      "result": "PASS",
+      "visibleSpaces": [
+        "rdc"
+      ]
+    },
+    {
+      "check": "reader-native-write-denied",
+      "result": "PASS"
+    },
+    {
+      "check": "denied-real-oidc-session",
+      "result": "PASS",
+      "visibleSpaces": []
+    },
+    {
+      "check": "unassigned-space-access-denied",
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "temporarySsoUsersRemoved": 3
+}

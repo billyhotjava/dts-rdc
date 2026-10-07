@@ -195,3 +195,16 @@ target provisioning and actual import/update acceptance remain pending. The
 selected host key is still rejected for `root@10.20.0.50`. No private key was
 printed or remote configuration changed. [WP15 evidence](WP15-kubernetes-reading.md)
 records the separate exit statuses and final coordination checks.
+
+## WP17 development runtime acceptance
+
+Development Wiki at `http://10.20.0.50:18091` now runs candidate `0f287e7` with
+the existing company Keycloak. The original PG 18.6 container/data are retained;
+backup/isolated restore and additive migration rehearsal pass. Ten real browser
+checks and all five inbound roots pass; a second unchanged cycle creates no
+additional pages, versions or attachments. The selected host key is accepted;
+the isolated content key remains rejected, and actual import uses public HTTPS.
+Operator fixes are pushed at Wiki `d0d25b5`. See [WP17](WP17-development-runtime.md)
+for evidence and superseding artifact identities. This does not close the
+remaining scale, previous-binary compatibility, customer K8s, MCP/directory/mail
+or public cutover gates.

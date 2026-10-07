@@ -134,3 +134,17 @@ an additive application upgrade; retain the live database image if its major
 version differs from the candidate. Do not rerun the broad historical realm
 bootstrap. This request does not authorize a database reset or old-instance
 deletion. Target runtime acceptance remains pending authorized access.
+
+## WP17 current development deployment
+
+The authorized development rollout is complete at .50:18091 using Wiki binary
+`0f287e7`, app-only r4 and the existing shared Keycloak. PostgreSQL 18.6 and
+original native rows are retained; backup/restore, migration rehearsal, ten real
+browser checks and unchanged inbound cycles pass. Current operator source is
+Wiki `d0d25b5`. Host key access now passes; isolated content-key access remains
+rejected, so actual import uses anonymous HTTPS from the public repository.
+This corrects WP15 key attribution and supersedes the earlier runtime access
+remainder. [WP17](../it/wiki/WP17-development-runtime.md) records exact artifacts,
+scoped legacy adoption and temporary Git peer configuration. Broad G3/G4 remain
+open for previous-binary compatibility, representative NFR and the separately
+qualified customer/public rollout; development acceptance is complete.

@@ -141,3 +141,12 @@ The placeholders were removed and no real environment configuration was printed.
 Runtime deployment remains incomplete solely at the currently observed SSH
 access boundary; later database/identity acceptance must still be measured after
 access. No public proxy cutover or old-version/content cleanup has occurred.
+
+## WP17 runtime follow-up
+
+The user installed the selected host public key. The development application is
+now deployed on .50 with the existing Keycloak, retained PG 18.6 data and verified
+backup/restore. Real browser, role isolation, native edits and all five inbound
+roots pass. Public HTTPS content import supersedes the planned SSH-key path; the
+isolated content key is still rejected. See [WP17](WP17-development-runtime.md)
+for current runtime identities, corrections and the completed deployment scope.

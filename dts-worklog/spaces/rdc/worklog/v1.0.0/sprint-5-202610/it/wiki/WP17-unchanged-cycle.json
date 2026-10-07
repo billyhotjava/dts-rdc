@@ -1,0 +1,79 @@
+{
+  "result": "PASS",
+  "first": {
+    "capturedAt": "2026-10-07T11:10:09.931388+00:00",
+    "pages": 616,
+    "versions": 943,
+    "attachments": 24,
+    "roots": [
+      {
+        "id": 1501,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:09:47.363088",
+        "status": "OK"
+      },
+      {
+        "id": 1502,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:09:48.462355",
+        "status": "OK"
+      },
+      {
+        "id": 1503,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:09:48.463475",
+        "status": "OK"
+      },
+      {
+        "id": 1504,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:09:49.551333",
+        "status": "OK"
+      },
+      {
+        "id": 1505,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:09:49.552298",
+        "status": "OK"
+      }
+    ]
+  },
+  "second": {
+    "capturedAt": "2026-10-07T11:10:50.180012+00:00",
+    "pages": 616,
+    "versions": 943,
+    "attachments": 24,
+    "roots": [
+      {
+        "id": 1501,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:10:21.806686",
+        "status": "OK"
+      },
+      {
+        "id": 1502,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:10:23.229291",
+        "status": "OK"
+      },
+      {
+        "id": 1503,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:10:23.230096",
+        "status": "OK"
+      },
+      {
+        "id": 1504,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:10:24.501848",
+        "status": "OK"
+      },
+      {
+        "id": 1505,
+        "commit": "9e23bdf8d5a5520a22d0571ec7cd61fe01dbd356",
+        "fetchedAt": "2026-10-07T11:10:24.502708",
+        "status": "OK"
+      }
+    ]
+  }
+}

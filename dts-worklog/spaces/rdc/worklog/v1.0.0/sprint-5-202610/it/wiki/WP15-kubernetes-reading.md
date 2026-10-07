@@ -157,3 +157,13 @@ occurred.
 Final coordination checks after chart 0.1.1 passed: boundary validation covers
 3,129 source/build files and 67 active Stack changelogs; content lint covers
 3 spaces, 609 files, 149 frontmatter files and 2 sealed archives with zero errors.
+
+## WP17 identity attribution correction
+
+The earlier dedicated content-key success did not isolate configured SSH
+identities. A later probe with `-F /dev/null`, `IdentitiesOnly=yes` and
+`IdentityAgent=none` rejects that dedicated key. The actual .50 deployment uses
+anonymous HTTPS for the public manifest repository; no developer/content private
+key is installed in Wiki. Host root access is now accepted after the user
+installed its public key. See [WP17](WP17-development-runtime.md) for the
+superseding runtime evidence.
