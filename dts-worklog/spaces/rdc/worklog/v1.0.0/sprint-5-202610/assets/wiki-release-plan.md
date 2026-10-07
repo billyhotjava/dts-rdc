@@ -122,3 +122,15 @@ installation, provision that content key and pinned known_hosts through the
 external Secret contract and verify actual content import/update behavior.
 No production deployment, old-version cleanup or remote configuration change
 has occurred; see [WP15 access evidence](../it/wiki/WP15-kubernetes-reading.md).
+
+## WP16 development runtime request
+
+The user explicitly authorized deploying the development Wiki on `10.20.0.50`
+with its existing Keycloak. [WP16](../it/wiki/WP16-development-deployment.md)
+records the architecture review, actual shared realm discovery, accepted browser
+callbacks, the prepared checksummed `sprint5-20261007-r3` offline bundle and the
+remaining selected-key SSH rejection. Inspect and back up existing v2 data before
+an additive application upgrade; retain the live database image if its major
+version differs from the candidate. Do not rerun the broad historical realm
+bootstrap. This request does not authorize a database reset or old-instance
+deletion. Target runtime acceptance remains pending authorized access.
