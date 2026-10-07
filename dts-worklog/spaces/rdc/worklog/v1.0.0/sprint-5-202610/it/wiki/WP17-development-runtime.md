@@ -183,3 +183,15 @@ fetches with unchanged counts over 40 seconds: 618 pages, 952 versions and 26
 attachment records. Wiki `72770f1` documents the final connection; its binary
 remains `0f287e7`. The earlier peer-pin observations above are historical, and
 this restricted proxy is the final effective Git route.
+
+## Clock qualification before deployment across hosts
+
+The final read-only clock check compared tool/build-host UTC
+`2026-10-07T03:31:40Z` with .50 UTC `2026-10-07T11:31:43Z`;
+`timedatectl show -p NTPSynchronized` on .50 reports `no`. The target clock is
+approximately eight hours ahead. Target database/log samples above retain their
+observed timestamps; publication checks use monotonic elapsed time rather than
+subtracting timestamps across hosts. Wiki and the shared Keycloak currently run
+on the same host, and real login passes. Cross-host Kubernetes/SSO qualification
+must align clocks and verify token timing and audit ordering. This operation did
+not change the shared host clock, which also affects Keycloak and Jira.
